@@ -63,6 +63,11 @@ class WSP_Templates {
             add_action( 'woocommerce_account_content', array( $this, 'render_myaccount_welcome_banner' ), 2 );
         }
 
+        // Empty cart modern message
+        if ( 'yes' === $settings['cart_redesign'] ) {
+            add_filter( 'wc_empty_cart_message', array( $this, 'render_empty_cart_message' ) );
+        }
+
         // Clean accidental <pre class="wp-block-preformatted"> around shortcodes
         add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 1 );
     }
@@ -254,5 +259,16 @@ class WSP_Templates {
         );
 
         return $content;
+    }
+
+    /**
+     * Render enhanced empty cart message with headline and subtext
+     *
+     * @param string $message
+     * @return string
+     */
+    public function render_empty_cart_message( $message ) {
+        return '<span class="wsp-empty-cart-title">' . esc_html__( 'Your cart is currently empty', 'woo-style-plus' ) . '</span>' .
+               '<span class="wsp-empty-cart-desc">' . esc_html__( 'Looks like you haven\'t added any products to your shopping cart yet. Explore our shop to discover fresh items and great deals!', 'woo-style-plus' ) . '</span>';
     }
 }

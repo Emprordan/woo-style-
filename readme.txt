@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.0.3 =
+* Redesign: Modern Empty Cart showcase card with SVG shopping illustration, centered typography, and styled Return to Shop CTA button.
+* Fix: Proper container max-width and top/bottom spacing for Cart and Checkout pages on full-width themes.
+* Fix: Prevent horizontal inline layout of empty cart notice and shop return button.
 
 = 1.0.2 =
 * UI Cleanup: Removed redundant "Check for update" button from the settings page header (update check remains available on the main WordPress Plugins screen).

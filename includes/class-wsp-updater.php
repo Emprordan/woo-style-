@@ -81,6 +81,9 @@ class WSP_Updater {
         // Hook into plugin information modal ("View version details")
         add_filter( 'plugins_api', array( $this, 'plugin_popup_information' ), 20, 3 );
 
+        // Fix folder renaming before WordPress installs the plugin
+        add_filter( 'upgrader_source_selection', array( $this, 'fix_source_directory' ), 10, 4 );
+
         // Fix folder renaming after download from GitHub zipball
         add_filter( 'upgrader_post_install', array( $this, 'post_install_cleanup' ), 10, 3 );
 
@@ -268,29 +271,62 @@ class WSP_Updater {
     }
 
     /**
+     * Rename temporary unzipped folder to match plugin directory before WordPress installs it
+     *
+     * @param string $source        File path of temporary unzipped directory.
+     * @param string $remote_source File path of parent directory.
+     * @param object $upgrader
+     * @param array  $hook_extra
+     * @return string
+     */
+    public function fix_source_directory( $source, $remote_source, $upgrader, $hook_extra = array() ) {
+        global $wp_filesystem;
+
+        if ( ! isset( $hook_extra['plugin'] ) || $hook_extra['plugin'] !== WSP_PLUGIN_BASENAME ) {
+            return $source;
+        }
+
+        $correct_folder = dirname( WSP_PLUGIN_BASENAME );
+        if ( '.' === $correct_folder || empty( $correct_folder ) ) {
+            $correct_folder = 'woo-style-plus';
+        }
+
+        $correct_source = trailingslashit( $remote_source ) . $correct_folder . '/';
+
+        if ( untrailingslashit( $source ) === untrailingslashit( $correct_source ) ) {
+            return $source;
+        }
+
+        if ( $wp_filesystem->move( $source, $correct_source, true ) ) {
+            return $correct_source;
+        }
+
+        return $source;
+    }
+
+    /**
      * Fix GitHub zip folder name after installation
      *
      * @param bool  $response
      * @param array $hook_extra
      * @param array $result
-     * @return array
+     * @return bool
      */
     public function post_install_cleanup( $response, $hook_extra, $result ) {
         global $wp_filesystem;
 
         if ( ! isset( $hook_extra['plugin'] ) || $hook_extra['plugin'] !== WSP_PLUGIN_BASENAME ) {
-            return $result;
+            return $response;
         }
 
         $proper_destination = WP_PLUGIN_DIR . '/' . $this->slug;
 
-        // Move unzipped directory from temporary GitHub folder to proper destination
+        // Move unzipped directory from temporary GitHub folder to proper destination if needed
         if ( isset( $result['destination'] ) && $result['destination'] !== $proper_destination ) {
             if ( $wp_filesystem->exists( $proper_destination ) ) {
                 $wp_filesystem->delete( $proper_destination, true );
             }
             $wp_filesystem->move( $result['destination'], $proper_destination, true );
-            $result['destination'] = $proper_destination;
         }
 
         // Re-activate plugin automatically after upgrade
@@ -298,7 +334,7 @@ class WSP_Updater {
 
         delete_transient( $this->transient_key );
 
-        return $result;
+        return $response;
     }
 
     /**

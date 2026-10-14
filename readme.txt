@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,10 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.0.6 =
+* Fix: Add `upgrader_source_selection` hook to prevent GitHub folder renaming issues during 1-click update.
+* Fix: Retain exact plugin directory name during update so WordPress never flags missing files or deactivates.
 
 = 1.0.5 =
 * Fix: Automatic reactivation of plugin after 1-click update so styles never get deactivated during upgrade.

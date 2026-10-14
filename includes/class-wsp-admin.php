@@ -287,12 +287,6 @@ class WSP_Admin {
                     </div>
                 </div>
                 <div class="wsp-header-actions">
-                    <div class="wsp-update-control-group">
-                        <button type="button" class="button wsp-check-update-btn" id="wspCheckUpdateBtn">
-                            <span class="dashicons dashicons-update"></span> <?php esc_html_e( 'Check for update', 'woo-style-plus' ); ?>
-                        </button>
-                        <div class="wsp-update-status" id="wspUpdateStatus"></div>
-                    </div>
                     <div class="wsp-quick-toggle">
                         <label class="wsp-switch">
                             <input type="checkbox" id="wsp_quick_enable_toggle" <?php checked( $settings['is_enabled'], 'yes' ); ?>>

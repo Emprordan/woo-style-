@@ -173,6 +173,19 @@ class WSP_Admin {
             'cart_layout',
             'checkout_layout',
             'myaccount_nav_style',
+            'page_padding_top',
+            'page_padding_bottom',
+            'page_padding_horizontal',
+            'shop_padding_top',
+            'shop_padding_bottom',
+            'single_padding_top',
+            'single_padding_bottom',
+            'cart_padding_top',
+            'cart_padding_bottom',
+            'checkout_padding_top',
+            'checkout_padding_bottom',
+            'account_padding_top',
+            'account_padding_bottom',
         );
 
         foreach ( $text_keys as $tkey ) {
@@ -392,6 +405,114 @@ class WSP_Admin {
                                     <label for="container_max_width"><?php esc_html_e( 'WooCommerce Container Max Width', 'woo-style-plus' ); ?></label>
                                     <input type="text" name="wsp_settings[container_max_width]" id="container_max_width" class="wsp-input" value="<?php echo esc_attr( $settings['container_max_width'] ); ?>" placeholder="1280px">
                                     <span class="wsp-help-text"><?php esc_html_e( 'e.g. 1280px or 100% or 1400px. Keeps your shop and checkout sections centered with modern margins.', 'woo-style-plus' ); ?></span>
+                                </div>
+                            </div>
+
+                            <!-- Page Spacing & Paddings Box -->
+                            <div class="wsp-card-box">
+                                <div class="wsp-box-header">
+                                    <h2><?php esc_html_e( 'Page Spacing & Padding Controls', 'woo-style-plus' ); ?></h2>
+                                    <p><?php esc_html_e( 'Adjust top, bottom, and side breathing room across all WooCommerce pages to fit your theme header and layout perfectly.', 'woo-style-plus' ); ?></p>
+                                </div>
+
+                                <div class="wsp-form-row">
+                                    <label for="page_padding_top"><?php esc_html_e( 'Global Page Top Padding (Spacing below Header)', 'woo-style-plus' ); ?></label>
+                                    <input type="text" name="wsp_settings[page_padding_top]" id="page_padding_top" class="wsp-input" value="<?php echo esc_attr( isset( $settings['page_padding_top'] ) ? $settings['page_padding_top'] : '40px' ); ?>" placeholder="40px">
+                                    <span class="wsp-help-text"><?php esc_html_e( 'Vertical breathing room between your website header and page content (e.g. 40px, 60px, 80px).', 'woo-style-plus' ); ?></span>
+                                </div>
+
+                                <div class="wsp-form-row">
+                                    <label for="page_padding_bottom"><?php esc_html_e( 'Global Page Bottom Padding (Spacing above Footer)', 'woo-style-plus' ); ?></label>
+                                    <input type="text" name="wsp_settings[page_padding_bottom]" id="page_padding_bottom" class="wsp-input" value="<?php echo esc_attr( isset( $settings['page_padding_bottom'] ) ? $settings['page_padding_bottom'] : '60px' ); ?>" placeholder="60px">
+                                    <span class="wsp-help-text"><?php esc_html_e( 'Vertical spacing before your website footer (e.g. 60px, 80px, 100px).', 'woo-style-plus' ); ?></span>
+                                </div>
+
+                                <div class="wsp-form-row">
+                                    <label for="page_padding_horizontal"><?php esc_html_e( 'Global Side (Horizontal) Padding', 'woo-style-plus' ); ?></label>
+                                    <input type="text" name="wsp_settings[page_padding_horizontal]" id="page_padding_horizontal" class="wsp-input" value="<?php echo esc_attr( isset( $settings['page_padding_horizontal'] ) ? $settings['page_padding_horizontal'] : '20px' ); ?>" placeholder="20px">
+                                    <span class="wsp-help-text"><?php esc_html_e( 'Left and right container padding from screen edges (e.g. 20px, 30px).', 'woo-style-plus' ); ?></span>
+                                </div>
+
+                                <div class="wsp-box-subheader" style="margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                                    <h3 style="font-size: 15px; font-weight: 700; margin: 0 0 6px 0; color: #0f172a;"><?php esc_html_e( 'Individual Page Padding Overrides (Optional)', 'woo-style-plus' ); ?></h3>
+                                    <p style="font-size: 13px; color: #64748b; margin: 0 0 16px 0;"><?php esc_html_e( 'Leave blank to use the Global Page Spacing above, or set custom top/bottom padding for specific pages.', 'woo-style-plus' ); ?></p>
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                                    <!-- Shop & Archive -->
+                                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px;">
+                                        <h4 style="margin: 0 0 10px 0; font-size: 13.5px; font-weight: 700; color: #0f172a;"><span class="dashicons dashicons-store" style="font-size: 15px; vertical-align: text-bottom; margin-right: 4px;"></span><?php esc_html_e( 'Shop & Archives', 'woo-style-plus' ); ?></h4>
+                                        <div style="display: flex; gap: 8px;">
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Top', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[shop_padding_top]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['shop_padding_top'] ) ? $settings['shop_padding_top'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Bottom', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[shop_padding_bottom]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['shop_padding_bottom'] ) ? $settings['shop_padding_bottom'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Single Product -->
+                                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px;">
+                                        <h4 style="margin: 0 0 10px 0; font-size: 13.5px; font-weight: 700; color: #0f172a;"><span class="dashicons dashicons-products" style="font-size: 15px; vertical-align: text-bottom; margin-right: 4px;"></span><?php esc_html_e( 'Single Product', 'woo-style-plus' ); ?></h4>
+                                        <div style="display: flex; gap: 8px;">
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Top', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[single_padding_top]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['single_padding_top'] ) ? $settings['single_padding_top'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Bottom', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[single_padding_bottom]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['single_padding_bottom'] ) ? $settings['single_padding_bottom'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Cart Page -->
+                                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px;">
+                                        <h4 style="margin: 0 0 10px 0; font-size: 13.5px; font-weight: 700; color: #0f172a;"><span class="dashicons dashicons-cart" style="font-size: 15px; vertical-align: text-bottom; margin-right: 4px;"></span><?php esc_html_e( 'Cart Page', 'woo-style-plus' ); ?></h4>
+                                        <div style="display: flex; gap: 8px;">
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Top', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[cart_padding_top]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['cart_padding_top'] ) ? $settings['cart_padding_top'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Bottom', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[cart_padding_bottom]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['cart_padding_bottom'] ) ? $settings['cart_padding_bottom'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Checkout Page -->
+                                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px;">
+                                        <h4 style="margin: 0 0 10px 0; font-size: 13.5px; font-weight: 700; color: #0f172a;"><span class="dashicons dashicons-money-alt" style="font-size: 15px; vertical-align: text-bottom; margin-right: 4px;"></span><?php esc_html_e( 'Checkout Page', 'woo-style-plus' ); ?></h4>
+                                        <div style="display: flex; gap: 8px;">
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Top', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[checkout_padding_top]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['checkout_padding_top'] ) ? $settings['checkout_padding_top'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Bottom', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[checkout_padding_bottom]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['checkout_padding_bottom'] ) ? $settings['checkout_padding_bottom'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- My Account Page -->
+                                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px;">
+                                        <h4 style="margin: 0 0 10px 0; font-size: 13.5px; font-weight: 700; color: #0f172a;"><span class="dashicons dashicons-admin-users" style="font-size: 15px; vertical-align: text-bottom; margin-right: 4px;"></span><?php esc_html_e( 'My Account Page', 'woo-style-plus' ); ?></h4>
+                                        <div style="display: flex; gap: 8px;">
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Top', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[account_padding_top]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['account_padding_top'] ) ? $settings['account_padding_top'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                            <div style="flex: 1;">
+                                                <label style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; display: block; margin-bottom: 4px;"><?php esc_html_e( 'Bottom', 'woo-style-plus' ); ?></label>
+                                                <input type="text" name="wsp_settings[account_padding_bottom]" class="wsp-input" value="<?php echo esc_attr( isset( $settings['account_padding_bottom'] ) ? $settings['account_padding_bottom'] : '' ); ?>" placeholder="Default">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -191,6 +191,36 @@ class WSP_Frontend {
 
         $image_ratio      = ! empty( $settings['image_ratio'] ) ? $settings['image_ratio'] : '1/1';
 
+        $format_dim = function( $val, $default ) {
+            $val = trim( (string) $val );
+            if ( '' === $val ) {
+                return $default;
+            }
+            if ( is_numeric( $val ) ) {
+                return $val . 'px';
+            }
+            return $val;
+        };
+
+        $page_pad_top        = $format_dim( isset( $settings['page_padding_top'] ) ? $settings['page_padding_top'] : '', '40px' );
+        $page_pad_bottom     = $format_dim( isset( $settings['page_padding_bottom'] ) ? $settings['page_padding_bottom'] : '', '60px' );
+        $page_pad_horiz      = $format_dim( isset( $settings['page_padding_horizontal'] ) ? $settings['page_padding_horizontal'] : '', '20px' );
+
+        $shop_pad_top        = $format_dim( isset( $settings['shop_padding_top'] ) ? $settings['shop_padding_top'] : '', $page_pad_top );
+        $shop_pad_bottom     = $format_dim( isset( $settings['shop_padding_bottom'] ) ? $settings['shop_padding_bottom'] : '', $page_pad_bottom );
+
+        $single_pad_top      = $format_dim( isset( $settings['single_padding_top'] ) ? $settings['single_padding_top'] : '', $page_pad_top );
+        $single_pad_bottom   = $format_dim( isset( $settings['single_padding_bottom'] ) ? $settings['single_padding_bottom'] : '', $page_pad_bottom );
+
+        $cart_pad_top        = $format_dim( isset( $settings['cart_padding_top'] ) ? $settings['cart_padding_top'] : '', $page_pad_top );
+        $cart_pad_bottom     = $format_dim( isset( $settings['cart_padding_bottom'] ) ? $settings['cart_padding_bottom'] : '', $page_pad_bottom );
+
+        $checkout_pad_top    = $format_dim( isset( $settings['checkout_padding_top'] ) ? $settings['checkout_padding_top'] : '', $page_pad_top );
+        $checkout_pad_bottom = $format_dim( isset( $settings['checkout_padding_bottom'] ) ? $settings['checkout_padding_bottom'] : '', $page_pad_bottom );
+
+        $account_pad_top     = $format_dim( isset( $settings['account_padding_top'] ) ? $settings['account_padding_top'] : '', $page_pad_top );
+        $account_pad_bottom  = $format_dim( isset( $settings['account_padding_bottom'] ) ? $settings['account_padding_bottom'] : '', $page_pad_bottom );
+
         $css = "
         :root {
             --wsp-primary: {$primary};
@@ -217,6 +247,19 @@ class WSP_Frontend {
             --wsp-img-radius: {$image_radius};
             --wsp-img-ratio: {$image_ratio};
             --wsp-font-family: {$font_family};
+            --wsp-page-padding-top: {$page_pad_top};
+            --wsp-page-padding-bottom: {$page_pad_bottom};
+            --wsp-page-padding-horizontal: {$page_pad_horiz};
+            --wsp-shop-padding-top: {$shop_pad_top};
+            --wsp-shop-padding-bottom: {$shop_pad_bottom};
+            --wsp-single-padding-top: {$single_pad_top};
+            --wsp-single-padding-bottom: {$single_pad_bottom};
+            --wsp-cart-padding-top: {$cart_pad_top};
+            --wsp-cart-padding-bottom: {$cart_pad_bottom};
+            --wsp-checkout-padding-top: {$checkout_pad_top};
+            --wsp-checkout-padding-bottom: {$checkout_pad_bottom};
+            --wsp-account-padding-top: {$account_pad_top};
+            --wsp-account-padding-bottom: {$account_pad_bottom};
         }
         ";
 

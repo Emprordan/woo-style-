@@ -45,9 +45,27 @@ body.wsp-active.archive .woocommerce {
     max-width: var(--wsp-container-max, 1280px) !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    padding-left: var(--wsp-page-padding-horizontal, 20px) !important;
+    padding-right: var(--wsp-page-padding-horizontal, 20px) !important;
+    padding-top: var(--wsp-page-padding-top, 40px) !important;
+    padding-bottom: var(--wsp-page-padding-bottom, 60px) !important;
     box-sizing: border-box !important;
+}
+
+/* Shop & Product Archive Pages */
+body.wsp-active.woocommerce-shop .woocommerce,
+body.wsp-active.archive.woocommerce .woocommerce,
+body.wsp-active.tax-product_cat .woocommerce,
+body.wsp-active.tax-product_tag .woocommerce {
+    padding-top: var(--wsp-shop-padding-top, var(--wsp-page-padding-top, 40px)) !important;
+    padding-bottom: var(--wsp-shop-padding-bottom, var(--wsp-page-padding-bottom, 60px)) !important;
+}
+
+/* Single Product Details Page */
+body.wsp-active.single-product .woocommerce,
+body.wsp-active.single-product div.product {
+    padding-top: var(--wsp-single-padding-top, var(--wsp-page-padding-top, 40px)) !important;
+    padding-bottom: var(--wsp-single-padding-bottom, var(--wsp-page-padding-bottom, 60px)) !important;
 }
 
 /* ==========================================================================
@@ -694,8 +712,12 @@ body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs .panel {
 body.wsp-active.woocommerce-cart .woocommerce,
 body.wsp-active.wsp-cart-redesign .woocommerce {
     max-width: var(--wsp-container-max, 1280px) !important;
-    margin: 40px auto 80px auto !important;
-    padding: 0 20px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--wsp-page-padding-horizontal, 20px) !important;
+    padding-right: var(--wsp-page-padding-horizontal, 20px) !important;
+    padding-top: var(--wsp-cart-padding-top, 40px) !important;
+    padding-bottom: var(--wsp-cart-padding-bottom, 80px) !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-wrap: wrap !important;
@@ -911,8 +933,12 @@ body.wsp-active.wsp-cart-redesign .wc-proceed-to-checkout a.checkout-button:hove
 body.wsp-active.woocommerce-checkout .woocommerce,
 body.wsp-active.wsp-checkout-redesign .woocommerce {
     max-width: var(--wsp-container-max, 1280px) !important;
-    margin: 40px auto 80px auto !important;
-    padding: 0 20px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--wsp-page-padding-horizontal, 20px) !important;
+    padding-right: var(--wsp-page-padding-horizontal, 20px) !important;
+    padding-top: var(--wsp-checkout-padding-top, 40px) !important;
+    padding-bottom: var(--wsp-checkout-padding-bottom, 80px) !important;
     box-sizing: border-box !important;
     width: 100% !important;
 }
@@ -1166,6 +1192,13 @@ body.wsp-active.woocommerce-account form.register .button:hover {
 body.wsp-active.woocommerce-account .woocommerce,
 body.wsp-active.wsp-account-redesign.woocommerce-account .woocommerce,
 body.wsp-active.wsp-account-redesign .woocommerce {
+    max-width: var(--wsp-container-max, 1280px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--wsp-page-padding-horizontal, 20px) !important;
+    padding-right: var(--wsp-page-padding-horizontal, 20px) !important;
+    padding-top: var(--wsp-account-padding-top, 40px) !important;
+    padding-bottom: var(--wsp-account-padding-bottom, 60px) !important;
     display: flex !important;
     flex-direction: row !important;
     gap: 32px !important;

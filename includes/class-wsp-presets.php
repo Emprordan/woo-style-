@@ -177,6 +177,21 @@ class WSP_Presets {
             'container_max_width'     => '1280px',
             'override_priority'       => 'high', // standard or high
 
+            // Page Spacing & Paddings
+            'page_padding_top'        => '40px',
+            'page_padding_bottom'     => '60px',
+            'page_padding_horizontal' => '20px',
+            'shop_padding_top'        => '',
+            'shop_padding_bottom'     => '',
+            'single_padding_top'      => '',
+            'single_padding_bottom'   => '',
+            'cart_padding_top'        => '',
+            'cart_padding_bottom'     => '',
+            'checkout_padding_top'    => '',
+            'checkout_padding_bottom' => '',
+            'account_padding_top'     => '',
+            'account_padding_bottom'  => '',
+
             // Colors
             'primary_color'           => '#0f172a',
             'primary_hover'           => '#1e293b',

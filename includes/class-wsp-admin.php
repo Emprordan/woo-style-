@@ -109,6 +109,7 @@ class WSP_Admin {
             'myaccount_redesign',
             'myaccount_show_user_header',
             'myaccount_order_badges',
+            'myaccount_nav_icons',
         );
 
         foreach ( $checkbox_keys as $key ) {
@@ -853,6 +854,11 @@ class WSP_Admin {
                                     <label class="wsp-checkbox-item">
                                         <input type="checkbox" name="wsp_settings[myaccount_order_badges]" value="yes" <?php checked( $settings['myaccount_order_badges'], 'yes' ); ?>>
                                         <span><?php esc_html_e( 'Show Colored Status Pill Badges in Orders Table (Completed, Processing, On Hold, Cancelled)', 'woo-style-plus' ); ?></span>
+                                    </label>
+
+                                    <label class="wsp-checkbox-item">
+                                        <input type="checkbox" name="wsp_settings[myaccount_nav_icons]" value="yes" <?php checked( ! isset( $settings['myaccount_nav_icons'] ) || 'yes' === $settings['myaccount_nav_icons'], true ); ?>>
+                                        <span><?php esc_html_e( 'Show Corresponding Vector Icons for Navigation Tabs (Dashboard, Orders, Downloads, Address, etc.)', 'woo-style-plus' ); ?></span>
                                     </label>
                                 </div>
 

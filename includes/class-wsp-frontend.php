@@ -374,6 +374,9 @@ class WSP_Frontend {
             $classes[] = 'wsp-account-redesign';
             $nav_style = ! empty( $settings['myaccount_nav_style'] ) ? $settings['myaccount_nav_style'] : 'sidebar_cards';
             $classes[] = 'wsp-acc-nav-' . sanitize_html_class( $nav_style );
+            if ( isset( $settings['myaccount_nav_icons'] ) && 'no' === $settings['myaccount_nav_icons'] ) {
+                $classes[] = 'wsp-acc-icons-disabled';
+            }
         }
 
         return $classes;

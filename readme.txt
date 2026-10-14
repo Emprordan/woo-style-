@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,11 @@ Yes. There is a master toggle at the top of the Woo Style+ settings page to acti
 * Fix: Automatic reactivation of plugin after 1-click update so styles never get deactivated during upgrade.
 * Fix: Multi-pass cleaning for preformatted (<pre>) blocks wrapping WooCommerce shortcode content at both early and late rendering priorities.
 * Fix: CSS child reset for any preformatted block descendants to guarantee zero monospace font leaks.
+
+= 1.0.8 =
+* Feature: Added modern vector icons to My Account navigation tabs (Dashboard, Orders, Downloads, Address, Account details, Log out, Payment methods, Subscriptions).
+* Feature: Vector icons automatically adapt to active and hover color states via currentColor inheritance.
+* Feature: Added admin toggle in My Account settings to enable/disable navigation icons.
 
 = 1.0.7 =
 * Fix: Address tab card layout squished into narrow vertical stack due to theme/Bootstrap .col-1 and float collisions.

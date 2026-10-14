@@ -259,6 +259,7 @@ class WSP_Presets {
             'myaccount_nav_style'         => 'sidebar_cards', // sidebar_cards, horizontal_pills
             'myaccount_show_user_header'  => 'yes',
             'myaccount_order_badges'      => 'yes',
+            'myaccount_nav_icons'         => 'yes',
 
             // Custom CSS
             'custom_css'              => '',

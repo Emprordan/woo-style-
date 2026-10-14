@@ -1,0 +1,358 @@
+<?php
+/**
+ * Woo Style+ Frontend Asset & Style Injection Handler
+ *
+ * @package WooStylePlus
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+class WSP_Frontend {
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ), 20 );
+        add_filter( 'body_class', array( $this, 'add_body_classes' ) );
+        add_filter( 'post_class', array( $this, 'add_product_card_classes' ), 10, 3 );
+    }
+
+    /**
+     * Check if plugin is enabled
+     *
+     * @return bool
+     */
+    public function is_enabled() {
+        return 'yes' === WSP_Core::get_setting( 'is_enabled', 'yes' );
+    }
+
+    /**
+     * Check if we should load Woo Style+ assets on current page
+     *
+     * @return bool
+     */
+    public function should_load_assets() {
+        if ( ! $this->is_enabled() ) {
+            return false;
+        }
+
+        // Always load on WooCommerce standard pages
+        if ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) {
+            return true;
+        }
+        if ( function_exists( 'is_cart' ) && is_cart() ) {
+            return true;
+        }
+        if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+            return true;
+        }
+        if ( function_exists( 'is_account_page' ) && is_account_page() ) {
+            return true;
+        }
+
+        // Check for WooCommerce shortcodes in post content
+        global $post;
+        if ( is_a( $post, 'WP_Post' ) ) {
+            $shortcodes = array(
+                'products',
+                'recent_products',
+                'sale_products',
+                'best_selling_products',
+                'top_rated_products',
+                'featured_products',
+                'product_category',
+                'product_categories',
+                'product_attribute',
+                'woocommerce_cart',
+                'woocommerce_checkout',
+                'woocommerce_order_tracking',
+                'woocommerce_my_account',
+            );
+
+            foreach ( $shortcodes as $shortcode ) {
+                if ( has_shortcode( $post->post_content, $shortcode ) ) {
+                    return true;
+                }
+            }
+
+            // Check for WooCommerce Gutenberg blocks
+            if ( function_exists( 'has_block' ) ) {
+                $blocks = array(
+                    'woocommerce/all-products',
+                    'woocommerce/featured-product',
+                    'woocommerce/handpicked-products',
+                    'woocommerce/product-best-sellers',
+                    'woocommerce/product-top-rated',
+                    'woocommerce/product-on-sale',
+                    'woocommerce/product-new',
+                    'woocommerce/product-category',
+                    'woocommerce/cart',
+                    'woocommerce/checkout',
+                );
+
+                foreach ( $blocks as $block ) {
+                    if ( has_block( $block, $post ) ) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        // Allow theme/plugin filtering for custom landing pages
+        return apply_filters( 'wsp_should_load_assets', true );
+    }
+
+    /**
+     * Enqueue frontend CSS and JavaScript
+     */
+    public function enqueue_frontend_assets() {
+        if ( ! $this->should_load_assets() ) {
+            return;
+        }
+
+        $settings = WSP_Core::get_settings();
+
+        // Enqueue Google Fonts if selected
+        $font_family = $settings['font_family'];
+        if ( 'inherit' !== $font_family ) {
+            wp_enqueue_style(
+                'wsp-google-fonts',
+                'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap',
+                array(),
+                WSP_VERSION
+            );
+        }
+
+        // Core Frontend CSS
+        wp_enqueue_style(
+            'wsp-frontend-style',
+            WSP_PLUGIN_URL . 'assets/css/wsp-frontend.css',
+            array(),
+            WSP_VERSION
+        );
+
+        // Dynamic Scoped CSS Variables & Settings
+        $dynamic_css = $this->generate_dynamic_css( $settings );
+        wp_add_inline_style( 'wsp-frontend-style', $dynamic_css );
+
+        // Frontend JS
+        wp_enqueue_script(
+            'wsp-frontend-script',
+            WSP_PLUGIN_URL . 'assets/js/wsp-frontend.js',
+            array( 'jquery' ),
+            WSP_VERSION,
+            true
+        );
+
+        wp_localize_script( 'wsp-frontend-script', 'wspFrontendData', array(
+            'qtyStepper'      => ( 'yes' === $settings['single_qty_stepper'] ),
+            'stickyMobileCTA' => ( 'yes' === $settings['single_sticky_mobile_cta'] ),
+            'cartRedesign'    => ( 'yes' === $settings['cart_redesign'] ),
+            'checkoutRedesign'=> ( 'yes' === $settings['checkout_redesign'] ),
+        ) );
+    }
+
+    /**
+     * Generate dynamic inline CSS from saved settings
+     *
+     * @param array $settings
+     * @return string
+     */
+    public function generate_dynamic_css( $settings ) {
+        $primary          = ! empty( $settings['primary_color'] ) ? $settings['primary_color'] : '#0f172a';
+        $primary_hover    = ! empty( $settings['primary_hover'] ) ? $settings['primary_hover'] : '#1e293b';
+        $primary_text     = ! empty( $settings['primary_text_color'] ) ? $settings['primary_text_color'] : '#ffffff';
+        $accent           = ! empty( $settings['accent_color'] ) ? $settings['accent_color'] : '#3b82f6';
+        $bg_color         = ! empty( $settings['bg_color'] ) ? $settings['bg_color'] : 'transparent';
+        $card_bg          = ! empty( $settings['card_bg'] ) ? $settings['card_bg'] : '#ffffff';
+        $text_color       = ! empty( $settings['text_color'] ) ? $settings['text_color'] : '#334155';
+        $heading_color    = ! empty( $settings['heading_color'] ) ? $settings['heading_color'] : '#0f172a';
+        $price_color      = ! empty( $settings['price_color'] ) ? $settings['price_color'] : '#0f172a';
+        $sale_price_color = ! empty( $settings['sale_price_color'] ) ? $settings['sale_price_color'] : '#e11d48';
+        $badge_bg         = ! empty( $settings['badge_bg'] ) ? $settings['badge_bg'] : '#0f172a';
+        $badge_text       = ! empty( $settings['badge_text'] ) ? $settings['badge_text'] : '#ffffff';
+        $star_color       = ! empty( $settings['star_color'] ) ? $settings['star_color'] : '#f59e0b';
+        $card_border_col  = ! empty( $settings['card_border_color'] ) ? $settings['card_border_color'] : '#e2e8f0';
+
+        $card_radius      = ! empty( $settings['card_radius'] ) ? $settings['card_radius'] : '14px';
+        $card_border_w    = isset( $settings['card_border_width'] ) ? $settings['card_border_width'] : '1px';
+        $card_shadow      = ! empty( $settings['card_shadow'] ) ? $settings['card_shadow'] : '0 4px 20px -2px rgba(15, 23, 42, 0.06)';
+        $card_padding     = ! empty( $settings['card_padding'] ) ? $settings['card_padding'] : '16px';
+        $button_radius    = ! empty( $settings['button_radius'] ) ? $settings['button_radius'] : '10px';
+        $grid_gap         = ! empty( $settings['grid_gap'] ) ? $settings['grid_gap'] : '28px';
+        $container_max_w  = ! empty( $settings['container_max_width'] ) ? $settings['container_max_width'] : '1280px';
+        $image_radius     = ! empty( $settings['image_border_radius'] ) ? $settings['image_border_radius'] : '10px';
+        $font_family      = ! empty( $settings['font_family'] ) ? $settings['font_family'] : 'inherit';
+
+        $cols_desktop     = ! empty( $settings['columns_desktop'] ) ? intval( $settings['columns_desktop'] ) : 4;
+        $cols_tablet      = ! empty( $settings['columns_tablet'] ) ? intval( $settings['columns_tablet'] ) : 2;
+        $cols_mobile      = ! empty( $settings['columns_mobile'] ) ? intval( $settings['columns_mobile'] ) : 1;
+
+        $image_ratio      = ! empty( $settings['image_ratio'] ) ? $settings['image_ratio'] : '1/1';
+
+        $css = "
+        :root {
+            --wsp-primary: {$primary};
+            --wsp-primary-hover: {$primary_hover};
+            --wsp-primary-text: {$primary_text};
+            --wsp-accent: {$accent};
+            --wsp-bg: {$bg_color};
+            --wsp-card-bg: {$card_bg};
+            --wsp-text: {$text_color};
+            --wsp-heading: {$heading_color};
+            --wsp-price: {$price_color};
+            --wsp-sale-price: {$sale_price_color};
+            --wsp-badge-bg: {$badge_bg};
+            --wsp-badge-text: {$badge_text};
+            --wsp-star: {$star_color};
+            --wsp-border: {$card_border_col};
+            --wsp-card-radius: {$card_radius};
+            --wsp-card-border-width: {$card_border_w};
+            --wsp-card-shadow: {$card_shadow};
+            --wsp-card-padding: {$card_padding};
+            --wsp-btn-radius: {$button_radius};
+            --wsp-grid-gap: {$grid_gap};
+            --wsp-container-max: {$container_max_w};
+            --wsp-img-radius: {$image_radius};
+            --wsp-img-ratio: {$image_ratio};
+            --wsp-font-family: {$font_family};
+        }
+        ";
+
+        if ( 'inherit' !== $font_family ) {
+            $css .= "
+            body.wsp-active .woocommerce,
+            body.wsp-active .woocommerce-page,
+            body.wsp-active ul.products li.product {
+                font-family: var(--wsp-font-family);
+            }
+            ";
+        }
+
+        // Custom page background if specified
+        if ( ! empty( $settings['bg_color'] ) && 'transparent' !== $settings['bg_color'] ) {
+            $css .= "
+            body.wsp-active.woocommerce,
+            body.wsp-active.woocommerce-page {
+                background-color: var(--wsp-bg);
+            }
+            ";
+        }
+
+        // Responsive grid columns
+        $css .= "
+        body.wsp-active ul.products,
+        body.wsp-active .woocommerce ul.products,
+        body.wsp-active .woocommerce-page ul.products,
+        body.wsp-active div.products ul.products,
+        body.wsp-active .wc-block-grid__products {
+            display: grid !important;
+            grid-template-columns: repeat({$cols_desktop}, minmax(0, 1fr)) !important;
+            gap: var(--wsp-grid-gap) !important;
+            float: none !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 100% !important;
+        }
+
+        body.wsp-active ul.products::before,
+        body.wsp-active ul.products::after {
+            display: none !important;
+        }
+
+        body.wsp-active ul.products li.product,
+        body.wsp-active .woocommerce ul.products li.product,
+        body.wsp-active .wc-block-grid__product {
+            width: 100% !important;
+            margin: 0 !important;
+            float: none !important;
+            clear: none !important;
+        }
+
+        @media (max-width: 1024px) {
+            body.wsp-active ul.products,
+            body.wsp-active .woocommerce ul.products,
+            body.wsp-active .woocommerce-page ul.products,
+            body.wsp-active .wc-block-grid__products {
+                grid-template-columns: repeat({$cols_tablet}, minmax(0, 1fr)) !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body.wsp-active ul.products,
+            body.wsp-active .woocommerce ul.products,
+            body.wsp-active .woocommerce-page ul.products,
+            body.wsp-active .wc-block-grid__products {
+                grid-template-columns: repeat({$cols_mobile}, minmax(0, 1fr)) !important;
+                gap: 16px !important;
+            }
+        }
+        ";
+
+        // Append custom user CSS
+        if ( ! empty( $settings['custom_css'] ) ) {
+            $css .= "\n/* User Custom CSS */\n" . $settings['custom_css'];
+        }
+
+        return $css;
+    }
+
+    /**
+     * Add classes to body tag
+     *
+     * @param array $classes
+     * @return array
+     */
+    public function add_body_classes( $classes ) {
+        if ( ! $this->is_enabled() ) {
+            return $classes;
+        }
+
+        $settings = WSP_Core::get_settings();
+
+        $classes[] = 'wsp-active';
+        $classes[] = 'wsp-override-' . sanitize_html_class( $settings['override_priority'] );
+        $classes[] = 'wsp-preset-' . sanitize_html_class( $settings['active_preset'] );
+        $classes[] = 'wsp-anim-' . sanitize_html_class( $settings['card_hover_anim'] );
+        $classes[] = 'wsp-badge-' . sanitize_html_class( $settings['badge_style'] );
+        $classes[] = 'wsp-btn-style-' . sanitize_html_class( $settings['add_to_cart_style'] );
+
+        if ( 'yes' === $settings['single_product_redesign'] ) {
+            $classes[] = 'wsp-single-redesign';
+        }
+        if ( 'yes' === $settings['cart_redesign'] ) {
+            $classes[] = 'wsp-cart-redesign';
+        }
+        if ( 'yes' === $settings['checkout_redesign'] ) {
+            $classes[] = 'wsp-checkout-redesign';
+        }
+        if ( 'yes' === $settings['myaccount_redesign'] ) {
+            $classes[] = 'wsp-account-redesign';
+            $nav_style = ! empty( $settings['myaccount_nav_style'] ) ? $settings['myaccount_nav_style'] : 'sidebar_cards';
+            $classes[] = 'wsp-acc-nav-' . sanitize_html_class( $nav_style );
+        }
+
+        return $classes;
+    }
+
+    /**
+     * Add card class to product items in shop loop and shortcodes
+     *
+     * @param array  $classes
+     * @param string $class
+     * @param int    $post_id
+     * @return array
+     */
+    public function add_product_card_classes( $classes, $class, $post_id ) {
+        if ( ! $this->is_enabled() ) {
+            return $classes;
+        }
+
+        if ( 'product' === get_post_type( $post_id ) ) {
+            $classes[] = 'wsp-product-card';
+        }
+
+        return $classes;
+    }
+}

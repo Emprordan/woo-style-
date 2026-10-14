@@ -1,0 +1,227 @@
+<?php
+/**
+ * Woo Style+ Template Hooks & Loop Enhancements
+ *
+ * @package WooStylePlus
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+class WSP_Templates {
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        if ( ! $this->is_enabled() ) {
+            return;
+        }
+
+        $this->init_hooks();
+    }
+
+    /**
+     * Check if plugin is enabled
+     *
+     * @return bool
+     */
+    public function is_enabled() {
+        return 'yes' === WSP_Core::get_setting( 'is_enabled', 'yes' );
+    }
+
+    /**
+     * Initialize template hooks
+     */
+    private function init_hooks() {
+        $settings = WSP_Core::get_settings();
+
+        // Custom sale flash badge
+        add_filter( 'woocommerce_sale_flash', array( $this, 'custom_sale_badge' ), 20, 3 );
+
+        // Category above title in shop loop
+        if ( 'yes' === $settings['show_categories'] ) {
+            add_action( 'woocommerce_shop_loop_item_title', array( $this, 'render_loop_category' ), 4 );
+        }
+
+        // Hide ratings in shop loop if option unchecked
+        if ( 'no' === $settings['show_ratings'] ) {
+            remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+        }
+
+        // Single product stock badge
+        if ( 'yes' === $settings['single_stock_badge'] ) {
+            add_action( 'woocommerce_single_product_summary', array( $this, 'render_stock_pill' ), 11 );
+        }
+
+        // Mobile sticky add to cart bar
+        if ( 'yes' === $settings['single_sticky_mobile_cta'] ) {
+            add_action( 'woocommerce_after_single_product', array( $this, 'render_sticky_mobile_bar' ) );
+        }
+
+        // My Account welcome header
+        if ( 'yes' === $settings['myaccount_redesign'] && 'yes' === $settings['myaccount_show_user_header'] ) {
+            add_action( 'woocommerce_account_content', array( $this, 'render_myaccount_welcome_banner' ), 2 );
+        }
+    }
+
+    /**
+     * Render category tag in shop loop
+     */
+    public function render_loop_category() {
+        global $product;
+        if ( ! $product ) {
+            return;
+        }
+
+        $categories = wc_get_product_category_list( $product->get_id(), ', ' );
+        if ( $categories && ! is_wp_error( $categories ) ) {
+            echo '<div class="wsp-product-category">' . wp_kses_post( $categories ) . '</div>';
+        }
+    }
+
+    /**
+     * Customize the sale flash badge with percentage discount calculation
+     *
+     * @param string     $html
+     * @param WP_Post    $post
+     * @param WC_Product $product
+     * @return string
+     */
+    public function custom_sale_badge( $html, $post, $product ) {
+        if ( ! $product ) {
+            return $html;
+        }
+
+        $settings = WSP_Core::get_settings();
+        $badge_style = ! empty( $settings['badge_style'] ) ? $settings['badge_style'] : 'pill';
+        $badge_text  = esc_html__( 'Sale', 'woo-style-plus' );
+
+        if ( ! empty( $settings['badge_text_custom'] ) ) {
+            $badge_text = esc_html( $settings['badge_text_custom'] );
+        }
+
+        // Percentage discount display
+        if ( 'yes' === $settings['show_sale_percentage'] ) {
+            $percentage = 0;
+
+            if ( $product->is_type( 'simple' ) || $product->is_type( 'external' ) ) {
+                $regular = (float) $product->get_regular_price();
+                $sale    = (float) $product->get_sale_price();
+
+                if ( $regular > 0 && $sale > 0 && $regular > $sale ) {
+                    $percentage = round( ( ( $regular - $sale ) / $regular ) * 100 );
+                }
+            } elseif ( $product->is_type( 'variable' ) ) {
+                $prices = $product->get_variation_prices();
+                if ( ! empty( $prices['regular_price'] ) && ! empty( $prices['sale_price'] ) ) {
+                    $max_regular = max( $prices['regular_price'] );
+                    $min_sale    = min( $prices['sale_price'] );
+                    if ( $max_regular > 0 && $min_sale > 0 && $max_regular > $min_sale ) {
+                        $percentage = round( ( ( $max_regular - $min_sale ) / $max_regular ) * 100 );
+                    }
+                }
+            }
+
+            if ( $percentage > 0 ) {
+                $badge_text = '-' . $percentage . '%';
+            }
+        }
+
+        return '<span class="onsale wsp-sale-badge wsp-badge-' . esc_attr( $badge_style ) . '">' . $badge_text . '</span>';
+    }
+
+    /**
+     * Render sleek stock pill on single product page
+     */
+    public function render_stock_pill() {
+        global $product;
+        if ( ! $product ) {
+            return;
+        }
+
+        if ( $product->is_in_stock() ) {
+            echo '<div class="wsp-stock-pill in-stock"><span class="wsp-stock-dot"></span>' . esc_html__( 'In Stock', 'woo-style-plus' ) . '</div>';
+        } else {
+            echo '<div class="wsp-stock-pill out-of-stock"><span class="wsp-stock-dot"></span>' . esc_html__( 'Out of Stock', 'woo-style-plus' ) . '</div>';
+        }
+    }
+
+    /**
+     * Render Mobile Sticky Add to Cart Bar
+     */
+    public function render_sticky_mobile_bar() {
+        global $product;
+        if ( ! $product || ! is_product() ) {
+            return;
+        }
+
+        $image_id  = $product->get_image_id();
+        $image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'thumbnail' ) : wc_placeholder_img_src();
+        $price     = $product->get_price_html();
+        $title     = $product->get_name();
+        ?>
+        <div class="wsp-sticky-mobile-cta" id="wspStickyMobileCTA">
+            <div class="wsp-sticky-cta-inner">
+                <div class="wsp-sticky-prod-info">
+                    <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" class="wsp-sticky-thumb">
+                    <div class="wsp-sticky-details">
+                        <span class="wsp-sticky-title"><?php echo esc_html( wp_trim_words( $title, 5, '...' ) ); ?></span>
+                        <span class="wsp-sticky-price"><?php echo wp_kses_post( $price ); ?></span>
+                    </div>
+                </div>
+                <div class="wsp-sticky-action">
+                    <button type="button" class="button wsp-sticky-btn" id="wspScrollToCartBtn">
+                        <?php esc_html_e( 'Select Options', 'woo-style-plus' ); ?>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
+    /**
+     * Render modern welcome card banner in My Account dashboard
+     */
+    public function render_myaccount_welcome_banner() {
+        if ( ! is_user_logged_in() ) {
+            return;
+        }
+
+        // Only show banner on main dashboard endpoint
+        if ( ! is_account_page() || is_wc_endpoint_url() ) {
+            return;
+        }
+
+        $current_user = wp_get_current_user();
+        if ( ! $current_user || ! $current_user->exists() ) {
+            return;
+        }
+
+        $user_avatar = get_avatar( $current_user->ID, 68 );
+        $user_name   = ! empty( $current_user->display_name ) ? $current_user->display_name : $current_user->user_login;
+        $user_email  = $current_user->user_email;
+        $order_count = wc_get_customer_order_count( $current_user->ID );
+        ?>
+        <div class="wsp-account-welcome-banner">
+            <div class="wsp-account-user-meta">
+                <div class="wsp-account-avatar">
+                    <?php echo wp_kses_post( $user_avatar ); ?>
+                </div>
+                <div class="wsp-account-greeting">
+                    <h3><?php printf( esc_html__( 'Hello, %s!', 'woo-style-plus' ), esc_html( $user_name ) ); ?></h3>
+                    <p class="wsp-account-email"><?php echo esc_html( $user_email ); ?></p>
+                </div>
+            </div>
+            <div class="wsp-account-quick-stats">
+                <div class="wsp-stat-badge">
+                    <span class="wsp-stat-num"><?php echo esc_html( $order_count ); ?></span>
+                    <span class="wsp-stat-label"><?php esc_html_e( 'Total Orders', 'woo-style-plus' ); ?></span>
+                </div>
+                <a href="<?php echo esc_url( wc_logout_url() ); ?>" class="wsp-account-logout-btn">
+                    <span class="dashicons dashicons-external"></span> <?php esc_html_e( 'Logout', 'woo-style-plus' ); ?>
+                </a>
+            </div>
+        </div>
+        <?php
+    }
+}

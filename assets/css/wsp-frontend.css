@@ -1,0 +1,1227 @@
+/**
+ * Woo Style+ Frontend Stylesheet
+ * Ultra-modern, responsive redesign for WooCommerce Shop, Cards, Single Product, Cart & Checkout
+ */
+
+/* ==========================================================================
+   1. RESET & BASE CONTAINER
+   ========================================================================== */
+
+body.wsp-active .woocommerce,
+body.wsp-active .woocommerce-page {
+    box-sizing: border-box;
+    color: var(--wsp-text);
+}
+
+body.wsp-active .woocommerce *,
+body.wsp-active .woocommerce *::before,
+body.wsp-active .woocommerce *::after {
+    box-sizing: border-box;
+}
+
+/* Optional container wrapper limit */
+body.wsp-active.woocommerce .site-main,
+body.wsp-active.woocommerce-page .site-main,
+body.wsp-active .woocommerce > .content-area,
+body.wsp-active.archive .woocommerce {
+    max-width: var(--wsp-container-max);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==========================================================================
+   2. SHOP PAGE CONTROLS & PAGINATION
+   ========================================================================== */
+
+body.wsp-active .woocommerce-result-count {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--wsp-text);
+    opacity: 0.8;
+    margin-bottom: 24px;
+}
+
+body.wsp-active .woocommerce-ordering {
+    margin-bottom: 24px;
+}
+
+body.wsp-active .woocommerce-ordering select.orderby {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--wsp-border);
+    border-radius: var(--wsp-btn-radius);
+    background-color: var(--wsp-card-bg);
+    color: var(--wsp-heading);
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+body.wsp-active .woocommerce-ordering select.orderby:focus {
+    border-color: var(--wsp-primary);
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
+}
+
+/* Modern Pagination */
+body.wsp-active nav.woocommerce-pagination {
+    margin-top: 48px;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+body.wsp-active nav.woocommerce-pagination ul.page-numbers {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none !important;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+body.wsp-active nav.woocommerce-pagination ul.page-numbers li {
+    border: none !important;
+    float: none !important;
+    display: inline-block;
+    margin: 0;
+}
+
+body.wsp-active nav.woocommerce-pagination ul.page-numbers li a,
+body.wsp-active nav.woocommerce-pagination ul.page-numbers li span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    padding: 0 14px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--wsp-btn-radius);
+    background: var(--wsp-card-bg);
+    color: var(--wsp-heading);
+    border: 1px solid var(--wsp-border);
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+body.wsp-active nav.woocommerce-pagination ul.page-numbers li a:hover {
+    border-color: var(--wsp-primary);
+    color: var(--wsp-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body.wsp-active nav.woocommerce-pagination ul.page-numbers li span.current {
+    background: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+    border-color: var(--wsp-primary) !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+}
+
+/* ==========================================================================
+   3. MODERN PRODUCT CARDS (SHOP LOOP & SHORTCODES)
+   ========================================================================== */
+
+body.wsp-active ul.products li.product,
+body.wsp-active .wc-block-grid__product {
+    position: relative;
+    display: flex !important;
+    flex-direction: column !important;
+    background: var(--wsp-card-bg) !important;
+    border-radius: var(--wsp-card-radius) !important;
+    border: var(--wsp-card-border-width) solid var(--wsp-border) !important;
+    box-shadow: var(--wsp-card-shadow) !important;
+    padding: var(--wsp-card-padding) !important;
+    overflow: hidden !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s ease !important;
+    text-align: left !important;
+}
+
+/* Card Hover Animations */
+body.wsp-active.wsp-anim-lift ul.products li.product:hover,
+body.wsp-active.wsp-anim-lift_zoom ul.products li.product:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 18px 36px -6px rgba(15, 23, 42, 0.14) !important;
+}
+
+body.wsp-active.wsp-anim-scale ul.products li.product:hover {
+    transform: scale(1.025) !important;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12) !important;
+}
+
+body.wsp-active.wsp-anim-glow ul.products li.product:hover {
+    border-color: var(--wsp-primary) !important;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.35), 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Product Card Link Container */
+body.wsp-active ul.products li.product > a:first-of-type {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-grow: 1 !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    position: relative !important;
+}
+
+/* Product Image Container */
+body.wsp-active ul.products li.product a img,
+body.wsp-active .wc-block-grid__product-image img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: var(--wsp-img-ratio) !important;
+    object-fit: cover !important;
+    border-radius: var(--wsp-img-radius) !important;
+    display: block !important;
+    margin: 0 0 16px 0 !important;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.wsp-active.wsp-anim-zoom ul.products li.product:hover a img,
+body.wsp-active.wsp-anim-lift_zoom ul.products li.product:hover a img {
+    transform: scale(1.05) !important;
+}
+
+/* Sale Badge Styles */
+body.wsp-active span.onsale,
+body.wsp-active .wc-block-grid__product-onsale {
+    position: absolute !important;
+    top: 14px !important;
+    left: 14px !important;
+    right: auto !important;
+    z-index: 9 !important;
+    margin: 0 !important;
+    padding: 6px 14px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1 !important;
+    min-height: auto !important;
+    min-width: auto !important;
+    background: var(--wsp-badge-bg) !important;
+    color: var(--wsp-badge-text) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    text-transform: uppercase !important;
+}
+
+/* Badge variants */
+body.wsp-active.wsp-badge-pill span.onsale,
+body.wsp-active span.onsale.wsp-badge-pill {
+    border-radius: 999px !important;
+}
+
+body.wsp-active.wsp-badge-ribbon span.onsale,
+body.wsp-active span.onsale.wsp-badge-ribbon {
+    top: 0 !important;
+    left: 0 !important;
+    border-radius: 0 0 10px 0 !important;
+    padding: 8px 14px !important;
+}
+
+body.wsp-active.wsp-badge-square span.onsale,
+body.wsp-active span.onsale.wsp-badge-square {
+    border-radius: 4px !important;
+}
+
+body.wsp-active.wsp-badge-glass span.onsale,
+body.wsp-active span.onsale.wsp-badge-glass {
+    backdrop-filter: blur(8px) !important;
+    background: rgba(15, 23, 42, 0.75) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+/* Category Label */
+body.wsp-active .wsp-product-category {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--wsp-accent);
+    margin-bottom: 6px;
+    opacity: 0.9;
+}
+
+body.wsp-active .wsp-product-category a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Product Card Title */
+body.wsp-active ul.products li.product .woocommerce-loop-product__title,
+body.wsp-active .wc-block-grid__product-title {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: var(--wsp-heading) !important;
+    line-height: 1.4 !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    transition: color 0.2s ease !important;
+}
+
+body.wsp-active ul.products li.product:hover .woocommerce-loop-product__title {
+    color: var(--wsp-accent) !important;
+}
+
+/* Star Rating */
+body.wsp-active .star-rating {
+    font-size: 13px !important;
+    color: var(--wsp-star) !important;
+    margin: 4px 0 10px 0 !important;
+    letter-spacing: 2px !important;
+}
+
+body.wsp-active .star-rating::before {
+    color: #e2e8f0 !important;
+}
+
+/* Price */
+body.wsp-active ul.products li.product .price,
+body.wsp-active .wc-block-grid__product-price {
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    color: var(--wsp-price) !important;
+    margin: 0 0 16px 0 !important;
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+body.wsp-active ul.products li.product .price del,
+body.wsp-active .wc-block-grid__product-price del {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: var(--wsp-text) !important;
+    opacity: 0.5 !important;
+}
+
+body.wsp-active ul.products li.product .price ins,
+body.wsp-active .wc-block-grid__product-price ins {
+    text-decoration: none !important;
+    color: var(--wsp-sale-price) !important;
+    font-weight: 800 !important;
+}
+
+/* Add to Cart Button in Loop */
+body.wsp-active ul.products li.product .button,
+body.wsp-active .wc-block-grid__product-add-to-cart a {
+    margin-top: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 12px 18px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background-color: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+    border: none !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12) !important;
+}
+
+body.wsp-active ul.products li.product .button:hover,
+body.wsp-active .wc-block-grid__product-add-to-cart a:hover {
+    background-color: var(--wsp-primary-hover) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2) !important;
+}
+
+body.wsp-active ul.products li.product .button.loading {
+    opacity: 0.75 !important;
+    padding-right: 40px !important;
+}
+
+/* Button style variants */
+body.wsp-active.wsp-btn-style-outline ul.products li.product .button {
+    background: transparent !important;
+    color: var(--wsp-primary) !important;
+    border: 1.5px solid var(--wsp-primary) !important;
+    box-shadow: none !important;
+}
+
+body.wsp-active.wsp-btn-style-outline ul.products li.product .button:hover {
+    background: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+}
+
+body.wsp-active.wsp-btn-style-soft_pill ul.products li.product .button {
+    border-radius: 999px !important;
+}
+
+/* Added to cart view cart link */
+body.wsp-active ul.products li.product .added_to_cart {
+    display: block !important;
+    text-align: center !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--wsp-accent) !important;
+    margin-top: 8px !important;
+    text-decoration: underline !important;
+}
+
+/* ==========================================================================
+   4. SINGLE PRODUCT PAGE REDESIGN
+   ========================================================================== */
+
+body.wsp-active.wsp-single-redesign div.product {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+/* Single product gallery */
+body.wsp-active.wsp-single-redesign div.product div.images {
+    border-radius: var(--wsp-card-radius);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+body.wsp-active.wsp-single-redesign div.product div.images img {
+    border-radius: var(--wsp-img-radius);
+}
+
+/* Single product summary */
+body.wsp-active.wsp-single-redesign div.product div.summary {
+    padding-left: 20px;
+}
+
+body.wsp-active.wsp-single-redesign div.product .product_title {
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: var(--wsp-heading) !important;
+    line-height: 1.25 !important;
+    margin-bottom: 12px !important;
+}
+
+body.wsp-active.wsp-single-redesign div.product p.price {
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    color: var(--wsp-price) !important;
+    margin-bottom: 20px !important;
+}
+
+body.wsp-active.wsp-single-redesign div.product p.price ins {
+    color: var(--wsp-sale-price) !important;
+    text-decoration: none !important;
+    font-weight: 800 !important;
+}
+
+/* Stock pill badge */
+.wsp-stock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.wsp-stock-pill.in-stock {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+}
+
+.wsp-stock-pill.out-of-stock {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.wsp-stock-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+/* Quantity input with stepper */
+body.wsp-active .quantity {
+    display: inline-flex !important;
+    align-items: center !important;
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background: var(--wsp-card-bg) !important;
+    overflow: hidden !important;
+    margin-right: 14px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.wsp-active .quantity .wsp-qty-btn {
+    width: 38px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--wsp-heading);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    user-select: none;
+}
+
+body.wsp-active .quantity .wsp-qty-btn:hover {
+    background-color: rgba(15, 23, 42, 0.06);
+    color: var(--wsp-primary);
+}
+
+body.wsp-active .quantity input.qty {
+    width: 48px !important;
+    height: 44px !important;
+    text-align: center !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    color: var(--wsp-heading) !important;
+    -moz-appearance: textfield !important;
+}
+
+body.wsp-active .quantity input.qty::-webkit-outer-spin-button,
+body.wsp-active .quantity input.qty::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+/* Single Add to Cart Button */
+body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_cart_button {
+    padding: 14px 32px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background-color: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_cart_button:hover {
+    background-color: var(--wsp-primary-hover) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.25) !important;
+}
+
+/* Product Tabs Modern Redesign */
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--wsp-border);
+}
+
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs {
+    display: flex;
+    gap: 10px;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 0 24px 0 !important;
+    background: transparent !important;
+}
+
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs::before,
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs::after {
+    display: none !important;
+}
+
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs li {
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background: var(--wsp-card-bg) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+    transition: all 0.2s ease;
+}
+
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs li::before,
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs li::after {
+    display: none !important;
+}
+
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs li a {
+    display: block !important;
+    padding: 12px 22px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: var(--wsp-text) !important;
+    text-decoration: none !important;
+}
+
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs li.active {
+    background: var(--wsp-primary) !important;
+    border-color: var(--wsp-primary) !important;
+}
+
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs li.active a {
+    color: var(--wsp-primary-text) !important;
+}
+
+body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs .panel {
+    background: var(--wsp-card-bg);
+    border: 1px solid var(--wsp-border);
+    border-radius: var(--wsp-card-radius);
+    padding: 30px;
+    box-shadow: var(--wsp-card-shadow);
+}
+
+/* Mobile Sticky Add to Cart */
+.wsp-sticky-mobile-cta {
+    position: fixed;
+    bottom: -100px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: var(--wsp-card-bg);
+    border-top: 1px solid var(--wsp-border);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    padding: 12px 16px;
+    transition: bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .wsp-sticky-mobile-cta {
+        display: block;
+    }
+}
+
+.wsp-sticky-mobile-cta.visible {
+    bottom: 0;
+}
+
+.wsp-sticky-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 12px;
+}
+
+.wsp-sticky-prod-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+}
+
+.wsp-sticky-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.wsp-sticky-details {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.wsp-sticky-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--wsp-heading);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wsp-sticky-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--wsp-sale-price);
+}
+
+.wsp-sticky-btn {
+    padding: 10px 18px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    background: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    border: none !important;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   5. CART PAGE REDESIGN
+   ========================================================================== */
+
+body.wsp-active.wsp-cart-redesign .woocommerce-cart-form {
+    margin-bottom: 30px;
+}
+
+body.wsp-active.wsp-cart-redesign table.shop_table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-card-radius) !important;
+    overflow: hidden !important;
+    background: var(--wsp-card-bg) !important;
+    box-shadow: var(--wsp-card-shadow) !important;
+}
+
+body.wsp-active.wsp-cart-redesign table.shop_table th {
+    background: rgba(15, 23, 42, 0.03) !important;
+    color: var(--wsp-heading) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    font-size: 12px !important;
+    letter-spacing: 0.5px !important;
+    padding: 16px 20px !important;
+    border-bottom: 1px solid var(--wsp-border) !important;
+}
+
+body.wsp-active.wsp-cart-redesign table.shop_table td {
+    padding: 18px 20px !important;
+    border-bottom: 1px solid var(--wsp-border) !important;
+    vertical-align: middle !important;
+}
+
+body.wsp-active.wsp-cart-redesign table.shop_table tr:last-child td {
+    border-bottom: none !important;
+}
+
+body.wsp-active.wsp-cart-redesign .cart-collaterals .cart_totals {
+    width: 100% !important;
+    background: var(--wsp-card-bg) !important;
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-card-radius) !important;
+    padding: 28px !important;
+    box-shadow: var(--wsp-card-shadow) !important;
+}
+
+body.wsp-active.wsp-cart-redesign .cart_totals h2 {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: var(--wsp-heading) !important;
+    margin-bottom: 20px !important;
+}
+
+body.wsp-active.wsp-cart-redesign .wc-proceed-to-checkout a.checkout-button {
+    display: block !important;
+    width: 100% !important;
+    padding: 16px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15) !important;
+    transition: all 0.25s ease !important;
+}
+
+body.wsp-active.wsp-cart-redesign .wc-proceed-to-checkout a.checkout-button:hover {
+    background: var(--wsp-primary-hover) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.25) !important;
+}
+
+/* ==========================================================================
+   6. CHECKOUT PAGE REDESIGN
+   ========================================================================== */
+
+body.wsp-active.wsp-checkout-redesign #customer_details,
+body.wsp-active.wsp-checkout-redesign #order_review {
+    background: var(--wsp-card-bg);
+    border: 1px solid var(--wsp-border);
+    border-radius: var(--wsp-card-radius);
+    padding: 30px;
+    box-shadow: var(--wsp-card-shadow);
+    margin-bottom: 30px;
+}
+
+body.wsp-active.wsp-checkout-redesign .woocommerce-billing-fields h3,
+body.wsp-active.wsp-checkout-redesign #order_review_heading {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: var(--wsp-heading) !important;
+    margin-bottom: 24px !important;
+}
+
+/* Modern Input Controls */
+body.wsp-active.wsp-checkout-redesign input[type="text"],
+body.wsp-active.wsp-checkout-redesign input[type="email"],
+body.wsp-active.wsp-checkout-redesign input[type="tel"],
+body.wsp-active.wsp-checkout-redesign input[type="password"],
+body.wsp-active.wsp-checkout-redesign textarea,
+body.wsp-active.wsp-checkout-redesign select,
+body.wsp-active.wsp-checkout-redesign .select2-container .select2-selection--single {
+    width: 100% !important;
+    height: 48px !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    border: 1.5px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background-color: var(--wsp-card-bg) !important;
+    color: var(--wsp-heading) !important;
+    outline: none !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+}
+
+body.wsp-active.wsp-checkout-redesign textarea {
+    height: 120px !important;
+}
+
+body.wsp-active.wsp-checkout-redesign input:focus,
+body.wsp-active.wsp-checkout-redesign textarea:focus,
+body.wsp-active.wsp-checkout-redesign select:focus {
+    border-color: var(--wsp-primary) !important;
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Payment Methods Redesign */
+body.wsp-active.wsp-checkout-redesign #payment ul.payment_methods {
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    padding: 10px !important;
+    background: rgba(15, 23, 42, 0.02) !important;
+}
+
+body.wsp-active.wsp-checkout-redesign #payment ul.payment_methods li {
+    padding: 14px !important;
+    border-radius: 8px !important;
+    background: var(--wsp-card-bg) !important;
+    margin-bottom: 8px !important;
+    border: 1px solid var(--wsp-border) !important;
+}
+
+/* Place Order CTA */
+body.wsp-active.wsp-checkout-redesign #payment #place_order {
+    width: 100% !important;
+    padding: 16px !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2) !important;
+    transition: all 0.25s ease !important;
+}
+
+body.wsp-active.wsp-checkout-redesign #payment #place_order:hover {
+    background: var(--wsp-primary-hover) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.3) !important;
+}
+
+/* ==========================================================================
+   7. WOOCOMMERCE NOTICES & TOASTS
+   ========================================================================== */
+
+body.wsp-active .woocommerce-message,
+body.wsp-active .woocommerce-error,
+body.wsp-active .woocommerce-info {
+    border-radius: var(--wsp-btn-radius) !important;
+    padding: 16px 20px 16px 54px !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+    margin-bottom: 24px !important;
+}
+
+body.wsp-active .woocommerce-message {
+    background: #ecfdf5 !important;
+    border: 1px solid #a7f3d0 !important;
+    border-top: 4px solid #10b981 !important;
+    color: #065f46 !important;
+}
+
+body.wsp-active .woocommerce-message .button {
+    background: #10b981 !important;
+    color: #ffffff !important;
+    border-radius: 6px !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+body.wsp-active .woocommerce-error {
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    border-top: 4px solid #ef4444 !important;
+    color: #991b1b !important;
+}
+
+body.wsp-active .woocommerce-info {
+    background: #f0f9ff !important;
+    border: 1px solid #bae6fd !important;
+    border-top: 4px solid #0284c7 !important;
+    color: #075985 !important;
+}
+
+/* ==========================================================================
+   8. MY ACCOUNT PAGE REDESIGN
+   ========================================================================== */
+
+/* Login & Registration Auth Cards */
+body.wsp-active.wsp-account-redesign .woocommerce-account .col2-set#customer_login {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 28px !important;
+    margin-bottom: 40px !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-account .col2-set#customer_login .col-1,
+body.wsp-active.wsp-account-redesign .woocommerce-account .col2-set#customer_login .col-2 {
+    flex: 1 !important;
+    min-width: 320px !important;
+    float: none !important;
+    width: auto !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-account form.login,
+body.wsp-active.wsp-account-redesign .woocommerce-account form.register {
+    background: var(--wsp-card-bg) !important;
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-card-radius) !important;
+    padding: 32px !important;
+    box-shadow: var(--wsp-card-shadow) !important;
+    margin: 0 !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-account form.login h2,
+body.wsp-active.wsp-account-redesign .woocommerce-account form.register h2 {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: var(--wsp-heading) !important;
+    margin-bottom: 22px !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-account form .form-row input.input-text {
+    width: 100% !important;
+    height: 48px !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    border: 1.5px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background-color: var(--wsp-card-bg) !important;
+    color: var(--wsp-heading) !important;
+    outline: none !important;
+    transition: all 0.2s ease !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-account form .form-row input.input-text:focus {
+    border-color: var(--wsp-primary) !important;
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.12) !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-account form.login .button,
+body.wsp-active.wsp-account-redesign .woocommerce-account form.register .button {
+    padding: 13px 28px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15) !important;
+    transition: all 0.25s ease !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-account form.login .button:hover,
+body.wsp-active.wsp-account-redesign .woocommerce-account form.register .button:hover {
+    background: var(--wsp-primary-hover) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* My Account Dashboard Container */
+body.wsp-active.wsp-account-redesign .woocommerce-account .woocommerce {
+    display: flex !important;
+    gap: 32px !important;
+    align-items: flex-start !important;
+}
+
+@media (max-width: 860px) {
+    body.wsp-active.wsp-account-redesign .woocommerce-account .woocommerce {
+        flex-direction: column !important;
+    }
+}
+
+/* My Account Sidebar Navigation */
+body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation {
+    width: 270px !important;
+    flex-shrink: 0 !important;
+    float: none !important;
+    margin-right: 0 !important;
+    background: var(--wsp-card-bg) !important;
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-card-radius) !important;
+    box-shadow: var(--wsp-card-shadow) !important;
+    padding: 12px !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul li {
+    margin: 4px 0 !important;
+    padding: 0 !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul li a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 13px 18px !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    font-size: 14.5px !important;
+    font-weight: 600 !important;
+    color: var(--wsp-text) !important;
+    text-decoration: none !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul li a:hover {
+    background: rgba(15, 23, 42, 0.05) !important;
+    color: var(--wsp-heading) !important;
+    transform: translateX(3px) !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul li.is-active a {
+    background: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.16) !important;
+}
+
+/* Horizontal Pills Navigation Variant */
+body.wsp-active.wsp-acc-nav-horizontal_pills .woocommerce-account .woocommerce {
+    flex-direction: column !important;
+}
+
+body.wsp-active.wsp-acc-nav-horizontal_pills .woocommerce-MyAccount-navigation {
+    width: 100% !important;
+    margin-bottom: 24px !important;
+}
+
+body.wsp-active.wsp-acc-nav-horizontal_pills .woocommerce-MyAccount-navigation ul {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+/* My Account Content Area */
+body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-content {
+    flex: 1 !important;
+    min-width: 0 !important;
+    float: none !important;
+    width: 100% !important;
+    background: var(--wsp-card-bg) !important;
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-card-radius) !important;
+    box-shadow: var(--wsp-card-shadow) !important;
+    padding: 32px !important;
+}
+
+/* Welcome Customer Banner */
+.wsp-account-welcome-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 24px;
+    border-radius: var(--wsp-btn-radius);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.03) 0%, rgba(59, 130, 246, 0.06) 100%);
+    border: 1px solid var(--wsp-border);
+    margin-bottom: 28px;
+}
+
+.wsp-account-user-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.wsp-account-avatar img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+.wsp-account-greeting h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--wsp-heading);
+    margin: 0 0 4px 0;
+}
+
+.wsp-account-email {
+    font-size: 13.5px;
+    color: var(--wsp-text);
+    opacity: 0.8;
+    margin: 0;
+}
+
+.wsp-account-quick-stats {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wsp-stat-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--wsp-card-bg);
+    border: 1px solid var(--wsp-border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.wsp-stat-num {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--wsp-primary);
+    line-height: 1.1;
+}
+
+.wsp-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--wsp-text);
+    opacity: 0.7;
+}
+
+.wsp-account-logout-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ef4444;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 9px 16px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.wsp-account-logout-btn:hover {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* Orders Table */
+body.wsp-active.wsp-account-redesign table.woocommerce-orders-table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    overflow: hidden !important;
+    margin-bottom: 24px !important;
+}
+
+body.wsp-active.wsp-account-redesign table.woocommerce-orders-table th {
+    background: rgba(15, 23, 42, 0.03) !important;
+    color: var(--wsp-heading) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    font-size: 12px !important;
+    padding: 14px 18px !important;
+    border-bottom: 1px solid var(--wsp-border) !important;
+}
+
+body.wsp-active.wsp-account-redesign table.woocommerce-orders-table td {
+    padding: 16px 18px !important;
+    border-bottom: 1px solid var(--wsp-border) !important;
+    vertical-align: middle !important;
+}
+
+body.wsp-active.wsp-account-redesign table.woocommerce-orders-table tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Order Status Badges */
+body.wsp-active.wsp-account-redesign .woocommerce-orders-table__cell-order-status {
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+body.wsp-active.wsp-account-redesign table.woocommerce-orders-table a.button {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: var(--wsp-btn-radius) !important;
+    background: var(--wsp-primary) !important;
+    color: var(--wsp-primary-text) !important;
+    text-decoration: none !important;
+    border: none !important;
+    transition: all 0.2s ease !important;
+}
+
+body.wsp-active.wsp-account-redesign table.woocommerce-orders-table a.button:hover {
+    background: var(--wsp-primary-hover) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Addresses Grid */
+body.wsp-active.wsp-account-redesign .woocommerce-Addresses {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+    gap: 20px !important;
+    margin-top: 24px !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-Address {
+    background: var(--wsp-card-bg) !important;
+    border: 1px solid var(--wsp-border) !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-Address-title h3 {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: var(--wsp-heading) !important;
+    margin: 0 0 12px 0 !important;
+}
+
+body.wsp-active.wsp-account-redesign .woocommerce-Address a.edit {
+    display: inline-block !important;
+    margin-top: 14px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--wsp-accent) !important;
+    text-decoration: underline !important;
+}
+

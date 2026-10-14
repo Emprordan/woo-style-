@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,18 @@ Yes. There is a master toggle at the top of the Woo Style+ settings page to acti
 * Fix: Automatic reactivation of plugin after 1-click update so styles never get deactivated during upgrade.
 * Fix: Multi-pass cleaning for preformatted (<pre>) blocks wrapping WooCommerce shortcode content at both early and late rendering priorities.
 * Fix: CSS child reset for any preformatted block descendants to guarantee zero monospace font leaks.
+
+= 1.0.7 =
+* Fix: Address tab card layout squished into narrow vertical stack due to theme/Bootstrap .col-1 and float collisions.
+* Enhancement: Modern card layout for single and double addresses in My Account portal.
+* Enhancement: Redesigned Address card header with aligned Edit/Add button and cleanly formatted address typography.
+* Enhancement: Modern grid layout and styling for Edit Address and Account Details forms.
+
+= 1.0.6 =
+* Fix: Plugin deactivation issue during 1-click update by normalizing unzipped GitHub source folder name and auto-reactivating plugin cleanly.
+
+= 1.0.5 =
+* Enhancement: Streamlined WordPress in-app updater with GitHub release asset attachment.
 
 = 1.0.4 =
 * Feature: Full Page Spacing & Padding Controls in settings for all WooCommerce pages.

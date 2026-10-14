@@ -293,10 +293,8 @@ class WSP_Updater {
             $result['destination'] = $proper_destination;
         }
 
-        // Re-activate plugin if it was active
-        if ( is_plugin_active( WSP_PLUGIN_BASENAME ) ) {
-            activate_plugin( WSP_PLUGIN_BASENAME );
-        }
+        // Re-activate plugin automatically after upgrade
+        activate_plugin( WSP_PLUGIN_BASENAME );
 
         delete_transient( $this->transient_key );
 

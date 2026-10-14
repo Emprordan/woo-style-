@@ -70,6 +70,7 @@ class WSP_Templates {
 
         // Clean accidental <pre class="wp-block-preformatted"> around shortcodes
         add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 1 );
+        add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 9999 );
     }
 
     /**
@@ -251,9 +252,9 @@ class WSP_Templates {
             $content
         );
 
-        // Clean <pre class="wp-block-preformatted"><div class="woocommerce">...</div></pre>
+        // Clean <pre...><div class="woocommerce">...</div></pre>
         $content = preg_replace(
-            '/<pre[^>]*class="[^"]*wp-block-preformatted[^"]*"[^>]*>\s*(<div class="woocommerce">[\s\S]*?<\/div>)\s*<\/pre>/is',
+            '/<pre[^>]*>\s*(<div class="woocommerce">[\s\S]*?<\/div>)\s*<\/pre>/is',
             '$1',
             $content
         );

@@ -24,6 +24,13 @@ pre:has(.woocommerce) {
     color: inherit !important;
 }
 
+pre.wp-block-preformatted *,
+pre:has(.woocommerce) *,
+.woocommerce pre * {
+    font-family: inherit !important;
+    white-space: normal !important;
+}
+
 body.wsp-active .woocommerce,
 body.wsp-active .woocommerce-page {
     box-sizing: border-box;

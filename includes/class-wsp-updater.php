@@ -305,7 +305,7 @@ class WSP_Updater {
     }
 
     /**
-     * Fix GitHub zip folder name after installation
+     * Post-install cleanup: flush transients and guarantee active status safely
      *
      * @param bool  $response
      * @param array $hook_extra
@@ -313,26 +313,19 @@ class WSP_Updater {
      * @return bool
      */
     public function post_install_cleanup( $response, $hook_extra, $result ) {
-        global $wp_filesystem;
-
         if ( ! isset( $hook_extra['plugin'] ) || $hook_extra['plugin'] !== WSP_PLUGIN_BASENAME ) {
             return $response;
         }
 
-        $proper_destination = WP_PLUGIN_DIR . '/' . $this->slug;
-
-        // Move unzipped directory from temporary GitHub folder to proper destination if needed
-        if ( isset( $result['destination'] ) && $result['destination'] !== $proper_destination ) {
-            if ( $wp_filesystem->exists( $proper_destination ) ) {
-                $wp_filesystem->delete( $proper_destination, true );
-            }
-            $wp_filesystem->move( $result['destination'], $proper_destination, true );
-        }
-
-        // Re-activate plugin automatically after upgrade
-        activate_plugin( WSP_PLUGIN_BASENAME );
-
+        // Flush update caches so WordPress immediately shows up-to-date status
         delete_transient( $this->transient_key );
+        delete_site_transient( 'update_plugins' );
+        wp_clean_plugins_cache();
+
+        // Ensure plugin is active without ever deleting or moving files
+        if ( ! is_plugin_active( WSP_PLUGIN_BASENAME ) ) {
+            activate_plugin( WSP_PLUGIN_BASENAME );
+        }
 
         return $response;
     }

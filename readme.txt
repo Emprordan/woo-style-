@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,11 @@ Yes. There is a master toggle at the top of the Woo Style+ settings page to acti
 * Fix: Automatic reactivation of plugin after 1-click update so styles never get deactivated during upgrade.
 * Fix: Multi-pass cleaning for preformatted (<pre>) blocks wrapping WooCommerce shortcode content at both early and late rendering priorities.
 * Fix: CSS child reset for any preformatted block descendants to guarantee zero monospace font leaks.
+
+= 1.0.9 =
+* Critical Fix: Removed destructive directory deletion and move logic from post_install_cleanup in the in-app updater.
+* Fix: Preserved exact installed directory structure during 1-click update so WordPress never triggers "Plugin file does not exist" or deactivates the plugin.
+* Enhancement: Added safe cache cleaning via wp_clean_plugins_cache() and immediate active status validation.
 
 = 1.0.8 =
 * Feature: Added modern vector icons to My Account navigation tabs (Dashboard, Orders, Downloads, Address, Account details, Log out, Payment methods, Subscriptions).

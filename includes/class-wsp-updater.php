@@ -286,7 +286,10 @@ class WSP_Updater {
 
         // Move unzipped directory from temporary GitHub folder to proper destination
         if ( isset( $result['destination'] ) && $result['destination'] !== $proper_destination ) {
-            $wp_filesystem->move( $result['destination'], $proper_destination );
+            if ( $wp_filesystem->exists( $proper_destination ) ) {
+                $wp_filesystem->delete( $proper_destination, true );
+            }
+            $wp_filesystem->move( $result['destination'], $proper_destination, true );
             $result['destination'] = $proper_destination;
         }
 

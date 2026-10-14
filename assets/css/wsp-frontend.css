@@ -7,6 +7,23 @@
    1. RESET & BASE CONTAINER
    ========================================================================== */
 
+/* Neutralize accidental <pre> or preformatted blocks around WooCommerce */
+pre.wp-block-preformatted,
+.woocommerce pre.wp-block-preformatted,
+pre:has(.woocommerce) {
+    font-family: inherit !important;
+    white-space: normal !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    color: inherit !important;
+}
+
 body.wsp-active .woocommerce,
 body.wsp-active .woocommerce-page {
     box-sizing: border-box;
@@ -19,14 +36,18 @@ body.wsp-active .woocommerce *::after {
     box-sizing: border-box;
 }
 
-/* Optional container wrapper limit */
+/* Universal WooCommerce container centering & padding across all themes (Elementor, Astra, Uncut, etc.) */
+body.wsp-active .woocommerce,
 body.wsp-active.woocommerce .site-main,
 body.wsp-active.woocommerce-page .site-main,
 body.wsp-active .woocommerce > .content-area,
 body.wsp-active.archive .woocommerce {
-    max-width: var(--wsp-container-max);
-    margin-left: auto;
-    margin-right: auto;
+    max-width: var(--wsp-container-max, 1280px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box !important;
 }
 
 /* ==========================================================================
@@ -670,8 +691,28 @@ body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs .panel {
    5. CART PAGE REDESIGN
    ========================================================================== */
 
+body.wsp-active.wsp-cart-redesign .woocommerce {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 32px !important;
+    align-items: flex-start !important;
+    clear: both !important;
+}
+
+body.wsp-active.wsp-cart-redesign .woocommerce::before,
+body.wsp-active.wsp-cart-redesign .woocommerce::after {
+    display: none !important;
+}
+
 body.wsp-active.wsp-cart-redesign .woocommerce-cart-form {
-    margin-bottom: 30px;
+    flex: 1 1 58% !important;
+    min-width: 320px !important;
+    margin-bottom: 0 !important;
+}
+
+body.wsp-active.wsp-cart-redesign .cart-collaterals {
+    flex: 1 1 36% !important;
+    min-width: 300px !important;
 }
 
 body.wsp-active.wsp-cart-redesign table.shop_table {
@@ -682,6 +723,7 @@ body.wsp-active.wsp-cart-redesign table.shop_table {
     overflow: hidden !important;
     background: var(--wsp-card-bg) !important;
     box-shadow: var(--wsp-card-shadow) !important;
+    width: 100% !important;
 }
 
 body.wsp-active.wsp-cart-redesign table.shop_table th {
@@ -707,6 +749,7 @@ body.wsp-active.wsp-cart-redesign table.shop_table tr:last-child td {
 
 body.wsp-active.wsp-cart-redesign .cart-collaterals .cart_totals {
     width: 100% !important;
+    float: none !important;
     background: var(--wsp-card-bg) !important;
     border: 1px solid var(--wsp-border) !important;
     border-radius: var(--wsp-card-radius) !important;
@@ -745,8 +788,38 @@ body.wsp-active.wsp-cart-redesign .wc-proceed-to-checkout a.checkout-button:hove
    6. CHECKOUT PAGE REDESIGN
    ========================================================================== */
 
-body.wsp-active.wsp-checkout-redesign #customer_details,
+body.wsp-active.wsp-checkout-redesign form.checkout {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 32px !important;
+    align-items: flex-start !important;
+    clear: both !important;
+}
+
+body.wsp-active.wsp-checkout-redesign form.checkout::before,
+body.wsp-active.wsp-checkout-redesign form.checkout::after {
+    display: none !important;
+}
+
+body.wsp-active.wsp-checkout-redesign #customer_details {
+    flex: 1 1 56% !important;
+    min-width: 320px !important;
+    float: none !important;
+    width: auto !important;
+    background: var(--wsp-card-bg);
+    border: 1px solid var(--wsp-border);
+    border-radius: var(--wsp-card-radius);
+    padding: 30px;
+    box-shadow: var(--wsp-card-shadow);
+    margin-bottom: 30px;
+}
+
+body.wsp-active.wsp-checkout-redesign #order_review_heading,
 body.wsp-active.wsp-checkout-redesign #order_review {
+    flex: 1 1 38% !important;
+    min-width: 300px !important;
+    float: none !important;
+    width: auto !important;
     background: var(--wsp-card-bg);
     border: 1px solid var(--wsp-border);
     border-radius: var(--wsp-card-radius);
@@ -882,146 +955,187 @@ body.wsp-active .woocommerce-info {
    ========================================================================== */
 
 /* Login & Registration Auth Cards */
-body.wsp-active.wsp-account-redesign .woocommerce-account .col2-set#customer_login {
+body.wsp-active .col2-set#customer_login,
+body.wsp-active.woocommerce-account .col2-set#customer_login {
     display: flex !important;
     flex-wrap: wrap !important;
     gap: 28px !important;
     margin-bottom: 40px !important;
 }
 
-body.wsp-active.wsp-account-redesign .woocommerce-account .col2-set#customer_login .col-1,
-body.wsp-active.wsp-account-redesign .woocommerce-account .col2-set#customer_login .col-2 {
-    flex: 1 !important;
-    min-width: 320px !important;
+body.wsp-active .col2-set#customer_login .col-1,
+body.wsp-active .col2-set#customer_login .col-2,
+body.wsp-active.woocommerce-account .col2-set#customer_login .col-1,
+body.wsp-active.woocommerce-account .col2-set#customer_login .col-2 {
+    flex: 1 1 320px !important;
+    min-width: 280px !important;
     float: none !important;
     width: auto !important;
 }
 
-body.wsp-active.wsp-account-redesign .woocommerce-account form.login,
-body.wsp-active.wsp-account-redesign .woocommerce-account form.register {
-    background: var(--wsp-card-bg) !important;
-    border: 1px solid var(--wsp-border) !important;
-    border-radius: var(--wsp-card-radius) !important;
+body.wsp-active .woocommerce form.login,
+body.wsp-active .woocommerce form.register,
+body.wsp-active.woocommerce-account form.login,
+body.wsp-active.woocommerce-account form.register {
+    background: var(--wsp-card-bg, #ffffff) !important;
+    border: 1px solid var(--wsp-border, #e2e8f0) !important;
+    border-radius: var(--wsp-card-radius, 14px) !important;
     padding: 32px !important;
-    box-shadow: var(--wsp-card-shadow) !important;
+    box-shadow: var(--wsp-card-shadow, 0 4px 20px -2px rgba(15, 23, 42, 0.06)) !important;
     margin: 0 !important;
+    box-sizing: border-box !important;
 }
 
-body.wsp-active.wsp-account-redesign .woocommerce-account form.login h2,
-body.wsp-active.wsp-account-redesign .woocommerce-account form.register h2 {
+body.wsp-active.woocommerce-account form.login h2,
+body.wsp-active.woocommerce-account form.register h2 {
     font-size: 22px !important;
     font-weight: 700 !important;
-    color: var(--wsp-heading) !important;
+    color: var(--wsp-heading, #0f172a) !important;
     margin-bottom: 22px !important;
 }
 
-body.wsp-active.wsp-account-redesign .woocommerce-account form .form-row input.input-text {
+body.wsp-active.woocommerce-account form .form-row input.input-text {
     width: 100% !important;
     height: 48px !important;
     padding: 10px 16px !important;
     font-size: 14px !important;
-    border: 1.5px solid var(--wsp-border) !important;
-    border-radius: var(--wsp-btn-radius) !important;
-    background-color: var(--wsp-card-bg) !important;
-    color: var(--wsp-heading) !important;
+    border: 1.5px solid var(--wsp-border, #e2e8f0) !important;
+    border-radius: var(--wsp-btn-radius, 10px) !important;
+    background-color: var(--wsp-card-bg, #ffffff) !important;
+    color: var(--wsp-heading, #0f172a) !important;
     outline: none !important;
     transition: all 0.2s ease !important;
+    box-sizing: border-box !important;
 }
 
-body.wsp-active.wsp-account-redesign .woocommerce-account form .form-row input.input-text:focus {
-    border-color: var(--wsp-primary) !important;
+body.wsp-active.woocommerce-account form .form-row input.input-text:focus {
+    border-color: var(--wsp-primary, #0f172a) !important;
     box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.12) !important;
 }
 
-body.wsp-active.wsp-account-redesign .woocommerce-account form.login .button,
-body.wsp-active.wsp-account-redesign .woocommerce-account form.register .button {
+body.wsp-active.woocommerce-account form.login .button,
+body.wsp-active.woocommerce-account form.register .button {
     padding: 13px 28px !important;
     font-size: 15px !important;
     font-weight: 700 !important;
-    border-radius: var(--wsp-btn-radius) !important;
-    background: var(--wsp-primary) !important;
-    color: var(--wsp-primary-text) !important;
+    border-radius: var(--wsp-btn-radius, 10px) !important;
+    background: var(--wsp-primary, #0f172a) !important;
+    color: var(--wsp-primary-text, #ffffff) !important;
     border: none !important;
     cursor: pointer !important;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15) !important;
     transition: all 0.25s ease !important;
 }
 
-body.wsp-active.wsp-account-redesign .woocommerce-account form.login .button:hover,
-body.wsp-active.wsp-account-redesign .woocommerce-account form.register .button:hover {
-    background: var(--wsp-primary-hover) !important;
+body.wsp-active.woocommerce-account form.login .button:hover,
+body.wsp-active.woocommerce-account form.register .button:hover {
+    background: var(--wsp-primary-hover, #1e293b) !important;
     transform: translateY(-2px) !important;
 }
 
 /* My Account Dashboard Container */
-body.wsp-active.wsp-account-redesign .woocommerce-account .woocommerce {
+body.wsp-active.woocommerce-account .woocommerce,
+body.wsp-active.wsp-account-redesign.woocommerce-account .woocommerce,
+body.wsp-active.wsp-account-redesign .woocommerce {
     display: flex !important;
+    flex-direction: row !important;
     gap: 32px !important;
     align-items: flex-start !important;
+    clear: both !important;
+    box-sizing: border-box !important;
+}
+
+body.wsp-active.woocommerce-account .woocommerce::before,
+body.wsp-active.woocommerce-account .woocommerce::after,
+body.wsp-active.wsp-account-redesign .woocommerce::before,
+body.wsp-active.wsp-account-redesign .woocommerce::after {
+    display: none !important;
+    content: none !important;
+    clear: none !important;
 }
 
 @media (max-width: 860px) {
-    body.wsp-active.wsp-account-redesign .woocommerce-account .woocommerce {
+    body.wsp-active.woocommerce-account .woocommerce,
+    body.wsp-active.wsp-account-redesign .woocommerce {
         flex-direction: column !important;
     }
 }
 
 /* My Account Sidebar Navigation */
+body.wsp-active.woocommerce-account .woocommerce-MyAccount-navigation,
 body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation {
     width: 270px !important;
+    min-width: 270px !important;
     flex-shrink: 0 !important;
     float: none !important;
-    margin-right: 0 !important;
-    background: var(--wsp-card-bg) !important;
-    border: 1px solid var(--wsp-border) !important;
-    border-radius: var(--wsp-card-radius) !important;
-    box-shadow: var(--wsp-card-shadow) !important;
-    padding: 12px !important;
+    margin: 0 !important;
+    background: var(--wsp-card-bg, #ffffff) !important;
+    border: 1px solid var(--wsp-border, #e2e8f0) !important;
+    border-radius: var(--wsp-card-radius, 14px) !important;
+    box-shadow: var(--wsp-card-shadow, 0 4px 20px -2px rgba(15, 23, 42, 0.06)) !important;
+    padding: 16px !important;
+    box-sizing: border-box !important;
 }
 
+@media (max-width: 860px) {
+    body.wsp-active.woocommerce-account .woocommerce-MyAccount-navigation,
+    body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+}
+
+body.wsp-active.woocommerce-account .woocommerce-MyAccount-navigation ul,
 body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul {
     list-style: none !important;
     padding: 0 !important;
     margin: 0 !important;
 }
 
+body.wsp-active.woocommerce-account .woocommerce-MyAccount-navigation ul li,
 body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul li {
-    margin: 4px 0 !important;
+    list-style: none !important;
+    margin: 6px 0 !important;
     padding: 0 !important;
 }
 
+body.wsp-active.woocommerce-account .woocommerce-MyAccount-navigation ul li a,
 body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul li a {
     display: flex !important;
     align-items: center !important;
     gap: 12px !important;
     padding: 13px 18px !important;
-    border-radius: var(--wsp-btn-radius) !important;
+    border-radius: var(--wsp-btn-radius, 10px) !important;
     font-size: 14.5px !important;
     font-weight: 600 !important;
-    color: var(--wsp-text) !important;
+    color: var(--wsp-text, #334155) !important;
     text-decoration: none !important;
+    background: transparent !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
+body.wsp-active.woocommerce-account .woocommerce-MyAccount-navigation ul li a:hover,
 body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul li a:hover {
     background: rgba(15, 23, 42, 0.05) !important;
-    color: var(--wsp-heading) !important;
+    color: var(--wsp-heading, #0f172a) !important;
     transform: translateX(3px) !important;
 }
 
+body.wsp-active.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active a,
 body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-navigation ul li.is-active a {
-    background: var(--wsp-primary) !important;
-    color: var(--wsp-primary-text) !important;
+    background: var(--wsp-primary, #0f172a) !important;
+    color: var(--wsp-primary-text, #ffffff) !important;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.16) !important;
 }
 
 /* Horizontal Pills Navigation Variant */
-body.wsp-active.wsp-acc-nav-horizontal_pills .woocommerce-account .woocommerce {
+body.wsp-active.wsp-acc-nav-horizontal_pills.woocommerce-account .woocommerce {
     flex-direction: column !important;
 }
 
 body.wsp-active.wsp-acc-nav-horizontal_pills .woocommerce-MyAccount-navigation {
     width: 100% !important;
+    min-width: 100% !important;
     margin-bottom: 24px !important;
 }
 
@@ -1032,168 +1146,200 @@ body.wsp-active.wsp-acc-nav-horizontal_pills .woocommerce-MyAccount-navigation u
 }
 
 /* My Account Content Area */
+body.wsp-active.woocommerce-account .woocommerce-MyAccount-content,
 body.wsp-active.wsp-account-redesign .woocommerce-MyAccount-content {
     flex: 1 !important;
     min-width: 0 !important;
     float: none !important;
     width: 100% !important;
-    background: var(--wsp-card-bg) !important;
-    border: 1px solid var(--wsp-border) !important;
-    border-radius: var(--wsp-card-radius) !important;
-    box-shadow: var(--wsp-card-shadow) !important;
+    background: var(--wsp-card-bg, #ffffff) !important;
+    border: 1px solid var(--wsp-border, #e2e8f0) !important;
+    border-radius: var(--wsp-card-radius, 14px) !important;
+    box-shadow: var(--wsp-card-shadow, 0 4px 20px -2px rgba(15, 23, 42, 0.06)) !important;
     padding: 32px !important;
+    box-sizing: border-box !important;
 }
 
 /* Welcome Customer Banner */
 .wsp-account-welcome-banner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 18px;
-    padding: 24px;
-    border-radius: var(--wsp-btn-radius);
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.03) 0%, rgba(59, 130, 246, 0.06) 100%);
-    border: 1px solid var(--wsp-border);
-    margin-bottom: 28px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 18px !important;
+    padding: 24px !important;
+    border-radius: var(--wsp-btn-radius, 12px) !important;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.03) 0%, rgba(59, 130, 246, 0.06) 100%) !important;
+    border: 1px solid var(--wsp-border, #e2e8f0) !important;
+    margin-bottom: 28px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
 }
 
 .wsp-account-user-meta {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    gap: 16px !important;
+}
+
+.wsp-account-avatar {
+    flex-shrink: 0 !important;
+    width: 64px !important;
+    height: 64px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .wsp-account-avatar img {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 3px solid #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: block;
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 50% !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    display: block !important;
+    object-fit: cover !important;
+    margin: 0 !important;
+}
+
+.wsp-account-greeting {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
 }
 
 .wsp-account-greeting h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--wsp-heading);
-    margin: 0 0 4px 0;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: var(--wsp-heading, #0f172a) !important;
+    margin: 0 0 4px 0 !important;
+    line-height: 1.3 !important;
 }
 
 .wsp-account-email {
-    font-size: 13.5px;
-    color: var(--wsp-text);
-    opacity: 0.8;
-    margin: 0;
+    font-size: 13.5px !important;
+    color: var(--wsp-text, #475569) !important;
+    opacity: 0.85 !important;
+    margin: 0 !important;
 }
 
 .wsp-account-quick-stats {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
 }
 
 .wsp-stat-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: var(--wsp-card-bg);
-    border: 1px solid var(--wsp-border);
-    border-radius: 8px;
-    padding: 8px 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    background: var(--wsp-card-bg, #ffffff) !important;
+    border: 1px solid var(--wsp-border, #e2e8f0) !important;
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 }
 
 .wsp-stat-num {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--wsp-primary);
-    line-height: 1.1;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    color: var(--wsp-primary, #0f172a) !important;
+    line-height: 1.1 !important;
 }
 
 .wsp-stat-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: var(--wsp-text);
-    opacity: 0.7;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    color: var(--wsp-text, #475569) !important;
+    opacity: 0.7 !important;
 }
 
 .wsp-account-logout-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #ef4444;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    border-radius: 8px;
-    padding: 9px 16px;
-    text-decoration: none;
-    transition: all 0.2s ease;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #ef4444 !important;
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    border-radius: 8px !important;
+    padding: 9px 16px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
 }
 
 .wsp-account-logout-btn:hover {
-    background: #fee2e2;
-    color: #dc2626;
+    background: #fee2e2 !important;
+    color: #dc2626 !important;
 }
 
 /* Orders Table */
+body.wsp-active.woocommerce-account table.woocommerce-orders-table,
 body.wsp-active.wsp-account-redesign table.woocommerce-orders-table {
     width: 100% !important;
     border-collapse: separate !important;
     border-spacing: 0 !important;
-    border: 1px solid var(--wsp-border) !important;
-    border-radius: var(--wsp-btn-radius) !important;
+    border: 1px solid var(--wsp-border, #e2e8f0) !important;
+    border-radius: var(--wsp-btn-radius, 10px) !important;
     overflow: hidden !important;
     margin-bottom: 24px !important;
 }
 
+body.wsp-active.woocommerce-account table.woocommerce-orders-table th,
 body.wsp-active.wsp-account-redesign table.woocommerce-orders-table th {
     background: rgba(15, 23, 42, 0.03) !important;
-    color: var(--wsp-heading) !important;
+    color: var(--wsp-heading, #0f172a) !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     font-size: 12px !important;
     padding: 14px 18px !important;
-    border-bottom: 1px solid var(--wsp-border) !important;
+    border-bottom: 1px solid var(--wsp-border, #e2e8f0) !important;
 }
 
+body.wsp-active.woocommerce-account table.woocommerce-orders-table td,
 body.wsp-active.wsp-account-redesign table.woocommerce-orders-table td {
     padding: 16px 18px !important;
-    border-bottom: 1px solid var(--wsp-border) !important;
+    border-bottom: 1px solid var(--wsp-border, #e2e8f0) !important;
     vertical-align: middle !important;
 }
 
+body.wsp-active.woocommerce-account table.woocommerce-orders-table tr:last-child td,
 body.wsp-active.wsp-account-redesign table.woocommerce-orders-table tr:last-child td {
     border-bottom: none !important;
 }
 
 /* Order Status Badges */
+body.wsp-active.woocommerce-account .woocommerce-orders-table__cell-order-status,
 body.wsp-active.wsp-account-redesign .woocommerce-orders-table__cell-order-status {
     text-transform: capitalize;
     font-weight: 600;
 }
 
+body.wsp-active.woocommerce-account table.woocommerce-orders-table a.button,
 body.wsp-active.wsp-account-redesign table.woocommerce-orders-table a.button {
     padding: 8px 16px !important;
     font-size: 13px !important;
     font-weight: 600 !important;
-    border-radius: var(--wsp-btn-radius) !important;
-    background: var(--wsp-primary) !important;
-    color: var(--wsp-primary-text) !important;
+    border-radius: var(--wsp-btn-radius, 10px) !important;
+    background: var(--wsp-primary, #0f172a) !important;
+    color: var(--wsp-primary-text, #ffffff) !important;
     text-decoration: none !important;
     border: none !important;
     transition: all 0.2s ease !important;
 }
 
+body.wsp-active.woocommerce-account table.woocommerce-orders-table a.button:hover,
 body.wsp-active.wsp-account-redesign table.woocommerce-orders-table a.button:hover {
-    background: var(--wsp-primary-hover) !important;
+    background: var(--wsp-primary-hover, #1e293b) !important;
     transform: translateY(-1px) !important;
 }
 
 /* Addresses Grid */
+body.wsp-active.woocommerce-account .woocommerce-Addresses,
 body.wsp-active.wsp-account-redesign .woocommerce-Addresses {
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
@@ -1201,27 +1347,30 @@ body.wsp-active.wsp-account-redesign .woocommerce-Addresses {
     margin-top: 24px !important;
 }
 
+body.wsp-active.woocommerce-account .woocommerce-Address,
 body.wsp-active.wsp-account-redesign .woocommerce-Address {
-    background: var(--wsp-card-bg) !important;
-    border: 1px solid var(--wsp-border) !important;
+    background: var(--wsp-card-bg, #ffffff) !important;
+    border: 1px solid var(--wsp-border, #e2e8f0) !important;
     border-radius: 12px !important;
     padding: 24px !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
 }
 
+body.wsp-active.woocommerce-account .woocommerce-Address-title h3,
 body.wsp-active.wsp-account-redesign .woocommerce-Address-title h3 {
     font-size: 18px !important;
     font-weight: 700 !important;
-    color: var(--wsp-heading) !important;
+    color: var(--wsp-heading, #0f172a) !important;
     margin: 0 0 12px 0 !important;
 }
 
+body.wsp-active.woocommerce-account .woocommerce-Address a.edit,
 body.wsp-active.wsp-account-redesign .woocommerce-Address a.edit {
     display: inline-block !important;
     margin-top: 14px !important;
     font-size: 13px !important;
     font-weight: 600 !important;
-    color: var(--wsp-accent) !important;
+    color: var(--wsp-accent, #3b82f6) !important;
     text-decoration: underline !important;
 }
 

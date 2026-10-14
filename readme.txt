@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.0.1 =
+* Fix: My Account page layout breakdown caused by accidental preformatted (<pre>) blocks and theme float clearfixes.
+* Fix: Automatic filter to clean <pre> wrappers around WooCommerce shortcodes.
+* Fix: Scoped selectors for body.woocommerce-account and full-width container widths.
+* Enhancement: Modern flexbox 2-column conversion layouts for Cart and Checkout pages.
+* Enhancement: Improved 1-click update file replacement safety.
 
 = 1.0.0 =
 * Initial release of Woo Style+.

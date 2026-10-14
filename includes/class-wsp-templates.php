@@ -62,6 +62,9 @@ class WSP_Templates {
         if ( 'yes' === $settings['myaccount_redesign'] && 'yes' === $settings['myaccount_show_user_header'] ) {
             add_action( 'woocommerce_account_content', array( $this, 'render_myaccount_welcome_banner' ), 2 );
         }
+
+        // Clean accidental <pre class="wp-block-preformatted"> around shortcodes
+        add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 1 );
     }
 
     /**
@@ -223,5 +226,33 @@ class WSP_Templates {
             </div>
         </div>
         <?php
+    }
+
+    /**
+     * Remove accidental <pre class="wp-block-preformatted"> wrappers around WooCommerce shortcodes
+     *
+     * @param string $content
+     * @return string
+     */
+    public function clean_preformatted_shortcode_wrappers( $content ) {
+        if ( empty( $content ) || ! is_string( $content ) ) {
+            return $content;
+        }
+
+        // Clean <pre class="wp-block-preformatted">[woocommerce_...]</pre>
+        $content = preg_replace(
+            '/<pre[^>]*>\s*(\[(?:woocommerce_[a-z0-9_-]+|products|recent_products|featured_products|sale_products|best_selling_products|top_rated_products)[^\]]*\])\s*<\/pre>/is',
+            '$1',
+            $content
+        );
+
+        // Clean <pre class="wp-block-preformatted"><div class="woocommerce">...</div></pre>
+        $content = preg_replace(
+            '/<pre[^>]*class="[^"]*wp-block-preformatted[^"]*"[^>]*>\s*(<div class="woocommerce">[\s\S]*?<\/div>)\s*<\/pre>/is',
+            '$1',
+            $content
+        );
+
+        return $content;
     }
 }

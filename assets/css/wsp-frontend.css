@@ -1165,6 +1165,15 @@ body.wsp-active.wsp-cart-redesign table.shop_table.cart td.actions button[name="
     color: var(--wsp-primary, #0f172a) !important;
 }
 
+/* Auto-Update Cart: Automatically recalculates quantities and hides manual "Update cart" button */
+body.wsp-active.wsp-cart-auto-update table.shop_table.cart td.actions button[name="update_cart"],
+body.wsp-active.wsp-cart-auto-update table.shop_table.cart td.actions input[name="update_cart"],
+body.wsp-active.wsp-cart-auto-update .woocommerce-cart-form button[name="update_cart"],
+body.wsp-active.wsp-cart-auto-update .woocommerce-cart-form input[name="update_cart"],
+body.wsp-active.woocommerce-cart.wsp-cart-auto-update button[name="update_cart"] {
+    display: none !important;
+}
+
 /* Cart Collaterals & Totals (Right Column) */
 body.wsp-active.woocommerce-cart .cart-collaterals,
 body.wsp-active.wsp-cart-redesign .cart-collaterals {

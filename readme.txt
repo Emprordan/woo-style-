@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.1 =
+* Feature: Automatic cart recalculation on quantity changes with debounced AJAX synchronization.
+* Enhancement: Removed the manual "Update cart" button for a clean, modern, seamless shopping cart experience.
+* Feature: Admin toggle in Cart & Checkout tab to enable or disable automatic cart updates.
 
 = 1.2.0 =
 * Fix: Checkout 2-column layout shift where Order Review card dropped underneath customer details.

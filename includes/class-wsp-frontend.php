@@ -154,6 +154,7 @@ class WSP_Frontend {
             'qtyStepper'           => ( 'yes' === $settings['single_qty_stepper'] ),
             'stickyMobileCTA'      => ( 'yes' === $settings['single_sticky_mobile_cta'] ),
             'cartRedesign'         => ( 'yes' === $settings['cart_redesign'] ),
+            'cartAutoUpdate'       => ( 'yes' === WSP_Core::get_setting( 'cart_auto_update', 'yes' ) ),
             'checkoutRedesign'     => ( 'yes' === $settings['checkout_redesign'] ),
             'shippingMethodsStyle' => isset( $settings['shipping_methods_style'] ) ? $settings['shipping_methods_style'] : 'dropdown',
         ) );
@@ -374,6 +375,9 @@ class WSP_Frontend {
         }
         if ( 'yes' === $settings['cart_redesign'] ) {
             $classes[] = 'wsp-cart-redesign';
+        }
+        if ( 'yes' === WSP_Core::get_setting( 'cart_auto_update', 'yes' ) ) {
+            $classes[] = 'wsp-cart-auto-update';
         }
         if ( 'yes' === $settings['checkout_redesign'] ) {
             $classes[] = 'wsp-checkout-redesign';

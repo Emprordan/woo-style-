@@ -249,6 +249,7 @@ class WSP_Presets {
 
             // Cart & Checkout
             'cart_redesign'           => 'yes',
+            'cart_auto_update'        => 'yes',
             'cart_layout'             => 'two_columns',
             'checkout_redesign'       => 'yes',
             'checkout_layout'         => 'two_columns',

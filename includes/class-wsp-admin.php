@@ -104,6 +104,7 @@ class WSP_Admin {
             'single_sticky_mobile_cta',
             'single_stock_badge',
             'cart_redesign',
+            'cart_auto_update',
             'checkout_redesign',
             'checkout_modern_inputs',
             'myaccount_redesign',
@@ -854,6 +855,11 @@ class WSP_Admin {
                                     <label class="wsp-checkbox-item">
                                         <input type="checkbox" name="wsp_settings[cart_redesign]" value="yes" <?php checked( $settings['cart_redesign'], 'yes' ); ?>>
                                         <span><strong><?php esc_html_e( 'Enable Cart Redesign (Modern 2-column layout with sticky totals)', 'woo-style-plus' ); ?></strong></span>
+                                    </label>
+
+                                    <label class="wsp-checkbox-item">
+                                        <input type="checkbox" name="wsp_settings[cart_auto_update]" value="yes" <?php checked( isset( $settings['cart_auto_update'] ) ? $settings['cart_auto_update'] : 'yes', 'yes' ); ?>>
+                                        <span><strong><?php esc_html_e( 'Auto-Update Cart on Quantity Change', 'woo-style-plus' ); ?></strong> (<?php esc_html_e( 'Automatically recalculates totals without requiring the "Update cart" button', 'woo-style-plus' ); ?>)</span>
                                     </label>
 
                                     <label class="wsp-checkbox-item">

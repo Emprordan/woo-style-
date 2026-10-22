@@ -28,6 +28,10 @@
 
                 self.initCheckoutLayout();
 
+                if (typeof wspFrontendData === 'undefined' || wspFrontendData.cartAutoUpdate) {
+                    self.initCartAutoUpdate();
+                }
+
                 // Global close for custom shipping dropdowns when clicking outside
                 $(document).on('click', function(e) {
                     if (!$(e.target).closest('.wsp-custom-shipping-select').length) {
@@ -57,6 +61,10 @@
                 }
 
                 self.initCheckoutLayout();
+
+                if (typeof wspFrontendData === 'undefined' || wspFrontendData.cartAutoUpdate) {
+                    self.initCartAutoUpdate();
+                }
             });
 
             // Catch any background WooCommerce AJAX completions
@@ -535,6 +543,33 @@
             } else if ($review.length && !$review.find('#order_review_heading, .wsp-order-review-heading').length) {
                 $review.prepend('<h3 id="order_review_heading" class="wsp-order-review-heading">Your order</h3>');
             }
+        },
+
+        /**
+         * Auto-update cart when quantities change without needing an "Update cart" button
+         */
+        initCartAutoUpdate: function() {
+            var cartTimer = null;
+
+            $(document).off('change.wsp_auto_cart input.wsp_auto_cart', 'table.cart input.qty, .woocommerce-cart-form input.qty')
+                       .on('change.wsp_auto_cart input.wsp_auto_cart', 'table.cart input.qty, .woocommerce-cart-form input.qty', function() {
+                
+                clearTimeout(cartTimer);
+                var $input = $(this);
+                var $form = $input.closest('form.woocommerce-cart-form');
+                if (!$form.length) {
+                    $form = $('form.woocommerce-cart-form');
+                }
+
+                cartTimer = setTimeout(function() {
+                    var $updateBtn = $form.find('button[name="update_cart"], input[name="update_cart"]');
+                    if ($updateBtn.length) {
+                        $updateBtn.prop('disabled', false).trigger('click');
+                    } else {
+                        $form.trigger('submit');
+                    }
+                }, 550);
+            });
         }
     };
 

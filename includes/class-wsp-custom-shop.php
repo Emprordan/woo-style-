@@ -197,20 +197,22 @@ class WSP_Custom_Shop {
                     <div class="wsp-cs-search-row">
                         <form class="wsp-cs-search-form" role="search" onsubmit="return false;">
                             <div class="wsp-cs-search-box">
-                                <span class="wsp-cs-search-icon" aria-hidden="true">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                                </span>
-                                <input type="search" 
-                                       class="wsp-cs-search-input" 
-                                       name="wsp_search" 
-                                       value="<?php echo esc_attr( $current_search ); ?>" 
-                                       placeholder="<?php esc_attr_e( 'Search products by title, keyword...', 'woo-style-plus' ); ?>" 
-                                       autocomplete="off" />
-                                <button type="button" class="wsp-cs-search-clear" aria-label="<?php esc_attr_e( 'Clear search query', 'woo-style-plus' ); ?>" style="<?php echo empty( $current_search ) ? 'display: none;' : ''; ?>">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                                </button>
-                                <button type="submit" class="wsp-cs-search-submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                <div class="wsp-cs-search-input-wrap">
+                                    <span class="wsp-cs-search-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    </span>
+                                    <input type="search" 
+                                           class="wsp-cs-search-input" 
+                                           name="wsp_search" 
+                                           value="<?php echo esc_attr( $current_search ); ?>" 
+                                           placeholder="<?php esc_attr_e( 'Search products by title, keyword...', 'woo-style-plus' ); ?>" 
+                                           autocomplete="off" />
+                                    <button type="button" class="wsp-cs-search-clear" aria-label="<?php esc_attr_e( 'Clear search query', 'woo-style-plus' ); ?>" style="<?php echo empty( $current_search ) ? 'display: none;' : ''; ?>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                    </button>
+                                </div>
+                                <button type="submit" class="wsp-cs-search-submit" aria-label="<?php esc_attr_e( 'Search', 'woo-style-plus' ); ?>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                     <span><?php esc_html_e( 'Search', 'woo-style-plus' ); ?></span>
                                 </button>
                             </div>

@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,12 @@ Yes. There is a master toggle at the top of the Woo Style+ settings page to acti
 * Feature: Interactive Sorting dropdown (Latest, Popularity, Rating, Price low-to-high, Price high-to-low, Title).
 * Feature: AJAX Product Catalogue with smooth loading states, pagination, and empty state CTA.
 * Feature: Added Custom Shop Shortcode showcase & 1-click copy card in the admin settings dashboard.
+
+= 1.1.3 =
+* Fix: Search input and search button now remain on the exact same row on mobile screens.
+* Enhancement: Search submit button displays exclusively the search icon on mobile screens with compact 42px touch size.
+* Fix: Wrapped search input inside an isolated relative container to eliminate floating search icon misalignment on mobile.
+* Enhancement: Clean horizontal scroll for category pills and aligned sorting controls on mobile devices.
 
 = 1.1.2 =
 * Enhancement: Compact 2-row layout for Custom Shop header container consolidating categories and sorting controls into a unified row.

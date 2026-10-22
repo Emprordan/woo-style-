@@ -2029,6 +2029,14 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     gap: 10px !important;
 }
 
+.wsp-cs-search-input-wrap {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+}
+
 .wsp-cs-search-icon {
     position: absolute !important;
     left: 14px !important;
@@ -2043,14 +2051,14 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     transition: color 0.2s ease !important;
 }
 
-.wsp-cs-search-box:focus-within .wsp-cs-search-icon {
+.wsp-cs-search-input-wrap:focus-within .wsp-cs-search-icon {
     color: var(--wsp-primary, #0f172a) !important;
 }
 
 .wsp-cs-search-input {
-    flex: 1 !important;
+    width: 100% !important;
     height: 44px !important;
-    padding: 8px 38px 8px 42px !important;
+    padding: 8px 36px 8px 42px !important;
     font-size: 14px !important;
     font-weight: 500 !important;
     border: 1.5px solid rgba(15, 23, 42, 0.12) !important;
@@ -2070,7 +2078,7 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
 
 .wsp-cs-search-clear {
     position: absolute !important;
-    right: 122px !important;
+    right: 12px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     width: 22px !important;
@@ -2462,38 +2470,74 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
 /* Mobile Responsiveness for Custom Shop */
 @media (max-width: 680px) {
     .wsp-custom-shop-wrapper {
-        padding-top: 20px !important;
-        padding-bottom: 36px !important;
-        padding-left: 14px !important;
-        padding-right: 14px !important;
+        padding-top: 18px !important;
+        padding-bottom: 32px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
     }
 
     .wsp-custom-shop-header-box {
-        padding: 16px 14px !important;
+        padding: 14px 14px !important;
         margin-bottom: 18px !important;
         border-radius: 12px !important;
     }
 
     .wsp-cs-title {
-        font-size: 20px !important;
+        font-size: 18px !important;
     }
 
+    /* On mobile, keep search input and search button on the SAME line */
     .wsp-cs-search-box {
-        flex-direction: column !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
         gap: 8px !important;
+        width: 100% !important;
+    }
+
+    .wsp-cs-search-input-wrap {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
     }
 
     .wsp-cs-search-input {
-        width: 100% !important;
+        height: 42px !important;
+        font-size: 13.5px !important;
+        padding: 6px 32px 6px 36px !important;
+    }
+
+    .wsp-cs-search-icon {
+        left: 11px !important;
     }
 
     .wsp-cs-search-clear {
-        right: 14px !important;
-        top: 22px !important;
+        right: 8px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
     }
 
+    /* On mobile, search button shows ONLY the search icon */
     .wsp-cs-search-submit {
-        width: 100% !important;
+        width: 42px !important;
+        min-width: 42px !important;
+        max-width: 42px !important;
+        height: 42px !important;
+        padding: 0 !important;
+        border-radius: var(--wsp-btn-radius, 10px) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+
+    .wsp-cs-search-submit span {
+        display: none !important;
+    }
+
+    .wsp-cs-search-submit svg {
+        width: 18px !important;
+        height: 18px !important;
+        margin: 0 !important;
     }
 
     .wsp-cs-controls-row {
@@ -2517,7 +2561,7 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     .wsp-cs-sorting-box,
     .wsp-cs-select-wrap,
     .wsp-cs-sort-select {
-        width: 100% !important;
+        width: auto !important;
     }
 }
 

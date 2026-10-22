@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,7 @@ Transform and modernize all your WooCommerce pages: Shop, Product Cards, Single 
   * **Shortcodes & Gutenberg Blocks**: Full compatibility with `[products]`, `[featured_products]`, `[sale_products]`, `[recent_products]`, and WooCommerce blocks.
   * **Single Product Details**: Modern gallery layouts, interactive (+ / -) quantity steppers, customizable card/underline tabs, and mobile sticky add-to-cart bar.
   * **Cart & Checkout**: Modern 2-column conversion-optimized layouts, sleek form inputs with focus rings, and elevated order summaries.
+  * **Side Cart Drawer & Elementor Widget**: Modern slide-out mini-cart drawer with live quantity steppers, instant item removal, free shipping progress bar, and customizable Elementor cart icon widget.
   * **My Account Portal**: Sleek authentication cards for Login/Register, 2-column dashboard layout, vertical sidebar navigation cards (or horizontal pills), user greeting avatar banner, and colored order status pill badges.
   * **Notices & Banners**: Modern floating alert toasts for cart notifications and errors.
 
@@ -60,6 +61,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.9 =
+* Feature: Elementor Widget "Cart Icon & Side Panel" with comprehensive Content and Style controls for custom icons, trigger layouts, count badge, subtotal, and drawer appearance.
+* Feature: Interactive slide-out Side Cart Drawer with blurred backdrop, smooth spring animation, live item quantity steppers (+ / -), and instant AJAX item removal without leaving the page.
+* Feature: Free Shipping Goal Progress Bar dynamically calculating amount remaining to unlock free delivery.
+* Feature: Auto-open side cart on Add to Cart with live count badge pop animations and WooCommerce fragment synchronization.
+* Feature: Shortcode `[wsp_cart_icon]` for placing the interactive trigger icon anywhere in theme headers, navigation menus, or widget zones.
 
 = 1.2.8 =
 * Fix: Strictly ensured zero shipping options are selected by default on Cart and Checkout pages until explicitly chosen by the customer.

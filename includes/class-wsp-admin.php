@@ -108,6 +108,9 @@ class WSP_Admin {
             'checkout_redesign',
             'checkout_embedded_coupon',
             'checkout_modern_inputs',
+            'side_cart_enabled',
+            'side_cart_auto_open',
+            'side_cart_free_shipping',
             'myaccount_redesign',
             'myaccount_show_user_header',
             'myaccount_order_badges',
@@ -176,6 +179,9 @@ class WSP_Admin {
             'cart_layout',
             'checkout_layout',
             'shipping_methods_style',
+            'side_cart_position',
+            'side_cart_fs_threshold',
+            'side_cart_title',
             'myaccount_nav_style',
             'page_padding_top',
             'page_padding_bottom',
@@ -894,6 +900,59 @@ class WSP_Admin {
                                             <?php esc_html_e( 'Stacked Radio Cards', 'woo-style-plus' ); ?>
                                         </option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="wsp-card-box" style="margin-top: 24px;">
+                                <div class="wsp-box-header">
+                                    <h2><?php esc_html_e( 'Side Cart Drawer & Elementor Widget', 'woo-style-plus' ); ?></h2>
+                                    <p><?php esc_html_e( 'A modern slide-out mini cart drawer with live quantity steppers, instant item removal, free shipping progress bar, and Elementor cart icon widget.', 'woo-style-plus' ); ?></p>
+                                </div>
+
+                                <div class="wsp-toggles-list">
+                                    <label class="wsp-checkbox-item">
+                                        <input type="checkbox" name="wsp_settings[side_cart_enabled]" value="yes" <?php checked( isset( $settings['side_cart_enabled'] ) ? $settings['side_cart_enabled'] : 'yes', 'yes' ); ?>>
+                                        <span><strong><?php esc_html_e( 'Enable Side Cart Drawer Globally', 'woo-style-plus' ); ?></strong> (<?php esc_html_e( 'Renders the slide-out cart panel accessible via the Elementor widget or [wsp_cart_icon] shortcode', 'woo-style-plus' ); ?>)</span>
+                                    </label>
+
+                                    <label class="wsp-checkbox-item">
+                                        <input type="checkbox" name="wsp_settings[side_cart_auto_open]" value="yes" <?php checked( isset( $settings['side_cart_auto_open'] ) ? $settings['side_cart_auto_open'] : 'yes', 'yes' ); ?>>
+                                        <span><?php esc_html_e( 'Automatically open Side Cart drawer when a customer clicks "Add to Cart"', 'woo-style-plus' ); ?></span>
+                                    </label>
+
+                                    <label class="wsp-checkbox-item">
+                                        <input type="checkbox" name="wsp_settings[side_cart_free_shipping]" value="yes" <?php checked( isset( $settings['side_cart_free_shipping'] ) ? $settings['side_cart_free_shipping'] : 'yes', 'yes' ); ?>>
+                                        <span><?php esc_html_e( 'Show Free Shipping Goal Progress Bar inside side cart', 'woo-style-plus' ); ?></span>
+                                    </label>
+                                </div>
+
+                                <div class="wsp-field-row" style="margin-top: 18px; display: flex; gap: 20px; flex-wrap: wrap;">
+                                    <div style="flex: 1 1 200px;">
+                                        <label for="wsp-side-cart-position" style="display: block; font-weight: 600; font-size: 13.5px; margin-bottom: 4px; color: #0f172a;">
+                                            <?php esc_html_e( 'Drawer Slide Position', 'woo-style-plus' ); ?>
+                                        </label>
+                                        <select name="wsp_settings[side_cart_position]" id="wsp-side-cart-position" class="wsp-select" style="max-width: 240px;">
+                                            <option value="right" <?php selected( isset( $settings['side_cart_position'] ) ? $settings['side_cart_position'] : 'right', 'right' ); ?>>
+                                                <?php esc_html_e( 'Slide from Right (Default)', 'woo-style-plus' ); ?>
+                                            </option>
+                                            <option value="left" <?php selected( isset( $settings['side_cart_position'] ) ? $settings['side_cart_position'] : 'right', 'left' ); ?>>
+                                                <?php esc_html_e( 'Slide from Left', 'woo-style-plus' ); ?>
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div style="flex: 1 1 220px;">
+                                        <label for="wsp-side-cart-threshold" style="display: block; font-weight: 600; font-size: 13.5px; margin-bottom: 4px; color: #0f172a;">
+                                            <?php esc_html_e( 'Free Shipping Goal Amount', 'woo-style-plus' ); ?>
+                                        </label>
+                                        <input type="number" name="wsp_settings[side_cart_fs_threshold]" id="wsp-side-cart-threshold" value="<?php echo esc_attr( isset( $settings['side_cart_fs_threshold'] ) ? $settings['side_cart_fs_threshold'] : '50000' ); ?>" class="wsp-input" style="max-width: 200px;" step="100" min="0">
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 18px; padding: 12px 16px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 13px; color: #475569;">
+                                    <strong><?php esc_html_e( '💡 Elementor Widget & Shortcode:', 'woo-style-plus' ); ?></strong>
+                                    <?php esc_html_e( 'In the Elementor editor, look for the "Cart Icon & Side Panel" widget under the "Woo Style+" category. You can also use the shortcode', 'woo-style-plus' ); ?>
+                                    <code>[wsp_cart_icon]</code> <?php esc_html_e( 'in any theme header or widget area.', 'woo-style-plus' ); ?>
                                 </div>
                             </div>
                         </div>

@@ -257,6 +257,14 @@ class WSP_Presets {
             'checkout_modern_inputs'  => 'yes',
             'shipping_methods_style'  => 'dropdown', // dropdown, cards
 
+            // Side Cart Drawer & Elementor Widget
+            'side_cart_enabled'       => 'yes',
+            'side_cart_auto_open'     => 'yes',
+            'side_cart_position'      => 'right', // right, left
+            'side_cart_free_shipping' => 'yes',
+            'side_cart_fs_threshold'  => '50000',
+            'side_cart_title'         => 'Shopping Cart',
+
             // My Account Page
             'myaccount_redesign'          => 'yes',
             'myaccount_nav_style'         => 'sidebar_cards', // sidebar_cards, horizontal_pills

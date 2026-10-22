@@ -3,7 +3,7 @@
  * Plugin Name: Woo Style+
  * Plugin URI: https://wordpress.org/plugins/woo-style-plus/
  * Description: Ultimate WooCommerce redesign suite. Transform your Shop page, Product cards, Single product, Cart, and Checkout pages with modern presets, responsive grids, and full styling controls. Fully compatible with all themes and shortcodes.
- * Version: 1.2.8
+ * Version: 1.2.9
  * Author: Excellence
  * Author URI: https://woostyleplus.local
  * Text Domain: woo-style-plus
@@ -19,7 +19,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Plugin Constants
-define( 'WSP_VERSION', '1.2.8' );
+define( 'WSP_VERSION', '1.2.9' );
 define( 'WSP_PLUGIN_FILE', __FILE__ );
 define( 'WSP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WSP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -82,11 +82,24 @@ function wsp_init() {
     require_once WSP_PLUGIN_DIR . 'includes/class-wsp-frontend.php';
     require_once WSP_PLUGIN_DIR . 'includes/class-wsp-templates.php';
     require_once WSP_PLUGIN_DIR . 'includes/class-wsp-custom-shop.php';
+    require_once WSP_PLUGIN_DIR . 'includes/class-wsp-side-cart.php';
     require_once WSP_PLUGIN_DIR . 'includes/class-wsp-updater.php';
 
     // Start Core & Updater instances
     WSP_Core::instance();
+    WSP_Side_Cart::instance();
     WSP_Updater::instance();
+
+    // Elementor Widget Integration
+    if ( did_action( 'elementor/loaded' ) ) {
+        require_once WSP_PLUGIN_DIR . 'includes/elementor/class-wsp-elementor.php';
+        WSP_Elementor::instance();
+    } else {
+        add_action( 'elementor/init', function() {
+            require_once WSP_PLUGIN_DIR . 'includes/elementor/class-wsp-elementor.php';
+            WSP_Elementor::instance();
+        } );
+    }
 }
 add_action( 'plugins_loaded', 'wsp_init' );
 

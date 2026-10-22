@@ -785,10 +785,15 @@ class WSP_Admin {
                                 <ul style="margin: 0; padding-left: 20px; color: #475569; font-size: 13.5px; line-height: 1.8;">
                                     <li><code>title="Our Shop"</code> &mdash; <?php esc_html_e( 'Custom heading displayed inside the top container.', 'woo-style-plus' ); ?></li>
                                     <li><code>subtitle="..."</code> &mdash; <?php esc_html_e( 'Subheading description underneath the title.', 'woo-style-plus' ); ?></li>
+                                    <li><code>badge="Featured"</code> &mdash; <?php esc_html_e( 'Small accent pill badge above the title.', 'woo-style-plus' ); ?></li>
+                                    <li><code>header_bg="gradient"</code> &mdash; <?php esc_html_e( 'Top container background: "gradient", "emerald", "slate", "dark", or any custom hex/CSS color.', 'woo-style-plus' ); ?></li>
+                                    <li><code>padding="40px 24px 60px"</code> &mdash; <?php esc_html_e( 'Outer padding around the entire shop widget.', 'woo-style-plus' ); ?></li>
+                                    <li><code>radius="20px"</code> &mdash; <?php esc_html_e( 'Corner radius for the top search & filter container.', 'woo-style-plus' ); ?></li>
                                     <li><code>columns="4"</code> &mdash; <?php esc_html_e( 'Desktop product columns (e.g. 2, 3, 4, 5, 6).', 'woo-style-plus' ); ?></li>
                                     <li><code>limit="12"</code> &mdash; <?php esc_html_e( 'Number of products per page.', 'woo-style-plus' ); ?></li>
                                     <li><code>show_search="yes"</code> &mdash; <?php esc_html_e( 'Toggle the interactive product search bar ("yes" or "no").', 'woo-style-plus' ); ?></li>
                                     <li><code>show_categories="yes"</code> &mdash; <?php esc_html_e( 'Toggle the category pills filter ("yes" or "no").', 'woo-style-plus' ); ?></li>
+                                    <li><code>hide_empty="no"</code> &mdash; <?php esc_html_e( 'Show or hide categories with 0 products ("no" or "yes").', 'woo-style-plus' ); ?></li>
                                     <li><code>show_counts="yes"</code> &mdash; <?php esc_html_e( 'Display product counts inside each category pill.', 'woo-style-plus' ); ?></li>
                                     <li><code>show_sorting="yes"</code> &mdash; <?php esc_html_e( 'Display the ordering / sort dropdown ("yes" or "no").', 'woo-style-plus' ); ?></li>
                                     <li><code>category="seeds"</code> &mdash; <?php esc_html_e( 'Pre-filter by a specific category slug on initial page load.', 'woo-style-plus' ); ?></li>

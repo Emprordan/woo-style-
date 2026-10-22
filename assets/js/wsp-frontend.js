@@ -190,7 +190,11 @@
                                     $pagination.html(response.data.pagination);
                                 }
                                 if ($countBox.length && response.data.count_text) {
-                                    $countBox.text(response.data.count_text);
+                                    if ($countBox.find('.wsp-cs-count-label').length) {
+                                        $countBox.find('.wsp-cs-count-label').text(response.data.count_text);
+                                    } else {
+                                        $countBox.text(response.data.count_text);
+                                    }
                                 }
 
                                 // Re-trigger WooCommerce fragments / events

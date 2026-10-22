@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,21 @@ Yes. There is a master toggle at the top of the Woo Style+ settings page to acti
 * Feature: Interactive Sorting dropdown (Latest, Popularity, Rating, Price low-to-high, Price high-to-low, Title).
 * Feature: AJAX Product Catalogue with smooth loading states, pagination, and empty state CTA.
 * Feature: Added Custom Shop Shortcode showcase & 1-click copy card in the admin settings dashboard.
+
+= 1.1.1 =
+* Enhancement: Redesigned Custom Shop Page shortcode [wsp_custom_shop] with a fancy, luxury styled search & category header.
+* Feature: Added distinct tinted gradient background to the header container with support for custom backgrounds via header_bg attribute ("gradient", "emerald", "slate", "dark", or custom hex/CSS).
+* Feature: Added generous outer page paddings around the custom shop widget with support for custom padding attribute.
+* Feature: Elevated floating white search bar with search button icon, clear button, and focus glow.
+* Fix: Changed default hide_empty to 'no' so created categories display prominently even when products have not yet been assigned.
+* Feature: Added badge attribute for optional chic header pill badges.
+
+= 1.1.0 =
+* Feature: Introduced Custom Shop Page shortcodes [wsp_custom_shop], [woo_style_custom_shop], and [woo_style_shop].
+* Feature: Live AJAX debounced search bar filtering WooCommerce catalogue without full page reload.
+* Feature: Interactive Category Pills with live counter badges.
+* Feature: Integrated sorting dropdown (latest, popularity, rating, price low-to-high, price high-to-low, name A-Z).
+* Feature: Responsive product catalogue grid with custom desktop column attributes and pagination.
 
 = 1.0.9 =
 * Critical Fix: Removed destructive directory deletion and move logic from post_install_cleanup in the in-app updater.

@@ -50,6 +50,7 @@ class WSP_Custom_Shop {
         $atts = shortcode_atts( array(
             'title'              => '',
             'subtitle'           => '',
+            'badge'              => '',
             'show_search'        => 'yes',
             'show_categories'    => 'yes',
             'show_counts'        => 'yes',
@@ -62,7 +63,11 @@ class WSP_Custom_Shop {
             'category'           => '',
             'include_categories' => '',
             'exclude_categories' => '',
-            'hide_empty'         => 'yes',
+            'hide_empty'         => 'no', // Default to 'no' so all categories display prominently
+            'header_bg'          => 'gradient', // 'gradient', 'light', 'emerald', 'dark', 'slate', or custom CSS/hex
+            'padding'            => '', // Custom wrapper padding e.g. "40px 24px 60px"
+            'radius'             => '', // Custom border radius e.g. "20px"
+            'max_width'          => '', // Custom container max-width e.g. "1280px"
         ), $atts, 'wsp_custom_shop' );
 
         // Read URL query params for initial state / bookmarking fallback
@@ -111,6 +116,40 @@ class WSP_Custom_Shop {
             $total_all_products = isset( $count_obj->publish ) ? intval( $count_obj->publish ) : 0;
         }
 
+        // Determine header box background style and classes
+        $header_classes = array( 'wsp-custom-shop-header-box' );
+        $header_inline_style = '';
+        $header_bg = trim( $atts['header_bg'] );
+
+        if ( 'emerald' === $header_bg || 'green' === $header_bg ) {
+            $header_classes[] = 'wsp-header-bg-emerald';
+        } elseif ( 'slate' === $header_bg ) {
+            $header_classes[] = 'wsp-header-bg-slate';
+        } elseif ( 'dark' === $header_bg ) {
+            $header_classes[] = 'wsp-header-bg-dark';
+        } elseif ( 'gradient' === $header_bg || 'light' === $header_bg || empty( $header_bg ) ) {
+            $header_classes[] = 'wsp-header-bg-gradient';
+        } else {
+            // Custom CSS color or gradient
+            $header_inline_style = 'background: ' . esc_attr( $header_bg ) . ' !important;';
+        }
+
+        // Custom wrapper inline styles
+        $wrapper_inline_styles = array();
+        if ( ! empty( $atts['padding'] ) ) {
+            $wrapper_inline_styles[] = 'padding: ' . esc_attr( $atts['padding'] ) . ' !important;';
+        }
+        if ( ! empty( $atts['max_width'] ) ) {
+            $wrapper_inline_styles[] = 'max-width: ' . esc_attr( $atts['max_width'] ) . ' !important;';
+        }
+        $wrapper_style_attr = ! empty( $wrapper_inline_styles ) ? ' style="' . implode( ' ', $wrapper_inline_styles ) . '"' : '';
+
+        // Custom header border radius if set
+        if ( ! empty( $atts['radius'] ) ) {
+            $header_inline_style .= ' border-radius: ' . esc_attr( $atts['radius'] ) . ' !important;';
+        }
+        $header_style_attr = ! empty( $header_inline_style ) ? ' style="' . trim( $header_inline_style ) . '"' : '';
+
         // Query initial products
         $query_result = $this->query_products( array(
             'search'   => $current_search,
@@ -129,12 +168,18 @@ class WSP_Custom_Shop {
              data-columns="<?php echo esc_attr( $atts['columns'] ); ?>"
              data-limit="<?php echo esc_attr( $atts['limit'] ); ?>"
              data-paginate="<?php echo esc_attr( $atts['paginate'] ); ?>"
-             data-default-order="<?php echo esc_attr( $atts['order'] ); ?>">
+             data-default-order="<?php echo esc_attr( $atts['order'] ); ?>"<?php echo $wrapper_style_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
             <!-- TOP CONTAINER: SEARCH & CATEGORIES HEADER -->
-            <div class="wsp-custom-shop-header-box">
-                <?php if ( ! empty( $atts['title'] ) || ! empty( $atts['subtitle'] ) ) : ?>
+            <div class="<?php echo esc_attr( implode( ' ', $header_classes ) ); ?>"<?php echo $header_style_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+                <?php if ( ! empty( $atts['badge'] ) || ! empty( $atts['title'] ) || ! empty( $atts['subtitle'] ) ) : ?>
                     <div class="wsp-cs-header-titles">
+                        <?php if ( ! empty( $atts['badge'] ) ) : ?>
+                            <div class="wsp-cs-badge">
+                                <span class="wsp-cs-badge-dot" aria-hidden="true"></span>
+                                <?php echo esc_html( $atts['badge'] ); ?>
+                            </div>
+                        <?php endif; ?>
                         <?php if ( ! empty( $atts['title'] ) ) : ?>
                             <h2 class="wsp-cs-title"><?php echo esc_html( $atts['title'] ); ?></h2>
                         <?php endif; ?>
@@ -150,7 +195,7 @@ class WSP_Custom_Shop {
                         <form class="wsp-cs-search-form" role="search" onsubmit="return false;">
                             <div class="wsp-cs-search-box">
                                 <span class="wsp-cs-search-icon" aria-hidden="true">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                 </span>
                                 <input type="search" 
                                        class="wsp-cs-search-input" 
@@ -162,6 +207,7 @@ class WSP_Custom_Shop {
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                                 </button>
                                 <button type="submit" class="wsp-cs-search-submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                     <span><?php esc_html_e( 'Search', 'woo-style-plus' ); ?></span>
                                 </button>
                             </div>
@@ -180,6 +226,9 @@ class WSP_Custom_Shop {
                                         data-category="" 
                                         role="tab" 
                                         aria-selected="<?php echo empty( $current_category ) ? 'true' : 'false'; ?>">
+                                    <span class="wsp-cs-cat-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                    </span>
                                     <span class="wsp-cs-cat-name"><?php esc_html_e( 'All Products', 'woo-style-plus' ); ?></span>
                                     <?php if ( 'yes' === $atts['show_counts'] && $total_all_products > 0 ) : ?>
                                         <span class="wsp-cs-cat-count"><?php echo esc_html( $total_all_products ); ?></span>
@@ -206,21 +255,27 @@ class WSP_Custom_Shop {
                 <!-- Meta & Sorting Bar -->
                 <div class="wsp-cs-meta-row">
                     <div class="wsp-cs-result-count" aria-live="polite">
-                        <?php echo esc_html( $query_result['count_text'] ); ?>
+                        <span class="wsp-cs-count-dot" aria-hidden="true"></span>
+                        <span class="wsp-cs-count-label"><?php echo esc_html( $query_result['count_text'] ); ?></span>
                     </div>
 
                     <div class="wsp-cs-meta-right">
                         <?php if ( 'yes' === $atts['show_sorting'] ) : ?>
                             <div class="wsp-cs-sorting-box">
                                 <label for="wsp-sort-<?php echo esc_attr( $instance_id ); ?>" class="screen-reader-text"><?php esc_html_e( 'Sort products', 'woo-style-plus' ); ?></label>
-                                <select id="wsp-sort-<?php echo esc_attr( $instance_id ); ?>" class="wsp-cs-sort-select">
-                                    <option value="date" <?php selected( $current_orderby, 'date' ); ?>><?php esc_html_e( 'Sort by latest', 'woo-style-plus' ); ?></option>
-                                    <option value="popularity" <?php selected( $current_orderby, 'popularity' ); ?>><?php esc_html_e( 'Sort by popularity', 'woo-style-plus' ); ?></option>
-                                    <option value="rating" <?php selected( $current_orderby, 'rating' ); ?>><?php esc_html_e( 'Sort by average rating', 'woo-style-plus' ); ?></option>
-                                    <option value="price" <?php selected( $current_orderby, 'price' ); ?>><?php esc_html_e( 'Sort by price: low to high', 'woo-style-plus' ); ?></option>
-                                    <option value="price-desc" <?php selected( $current_orderby, 'price-desc' ); ?>><?php esc_html_e( 'Sort by price: high to low', 'woo-style-plus' ); ?></option>
-                                    <option value="title" <?php selected( $current_orderby, 'title' ); ?>><?php esc_html_e( 'Sort by name: A to Z', 'woo-style-plus' ); ?></option>
-                                </select>
+                                <div class="wsp-cs-select-wrap">
+                                    <select id="wsp-sort-<?php echo esc_attr( $instance_id ); ?>" class="wsp-cs-sort-select">
+                                        <option value="date" <?php selected( $current_orderby, 'date' ); ?>><?php esc_html_e( 'Sort by latest', 'woo-style-plus' ); ?></option>
+                                        <option value="popularity" <?php selected( $current_orderby, 'popularity' ); ?>><?php esc_html_e( 'Sort by popularity', 'woo-style-plus' ); ?></option>
+                                        <option value="rating" <?php selected( $current_orderby, 'rating' ); ?>><?php esc_html_e( 'Sort by average rating', 'woo-style-plus' ); ?></option>
+                                        <option value="price" <?php selected( $current_orderby, 'price' ); ?>><?php esc_html_e( 'Sort by price: low to high', 'woo-style-plus' ); ?></option>
+                                        <option value="price-desc" <?php selected( $current_orderby, 'price-desc' ); ?>><?php esc_html_e( 'Sort by price: high to low', 'woo-style-plus' ); ?></option>
+                                        <option value="title" <?php selected( $current_orderby, 'title' ); ?>><?php esc_html_e( 'Sort by name: A to Z', 'woo-style-plus' ); ?></option>
+                                    </select>
+                                    <span class="wsp-cs-select-arrow" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                                    </span>
+                                </div>
                             </div>
                         <?php endif; ?>
                     </div>

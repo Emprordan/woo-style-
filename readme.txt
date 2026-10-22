@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.8 =
+* Fix: Strictly ensured zero shipping options are selected by default on Cart and Checkout pages until explicitly chosen by the customer.
+* Enhancement: Session tracking for explicit user shipping selection, preventing WooCommerce from auto-populating or defaulting to the first shipping rate.
+* Enhancement: Shipping fee displays as ₦0 / unselected and dropdown displays "Select delivery zone..." placeholder by default on initial page visit.
+* Enhancement: Seamless AJAX prefiltering to ensure manual shipping selection is reliably synced to the server and retained throughout checkout.
 
 = 1.2.7 =
 * Fix: Cart totals table column overflow where subtotal and grand total prices were pushed outside the right boundary of the Cart Totals card.

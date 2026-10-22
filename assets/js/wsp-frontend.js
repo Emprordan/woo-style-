@@ -13,7 +13,22 @@
         init: function() {
             var self = this;
 
+            // Global AJAX Prefilter: attach user selection flag when shipping has been explicitly chosen
+            $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+                if (sessionStorage.getItem('wsp_shipping_user_selected') === '1') {
+                    if (typeof options.data === 'string' && options.data.indexOf('wsp_user_chosen_shipping') === -1) {
+                        options.data += (options.data.length ? '&' : '') + 'wsp_user_chosen_shipping=1';
+                    }
+                }
+            });
+
             $(document).ready(function() {
+                // If cart is empty, clear shipping selection from session storage
+                if ($('.cart-empty').length || $('.woocommerce-empty-cart-wrapper').length) {
+                    sessionStorage.removeItem('wsp_shipping_user_selected');
+                    sessionStorage.removeItem('wsp_shipping_chosen_id');
+                }
+
                 if (typeof wspFrontendData !== 'undefined' && wspFrontendData.qtyStepper) {
                     self.initQuantitySteppers();
                 }
@@ -387,13 +402,28 @@
                 $ul.siblings('.wsp-custom-shipping-select').remove();
                 $ul.siblings('.wsp-shipping-dropdown-wrap').remove();
 
+                var userHasChosen = sessionStorage.getItem('wsp_shipping_user_selected') === '1';
+                var savedMethodVal = sessionStorage.getItem('wsp_shipping_chosen_id');
+
+                // Force uncheck all radios if user has not explicitly picked a zone yet
+                if (!userHasChosen) {
+                    $radios.prop('checked', false);
+                }
+
                 var methods = [];
                 var activeMethod = null;
 
                 $radios.each(function() {
                     var $radio = $(this);
                     var val = $radio.val();
-                    var isChecked = $radio.is(':checked');
+                    var isChecked = userHasChosen && ($radio.is(':checked') || (savedMethodVal && val === savedMethodVal));
+
+                    if (isChecked && !activeMethod) {
+                        $radio.prop('checked', true);
+                    } else if (!userHasChosen) {
+                        $radio.prop('checked', false);
+                    }
+
                     var $li = $radio.closest('li');
                     var $label = $li.find('label');
 
@@ -477,6 +507,20 @@
                         e.preventDefault();
                         e.stopPropagation();
 
+                        // Mark as chosen in session
+                        sessionStorage.setItem('wsp_shipping_user_selected', '1');
+                        sessionStorage.setItem('wsp_shipping_chosen_id', m.val);
+
+                        // Inject hidden flag inputs into forms
+                        var $cartForm = $('form.woocommerce-cart-form');
+                        if ($cartForm.length && !$cartForm.find('input[name="wsp_user_chosen_shipping"]').length) {
+                            $cartForm.append('<input type="hidden" name="wsp_user_chosen_shipping" value="1">');
+                        }
+                        var $checkoutForm = $('form.checkout, #order_review');
+                        if ($checkoutForm.length && !$checkoutForm.find('input[name="wsp_user_chosen_shipping"]').length) {
+                            $('form.checkout').append('<input type="hidden" name="wsp_user_chosen_shipping" value="1">');
+                        }
+
                         // Close menu
                         $dropdown.removeClass('is-open');
                         $trigger.removeClass('is-placeholder wsp-field-required-pulse').attr('aria-expanded', 'false');
@@ -502,7 +546,7 @@
                         var $targetRadio = $ul.find('input.shipping_method').filter(function() {
                             return $(this).val() === m.val;
                         });
-                        if ($targetRadio.length && !$targetRadio.is(':checked')) {
+                        if ($targetRadio.length) {
                             $targetRadio.prop('checked', true).trigger('change');
                         }
                     });
@@ -532,6 +576,9 @@
                 $ul.find('input.shipping_method').off('change.wsp_sync').on('change.wsp_sync', function() {
                     var checkedVal = $ul.find('input.shipping_method:checked').val();
                     if (checkedVal) {
+                        sessionStorage.setItem('wsp_shipping_user_selected', '1');
+                        sessionStorage.setItem('wsp_shipping_chosen_id', checkedVal);
+
                         var matchedOpt = null;
                         $.each(methods, function(idx, m) {
                             if (m.val === checkedVal) {
@@ -571,7 +618,8 @@
             $(document).off('click.wsp_req_shipping', '.checkout-button, a.checkout-button, .wc-proceed-to-checkout a')
                        .on('click.wsp_req_shipping', '.checkout-button, a.checkout-button, .wc-proceed-to-checkout a', function(e) {
                 var $radios = $('input.shipping_method');
-                if ($radios.length && !$radios.filter(':checked').length) {
+                var isSelected = sessionStorage.getItem('wsp_shipping_user_selected') === '1' && $radios.filter(':checked').length > 0;
+                if ($radios.length > 1 && !isSelected) {
                     e.preventDefault();
                     e.stopPropagation();
 
@@ -599,7 +647,8 @@
             $(document).off('click.wsp_req_shipping_checkout', '#place_order')
                        .on('click.wsp_req_shipping_checkout', '#place_order', function(e) {
                 var $radios = $('input.shipping_method');
-                if ($radios.length && !$radios.filter(':checked').length) {
+                var isSelected = sessionStorage.getItem('wsp_shipping_user_selected') === '1' && $radios.filter(':checked').length > 0;
+                if ($radios.length > 1 && !isSelected) {
                     e.preventDefault();
                     e.stopPropagation();
 
@@ -620,6 +669,7 @@
                     } else {
                         $('form.checkout').before(alertHtml);
                     }
+                    return false;
                 }
             });
         },

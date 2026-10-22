@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,10 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.6 =
+* Enhancement: Reduced top padding on Checkout page by 50% (from 40px to 20px) for a more compact and elegant layout.
+* Fix: Reset theme wrapper padding and margins (#primary, .site-content, .entry-content, .entry-header) on checkout page to remove excessive white space between the site header and checkout cards.
 
 = 1.2.5 =
 * Fix: Checkout review order table column overflow where product totals, subtotals, and total prices spilled outside the card boundary.

@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.8
+Stable tag: 1.1.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.1.9 =
+* Redesign: Fancy custom dropdown UI for Cart & Checkout shipping / delivery methods with separate zone titles and highlighted emerald price badges.
+* Enhancement: Elevated floating option menu with checkmark indicators, smooth hover transitions, and clean rounded card borders.
+* Enhancement: Stacked shipment row layout in Cart Totals table giving the dropdown 100% full card width to prevent text truncation.
+* Feature: Outside click and Escape key dismissal for custom floating shipping dropdown.
 
 = 1.1.8 =
 * Feature: Compact Dropdown Select for Cart & Checkout shipping / delivery methods, replacing stacked radio lists with a sleek single-line select menu and custom chevron icon.

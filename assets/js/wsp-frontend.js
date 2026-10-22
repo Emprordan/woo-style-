@@ -26,6 +26,21 @@
                     self.initShippingDropdown();
                 }
 
+                // Global close for custom shipping dropdowns when clicking outside
+                $(document).on('click', function(e) {
+                    if (!$(e.target).closest('.wsp-custom-shipping-select').length) {
+                        $('.wsp-custom-shipping-select').removeClass('is-open');
+                        $('.wsp-css-trigger').attr('aria-expanded', 'false');
+                    }
+                });
+
+                $(document).on('keydown', function(e) {
+                    if (e.key === 'Escape' || e.keyCode === 27) {
+                        $('.wsp-custom-shipping-select').removeClass('is-open');
+                        $('.wsp-css-trigger').attr('aria-expanded', 'false');
+                    }
+                });
+
                 self.initCustomShop();
             });
 
@@ -306,15 +321,16 @@
         },
 
         /**
-         * Initialize compact modern dropdown for delivery / shipping methods
+         * Initialize fancy modern dropdown for delivery / shipping methods
          */
         initShippingDropdown: function() {
             $('ul#shipping_method, ul.woocommerce-shipping-methods').each(function() {
                 var $ul = $(this);
                 var $radios = $ul.find('input.shipping_method');
 
-                // If only 1 option or none, keep standard presentation and clean up any dropdown
+                // If only 1 option or none, keep standard presentation and clean up any custom dropdown
                 if ($radios.length <= 1) {
+                    $ul.siblings('.wsp-custom-shipping-select').remove();
                     $ul.siblings('.wsp-shipping-dropdown-wrap').remove();
                     $ul.removeClass('wsp-shipping-hidden');
                     return;
@@ -324,21 +340,11 @@
                 $ul.addClass('wsp-shipping-hidden');
 
                 // Remove existing dropdown wrapper if present to refresh with latest options
+                $ul.siblings('.wsp-custom-shipping-select').remove();
                 $ul.siblings('.wsp-shipping-dropdown-wrap').remove();
 
-                var $wrap = $(
-                    '<div class="wsp-shipping-dropdown-wrap">' +
-                        '<select class="wsp-shipping-select" aria-label="Select delivery method"></select>' +
-                        '<span class="wsp-shipping-dropdown-icon" aria-hidden="true">' +
-                            '<svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">' +
-                                '<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />' +
-                            '</svg>' +
-                        '</span>' +
-                    '</div>'
-                );
-
-                var $select = $wrap.find('select.wsp-shipping-select');
-                var hasChecked = false;
+                var methods = [];
+                var activeMethod = null;
 
                 $radios.each(function() {
                     var $radio = $(this);
@@ -347,55 +353,170 @@
                     var $li = $radio.closest('li');
                     var $label = $li.find('label');
 
-                    var labelText = '';
-                    if ($label.length) {
+                    var priceText = '';
+                    var titleText = '';
+
+                    var $priceEl = $label.find('.woocommerce-Price-amount, .amount');
+                    if ($priceEl.length) {
+                        priceText = $priceEl.first().text().replace(/\s+/g, ' ').trim();
                         var $clone = $label.clone();
-                        $clone.find('script, style, noscript').remove();
-                        labelText = $clone.text().replace(/\s+/g, ' ').trim();
+                        $clone.find('.woocommerce-Price-amount, .amount, script, style').remove();
+                        titleText = $clone.text().replace(/\s+/g, ' ').trim();
+                        titleText = titleText.replace(/[:\-–—\s]+$/, '').trim();
+                    } else {
+                        var fullText = $label.text().replace(/\s+/g, ' ').trim();
+                        var parts = fullText.split(':');
+                        if (parts.length > 1) {
+                            priceText = parts.pop().trim();
+                            titleText = parts.join(':').trim();
+                        } else {
+                            titleText = fullText || val;
+                            priceText = '';
+                        }
                     }
 
-                    if (!labelText) {
-                        labelText = val;
+                    var methodObj = {
+                        val: val,
+                        title: titleText,
+                        price: priceText,
+                        isChecked: isChecked
+                    };
+
+                    methods.push(methodObj);
+
+                    if (isChecked && !activeMethod) {
+                        activeMethod = methodObj;
                     }
-
-                    var $opt = $('<option></option>').val(val).text(labelText);
-
-                    if (isChecked) {
-                        $opt.prop('selected', true);
-                        hasChecked = true;
-                    }
-
-                    $select.append($opt);
                 });
 
                 // Default to first option if none is marked checked
-                if (!hasChecked && $radios.length) {
+                if (!activeMethod && methods.length) {
+                    activeMethod = methods[0];
                     $radios.first().prop('checked', true);
-                    $select.val($radios.first().val());
                 }
 
-                // Handle dropdown change -> sync with hidden radio and fire WooCommerce recalculation
-                $select.on('change', function(e) {
-                    e.stopPropagation();
-                    var newVal = $(this).val();
-                    var $targetRadio = $ul.find('input.shipping_method').filter(function() {
-                        return $(this).val() === newVal;
+                // Build HTML for Fancy Custom Dropdown
+                var $dropdown = $('<div class="wsp-custom-shipping-select"></div>');
+
+                // Trigger button
+                var $trigger = $(
+                    '<button type="button" class="wsp-css-trigger" aria-haspopup="listbox" aria-expanded="false">' +
+                        '<span class="wsp-css-trigger-content">' +
+                            '<span class="wsp-css-trigger-title">' + (activeMethod ? activeMethod.title : '') + '</span>' +
+                            (activeMethod && activeMethod.price ? '<span class="wsp-css-trigger-price">' + activeMethod.price + '</span>' : '') +
+                        '</span>' +
+                        '<span class="wsp-css-trigger-arrow" aria-hidden="true">' +
+                            '<svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">' +
+                                '<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>' +
+                            '</svg>' +
+                        '</span>' +
+                    '</button>'
+                );
+
+                // Floating Menu container
+                var $menu = $('<div class="wsp-css-menu" role="listbox"></div>');
+
+                // Populate option rows
+                $.each(methods, function(idx, m) {
+                    var isSel = (activeMethod && activeMethod.val === m.val);
+                    var $opt = $(
+                        '<div class="wsp-css-option' + (isSel ? ' is-selected' : '') + '" role="option" aria-selected="' + (isSel ? 'true' : 'false') + '" data-value="' + m.val + '">' +
+                            '<span class="wsp-css-opt-indicator" aria-hidden="true">' +
+                                '<svg viewBox="0 0 20 20" fill="currentColor" width="12" height="12">' +
+                                    '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>' +
+                                '</svg>' +
+                            '</span>' +
+                            '<span class="wsp-css-opt-title">' + m.title + '</span>' +
+                            (m.price ? '<span class="wsp-css-opt-price">' + m.price + '</span>' : '') +
+                        '</div>'
+                    );
+
+                    $opt.on('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Close menu
+                        $dropdown.removeClass('is-open');
+                        $trigger.attr('aria-expanded', 'false');
+
+                        // Update trigger display
+                        $trigger.find('.wsp-css-trigger-title').text(m.title);
+                        var $priceBadge = $trigger.find('.wsp-css-trigger-price');
+                        if (m.price) {
+                            if ($priceBadge.length) {
+                                $priceBadge.text(m.price);
+                            } else {
+                                $trigger.find('.wsp-css-trigger-content').append('<span class="wsp-css-trigger-price">' + m.price + '</span>');
+                            }
+                        } else {
+                            $priceBadge.remove();
+                        }
+
+                        // Update option selected styling
+                        $menu.find('.wsp-css-option').removeClass('is-selected').attr('aria-selected', 'false');
+                        $opt.addClass('is-selected').attr('aria-selected', 'true');
+
+                        // Check corresponding native radio and trigger WooCommerce update
+                        var $targetRadio = $ul.find('input.shipping_method').filter(function() {
+                            return $(this).val() === m.val;
+                        });
+                        if ($targetRadio.length && !$targetRadio.is(':checked')) {
+                            $targetRadio.prop('checked', true).trigger('change');
+                        }
                     });
 
-                    if ($targetRadio.length) {
-                        $targetRadio.prop('checked', true).trigger('change');
+                    $menu.append($opt);
+                });
+
+                // Toggle menu on trigger click
+                $trigger.on('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    var isOpen = $dropdown.hasClass('is-open');
+                    // Close other dropdowns
+                    $('.wsp-custom-shipping-select').not($dropdown).removeClass('is-open').find('.wsp-css-trigger').attr('aria-expanded', 'false');
+
+                    if (isOpen) {
+                        $dropdown.removeClass('is-open');
+                        $trigger.attr('aria-expanded', 'false');
+                    } else {
+                        $dropdown.addClass('is-open');
+                        $trigger.attr('aria-expanded', 'true');
                     }
                 });
 
                 // Handle external radio button changes
                 $ul.find('input.shipping_method').off('change.wsp_sync').on('change.wsp_sync', function() {
                     var checkedVal = $ul.find('input.shipping_method:checked').val();
-                    if (checkedVal && $select.val() !== checkedVal) {
-                        $select.val(checkedVal);
+                    if (checkedVal) {
+                        var matchedOpt = null;
+                        $.each(methods, function(idx, m) {
+                            if (m.val === checkedVal) {
+                                matchedOpt = m;
+                                return false;
+                            }
+                        });
+                        if (matchedOpt) {
+                            $trigger.find('.wsp-css-trigger-title').text(matchedOpt.title);
+                            var $priceBadge = $trigger.find('.wsp-css-trigger-price');
+                            if (matchedOpt.price) {
+                                if ($priceBadge.length) {
+                                    $priceBadge.text(matchedOpt.price);
+                                } else {
+                                    $trigger.find('.wsp-css-trigger-content').append('<span class="wsp-css-trigger-price">' + matchedOpt.price + '</span>');
+                                }
+                            } else {
+                                $priceBadge.remove();
+                            }
+                            $menu.find('.wsp-css-option').removeClass('is-selected').attr('aria-selected', 'false');
+                            $menu.find('.wsp-css-option[data-value="' + matchedOpt.val + '"]').addClass('is-selected').attr('aria-selected', 'true');
+                        }
                     }
                 });
 
-                $ul.before($wrap);
+                $dropdown.append($trigger).append($menu);
+                $ul.before($dropdown);
             });
         }
     };

@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.5 =
+* Fix: Checkout review order table column overflow where product totals, subtotals, and total prices spilled outside the card boundary.
+* Enhancement: Converted checkout review order table to a robust block and flexbox layout model with zero-overflow guarantee and perfect left/right spacing.
+* Fix: Resolved left column customer details squishing by converting customer details into a full-width card with balanced 2-column field grid for name/address fields.
+* Enhancement: Consolidated orphaned shipping fields and order notes into the customer details card for a seamless, unified, pixel-perfect checkout aesthetic.
+* Enhancement: Added overflow protection and sticky boundary containment on the checkout order review card.
 
 = 1.2.4 =
 * Fix: Prevented shipping dropdown container overflow in Cart totals card by enforcing box-sizing, min-width: 0, and ellipsis truncation on long delivery zone names.

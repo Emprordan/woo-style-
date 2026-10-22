@@ -626,23 +626,36 @@
 
         /**
          * Guarantee clean 2-column checkout layout by nesting #order_review_heading into #order_review
+         * and consolidating customer details, shipping options, and order notes into unified cards.
          */
         initCheckoutLayout: function() {
-            var $review = $('form.checkout #order_review, #order_review');
+            var $form = $('form.checkout');
+            var $review = $form.find('#order_review');
             if (!$review.length) {
-                return;
+                $review = $('#order_review');
             }
 
-            var $outsideHeadings = $('form.checkout > #order_review_heading, #order_review_heading').not('#order_review #order_review_heading');
-            if (!$review.find('#order_review_heading, .wsp-order-review-heading').length) {
-                if ($outsideHeadings.length) {
-                    $review.prepend($outsideHeadings.first().show());
-                    $outsideHeadings.slice(1).remove();
-                } else {
-                    $review.prepend('<h3 id="order_review_heading" class="wsp-order-review-heading">Your order</h3>');
+            if ($review.length) {
+                var $outsideHeadings = $('form.checkout > #order_review_heading, #order_review_heading').not('#order_review #order_review_heading');
+                if (!$review.find('#order_review_heading, .wsp-order-review-heading').length) {
+                    if ($outsideHeadings.length) {
+                        $review.prepend($outsideHeadings.first().show());
+                        $outsideHeadings.slice(1).remove();
+                    } else {
+                        $review.prepend('<h3 id="order_review_heading" class="wsp-order-review-heading">Your order</h3>');
+                    }
+                } else if ($outsideHeadings.length) {
+                    $outsideHeadings.remove();
                 }
-            } else if ($outsideHeadings.length) {
-                $outsideHeadings.remove();
+            }
+
+            // Consolidate any orphaned customer details / shipping / additional fields into #customer_details
+            var $customerDetails = $form.find('#customer_details');
+            if ($customerDetails.length) {
+                var $orphanedFields = $form.children('.woocommerce-shipping-fields, .woocommerce-additional-fields, #ship-to-different-address, .shipping_address');
+                if ($orphanedFields.length) {
+                    $customerDetails.append($orphanedFields);
+                }
             }
         },
 

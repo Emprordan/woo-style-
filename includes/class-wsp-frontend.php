@@ -68,6 +68,9 @@ class WSP_Frontend {
                 'woocommerce_checkout',
                 'woocommerce_order_tracking',
                 'woocommerce_my_account',
+                'wsp_custom_shop',
+                'woo_style_custom_shop',
+                'woo_style_shop',
             );
 
             foreach ( $shortcodes as $shortcode ) {
@@ -146,6 +149,8 @@ class WSP_Frontend {
         );
 
         wp_localize_script( 'wsp-frontend-script', 'wspFrontendData', array(
+            'ajaxUrl'         => admin_url( 'admin-ajax.php' ),
+            'nonce'           => wp_create_nonce( 'wsp_custom_shop_nonce' ),
             'qtyStepper'      => ( 'yes' === $settings['single_qty_stepper'] ),
             'stickyMobileCTA' => ( 'yes' === $settings['single_sticky_mobile_cta'] ),
             'cartRedesign'    => ( 'yes' === $settings['cart_redesign'] ),

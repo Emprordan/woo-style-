@@ -14,6 +14,7 @@
             this.initLivePreviewSync();
             this.initPresetApplier();
             this.initUpdateChecker();
+            this.initCopyShortcode();
             this.updateLivePreview();
         },
 
@@ -285,6 +286,36 @@
                         $status.html('<span class="wsp-status-msg wsp-status-error">Error connecting to server. Please try again.</span>');
                     }
                 });
+            });
+        },
+
+        /**
+         * 1-Click Copy shortcode to clipboard
+         */
+        initCopyShortcode: function() {
+            $(document).on('click', '.wsp-copy-shortcode-btn', function(e) {
+                e.preventDefault();
+                var $btn = $(this);
+                var text = $btn.data('clipboard-text') || '[wsp_custom_shop]';
+
+                var showSuccess = function() {
+                    var originalHtml = $btn.html();
+                    $btn.html('<span class="dashicons dashicons-yes" style="vertical-align:middle;margin-right:4px;font-size:15px;"></span> Copied!');
+                    setTimeout(function() {
+                        $btn.html(originalHtml);
+                    }, 2000);
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(showSuccess);
+                } else {
+                    var $temp = $('<input>');
+                    $('body').append($temp);
+                    $temp.val(text).select();
+                    document.execCommand('copy');
+                    $temp.remove();
+                    showSuccess();
+                }
             });
         }
     };

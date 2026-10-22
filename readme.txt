@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.9
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,14 @@ Yes. There is a master toggle at the top of the Woo Style+ settings page to acti
 * Fix: Automatic reactivation of plugin after 1-click update so styles never get deactivated during upgrade.
 * Fix: Multi-pass cleaning for preformatted (<pre>) blocks wrapping WooCommerce shortcode content at both early and late rendering priorities.
 * Fix: CSS child reset for any preformatted block descendants to guarantee zero monospace font leaks.
+
+= 1.1.0 =
+* Feature: Custom Shop Page Shortcode [wsp_custom_shop] to embed a full-featured, modern shop experience on any page.
+* Feature: Elevated Header Container with interactive Search Bar, debounced live AJAX filtering, and clear action.
+* Feature: Modern Category Pills display with "All Products" chip, category counts, and instant filter switching.
+* Feature: Interactive Sorting dropdown (Latest, Popularity, Rating, Price low-to-high, Price high-to-low, Title).
+* Feature: AJAX Product Catalogue with smooth loading states, pagination, and empty state CTA.
+* Feature: Added Custom Shop Shortcode showcase & 1-click copy card in the admin settings dashboard.
 
 = 1.0.9 =
 * Critical Fix: Removed destructive directory deletion and move logic from post_install_cleanup in the in-app updater.

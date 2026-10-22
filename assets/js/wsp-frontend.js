@@ -21,10 +21,12 @@
                 if (typeof wspFrontendData !== 'undefined' && wspFrontendData.stickyMobileCTA) {
                     self.initStickyMobileCTA();
                 }
+
+                self.initCustomShop();
             });
 
-            // Re-initialize quantity steppers on WooCommerce AJAX updates
-            $(document.body).on('updated_wc_div updated_cart_totals wc_fragments_refreshed', function() {
+            // Re-initialize features on WooCommerce AJAX updates
+            $(document.body).on('updated_wc_div updated_cart_totals wc_fragments_refreshed wsp_custom_shop_updated', function() {
                 if (typeof wspFrontendData !== 'undefined' && wspFrontendData.qtyStepper) {
                     self.initQuantitySteppers();
                 }
@@ -124,6 +126,159 @@
                 $('html, body').animate({
                     scrollTop: $('form.cart').offset().top - 80
                 }, 400);
+            });
+        },
+
+        /**
+         * Initialize Custom Shop Shortcode Interactions & Live AJAX Filter
+         */
+        initCustomShop: function() {
+            $('.wsp-custom-shop-wrapper').each(function() {
+                var $wrapper     = $(this);
+                var $catalogue   = $wrapper.find('.wsp-custom-shop-catalogue');
+                var $grid        = $wrapper.find('.wsp-cs-grid-container');
+                var $pagination  = $wrapper.find('.wsp-cs-pagination-container');
+                var $countBox    = $wrapper.find('.wsp-cs-result-count');
+                var $searchInput = $wrapper.find('.wsp-cs-search-input');
+                var $clearBtn    = $wrapper.find('.wsp-cs-search-clear');
+                var $sortSelect  = $wrapper.find('.wsp-cs-sort-select');
+
+                var columns      = $wrapper.data('columns') || 4;
+                var limit        = $wrapper.data('limit') || 12;
+                var defaultOrder = $wrapper.data('default-order') || 'DESC';
+
+                var searchTimer  = null;
+                var activeXHR    = null;
+
+                // Function to perform AJAX filter request
+                var fetchProducts = function(page, scrollToTop) {
+                    var searchVal = $.trim($searchInput.val());
+                    var activeCat = $wrapper.find('.wsp-cs-cat-btn.is-active').data('category') || '';
+                    var orderby   = $sortSelect.length ? $sortSelect.val() : 'date';
+                    var paged     = page || 1;
+
+                    // Show loading overlay
+                    $catalogue.addClass('is-loading');
+
+                    // Abort any ongoing filter request
+                    if (activeXHR && activeXHR.readyState !== 4) {
+                        activeXHR.abort();
+                    }
+
+                    var postData = {
+                        action:   'wsp_custom_shop_filter',
+                        security: (typeof wspFrontendData !== 'undefined' ? wspFrontendData.nonce : ''),
+                        search:   searchVal,
+                        category: activeCat,
+                        orderby:  orderby,
+                        order:    defaultOrder,
+                        limit:    limit,
+                        columns:  columns,
+                        paged:    paged
+                    };
+
+                    activeXHR = $.ajax({
+                        url:      (typeof wspFrontendData !== 'undefined' ? wspFrontendData.ajaxUrl : '/wp-admin/admin-ajax.php'),
+                        type:     'POST',
+                        data:     postData,
+                        dataType: 'json',
+                        success:  function(response) {
+                            $catalogue.removeClass('is-loading');
+                            if (response && response.success && response.data) {
+                                $grid.html(response.data.html);
+                                if ($pagination.length) {
+                                    $pagination.html(response.data.pagination);
+                                }
+                                if ($countBox.length && response.data.count_text) {
+                                    $countBox.text(response.data.count_text);
+                                }
+
+                                // Re-trigger WooCommerce fragments / events
+                                $(document.body).trigger('wsp_custom_shop_updated', [$wrapper, response.data]);
+
+                                // Scroll to catalogue if requested
+                                if (scrollToTop) {
+                                    var targetTop = $wrapper.offset().top - 40;
+                                    $('html, body').animate({ scrollTop: targetTop }, 300);
+                                }
+                            }
+                        },
+                        error: function(xhr, status) {
+                            if (status !== 'abort') {
+                                $catalogue.removeClass('is-loading');
+                            }
+                        }
+                    });
+                };
+
+                // Category pill click
+                $wrapper.on('click', '.wsp-cs-cat-btn', function(e) {
+                    e.preventDefault();
+                    var $btn = $(this);
+                    if ($btn.hasClass('is-active')) {
+                        return;
+                    }
+                    $wrapper.find('.wsp-cs-cat-btn').removeClass('is-active').attr('aria-selected', 'false');
+                    $btn.addClass('is-active').attr('aria-selected', 'true');
+                    fetchProducts(1, false);
+                });
+
+                // Search input live typing (debounced 350ms)
+                $searchInput.on('input', function() {
+                    var val = $.trim($(this).val());
+                    if (val.length > 0) {
+                        $clearBtn.show();
+                    } else {
+                        $clearBtn.hide();
+                    }
+
+                    clearTimeout(searchTimer);
+                    searchTimer = setTimeout(function() {
+                        fetchProducts(1, false);
+                    }, 350);
+                });
+
+                // Clear button click
+                $clearBtn.on('click', function(e) {
+                    e.preventDefault();
+                    $searchInput.val('').focus();
+                    $clearBtn.hide();
+                    fetchProducts(1, false);
+                });
+
+                // Form submit
+                $wrapper.find('.wsp-cs-search-form').on('submit', function(e) {
+                    e.preventDefault();
+                    clearTimeout(searchTimer);
+                    fetchProducts(1, false);
+                });
+
+                // Sort dropdown change
+                $sortSelect.on('change', function() {
+                    fetchProducts(1, false);
+                });
+
+                // Pagination click
+                $wrapper.on('click', '.wsp-cs-page-btn', function(e) {
+                    e.preventDefault();
+                    var pageNum = $(this).data('page');
+                    if (pageNum) {
+                        fetchProducts(pageNum, true);
+                    }
+                });
+
+                // Reset Filters click (from empty state)
+                $wrapper.on('click', '.wsp-cs-reset-filters-btn', function(e) {
+                    e.preventDefault();
+                    $searchInput.val('');
+                    $clearBtn.hide();
+                    $wrapper.find('.wsp-cs-cat-btn').removeClass('is-active').attr('aria-selected', 'false');
+                    $wrapper.find('.wsp-cs-cat-btn[data-category=""]').addClass('is-active').attr('aria-selected', 'true');
+                    if ($sortSelect.length) {
+                        $sortSelect.val('date');
+                    }
+                    fetchProducts(1, false);
+                });
             });
         }
     };

@@ -763,6 +763,37 @@ class WSP_Admin {
                                     </label>
                                 </div>
                             </div>
+
+                            <!-- Custom Shop Page Shortcode Card -->
+                            <div class="wsp-card-box wsp-shortcode-showcase-box" style="border-left: 4px solid var(--wsp-primary, #0f172a);">
+                                <div class="wsp-box-header">
+                                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                                        <h2><span class="dashicons dashicons-shortcode" style="vertical-align: middle; margin-right: 6px;"></span><?php esc_html_e( 'Custom Shop Page Shortcode', 'woo-style-plus' ); ?></h2>
+                                        <span class="wsp-badge-pill" style="background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase;"><?php esc_html_e( 'Interactive Header + Catalogue', 'woo-style-plus' ); ?></span>
+                                    </div>
+                                    <p><?php esc_html_e( 'Embed a complete, modern custom shop page on any page with an interactive Search Bar, Category Pills, and AJAX Product Catalogue.', 'woo-style-plus' ); ?></p>
+                                </div>
+
+                                <div class="wsp-shortcode-snippet-wrap" style="background: #0f172a; border-radius: 10px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px;">
+                                    <code style="color: #38bdf8; font-size: 15px; font-weight: 700; font-family: monospace; background: transparent; padding: 0;">[wsp_custom_shop]</code>
+                                    <button type="button" class="button button-secondary wsp-copy-shortcode-btn" data-clipboard-text="[wsp_custom_shop]" style="height: 34px; line-height: 32px; font-weight: 600;">
+                                        <span class="dashicons dashicons-admin-page" style="vertical-align: middle; margin-right: 4px; font-size: 15px;"></span><?php esc_html_e( 'Copy Shortcode', 'woo-style-plus' ); ?>
+                                    </button>
+                                </div>
+
+                                <h4 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 700; color: #0f172a;"><?php esc_html_e( 'Available Customization Attributes:', 'woo-style-plus' ); ?></h4>
+                                <ul style="margin: 0; padding-left: 20px; color: #475569; font-size: 13.5px; line-height: 1.8;">
+                                    <li><code>title="Our Shop"</code> &mdash; <?php esc_html_e( 'Custom heading displayed inside the top container.', 'woo-style-plus' ); ?></li>
+                                    <li><code>subtitle="..."</code> &mdash; <?php esc_html_e( 'Subheading description underneath the title.', 'woo-style-plus' ); ?></li>
+                                    <li><code>columns="4"</code> &mdash; <?php esc_html_e( 'Desktop product columns (e.g. 2, 3, 4, 5, 6).', 'woo-style-plus' ); ?></li>
+                                    <li><code>limit="12"</code> &mdash; <?php esc_html_e( 'Number of products per page.', 'woo-style-plus' ); ?></li>
+                                    <li><code>show_search="yes"</code> &mdash; <?php esc_html_e( 'Toggle the interactive product search bar ("yes" or "no").', 'woo-style-plus' ); ?></li>
+                                    <li><code>show_categories="yes"</code> &mdash; <?php esc_html_e( 'Toggle the category pills filter ("yes" or "no").', 'woo-style-plus' ); ?></li>
+                                    <li><code>show_counts="yes"</code> &mdash; <?php esc_html_e( 'Display product counts inside each category pill.', 'woo-style-plus' ); ?></li>
+                                    <li><code>show_sorting="yes"</code> &mdash; <?php esc_html_e( 'Display the ordering / sort dropdown ("yes" or "no").', 'woo-style-plus' ); ?></li>
+                                    <li><code>category="seeds"</code> &mdash; <?php esc_html_e( 'Pre-filter by a specific category slug on initial page load.', 'woo-style-plus' ); ?></li>
+                                </ul>
+                            </div>
                         </div>
 
                         <!-- Tab 4: Single Product -->

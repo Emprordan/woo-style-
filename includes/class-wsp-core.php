@@ -38,6 +38,13 @@ class WSP_Core {
     public $templates;
 
     /**
+     * Custom Shop shortcode handler instance
+     *
+     * @var WSP_Custom_Shop
+     */
+    public $custom_shop;
+
+    /**
      * Get singleton instance
      *
      * @return WSP_Core
@@ -83,8 +90,9 @@ class WSP_Core {
             $this->admin = new WSP_Admin();
         }
 
-        $this->frontend  = new WSP_Frontend();
-        $this->templates = new WSP_Templates();
+        $this->frontend    = new WSP_Frontend();
+        $this->templates   = new WSP_Templates();
+        $this->custom_shop = new WSP_Custom_Shop();
     }
 
     /**

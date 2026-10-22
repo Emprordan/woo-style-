@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.9
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ Transform and modernize all your WooCommerce pages: Shop, Product Cards, Single 
   * **Shortcodes & Gutenberg Blocks**: Full compatibility with `[products]`, `[featured_products]`, `[sale_products]`, `[recent_products]`, and WooCommerce blocks.
   * **Single Product Details**: Modern gallery layouts, interactive (+ / -) quantity steppers, customizable card/underline tabs, and mobile sticky add-to-cart bar.
   * **Cart & Checkout**: Modern 2-column conversion-optimized layouts, sleek form inputs with focus rings, and elevated order summaries.
-  * **Side Cart Drawer & Elementor Widget**: Modern slide-out mini-cart drawer with live quantity steppers, instant item removal, free shipping progress bar, and customizable Elementor cart icon widget.
+  * **Side Cart Drawer & Elementor Widget**: Modern slide-out mini-cart drawer with live quantity steppers, instant item removal, and customizable Elementor cart icon widget.
   * **My Account Portal**: Sleek authentication cards for Login/Register, 2-column dashboard layout, vertical sidebar navigation cards (or horizontal pills), user greeting avatar banner, and colored order status pill badges.
   * **Notices & Banners**: Modern floating alert toasts for cart notifications and errors.
 
@@ -61,6 +61,10 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.3.0 =
+* Cleanup: Removed Free Shipping Goal Progress Bar and associated threshold settings from the Side Cart drawer, Elementor widget, and plugin settings.
+* Enhancement: Streamlined Side Cart drawer layout with drawer header directly followed by cart items list.
 
 = 1.2.9 =
 * Feature: Elementor Widget "Cart Icon & Side Panel" with comprehensive Content and Style controls for custom icons, trigger layouts, count badge, subtotal, and drawer appearance.

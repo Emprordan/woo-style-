@@ -155,13 +155,6 @@ class WSP_Side_Cart {
         $settings   = WSP_Core::get_settings();
         $title      = ! empty( $settings['side_cart_title'] ) ? $settings['side_cart_title'] : __( 'Shopping Cart', 'woo-style-plus' );
 
-        // Free shipping progress calculations
-        $fs_enabled   = 'yes' === WSP_Core::get_setting( 'side_cart_free_shipping', 'yes' );
-        $fs_threshold = (float) WSP_Core::get_setting( 'side_cart_fs_threshold', 50000 );
-        $subtotal_raw = (float) $cart->get_cart_contents_total() + (float) $cart->get_cart_contents_tax();
-        $fs_diff      = $fs_threshold - $subtotal_raw;
-        $fs_percent   = ( $fs_threshold > 0 ) ? min( 100, max( 0, round( ( $subtotal_raw / $fs_threshold ) * 100 ) ) ) : 100;
-
         ob_start();
         ?>
         <!-- Drawer Header -->
@@ -177,22 +170,6 @@ class WSP_Side_Cart {
                 </svg>
             </button>
         </div>
-
-        <?php if ( ! $is_empty && $fs_enabled && $fs_threshold > 0 ) : ?>
-            <!-- Free Shipping Progress Goal Bar -->
-            <div class="wsp-sc-free-shipping">
-                <div class="wsp-sc-fs-message">
-                    <?php if ( $fs_diff <= 0 ) : ?>
-                        <span class="wsp-sc-fs-unlocked">🎉 <?php esc_html_e( "Congratulations! You've unlocked FREE Shipping!", 'woo-style-plus' ); ?></span>
-                    <?php else : ?>
-                        <span><?php printf( esc_html__( 'Add %s more to get FREE Shipping!', 'woo-style-plus' ), '<strong class="wsp-sc-fs-amount">' . wc_price( $fs_diff ) . '</strong>' ); ?></span>
-                    <?php endif; ?>
-                </div>
-                <div class="wsp-sc-fs-progress-bg">
-                    <div class="wsp-sc-fs-progress-bar <?php echo ( $fs_diff <= 0 ) ? 'is-complete' : ''; ?>" style="width: <?php echo esc_attr( $fs_percent ); ?>%;"></div>
-                </div>
-            </div>
-        <?php endif; ?>
 
         <?php if ( $is_empty ) : ?>
             <!-- Empty Cart State -->

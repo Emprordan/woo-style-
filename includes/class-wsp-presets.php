@@ -261,8 +261,6 @@ class WSP_Presets {
             'side_cart_enabled'       => 'yes',
             'side_cart_auto_open'     => 'yes',
             'side_cart_position'      => 'right', // right, left
-            'side_cart_free_shipping' => 'yes',
-            'side_cart_fs_threshold'  => '50000',
             'side_cart_title'         => 'Shopping Cart',
 
             // My Account Page

@@ -265,34 +265,6 @@ class WSP_Elementor_Cart_Icon_Widget extends Widget_Base {
             )
         );
 
-        $this->add_control(
-            'show_free_shipping',
-            array(
-                'label'        => esc_html__( 'Show Free Shipping Goal Bar', 'woo-style-plus' ),
-                'description'  => esc_html__( 'Displays an interactive progress bar showing how much more to spend for free shipping.', 'woo-style-plus' ),
-                'type'         => Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'Yes', 'woo-style-plus' ),
-                'label_off'    => esc_html__( 'No', 'woo-style-plus' ),
-                'return_value' => 'yes',
-                'default'      => 'yes',
-                'separator'    => 'before',
-            )
-        );
-
-        $this->add_control(
-            'free_shipping_threshold',
-            array(
-                'label'     => esc_html__( 'Free Shipping Threshold Amount', 'woo-style-plus' ),
-                'type'      => Controls_Manager::NUMBER,
-                'default'   => 50000,
-                'min'       => 0,
-                'step'      => 100,
-                'condition' => array(
-                    'show_free_shipping' => 'yes',
-                ),
-            )
-        );
-
         $this->end_controls_section();
 
 
@@ -809,67 +781,6 @@ class WSP_Elementor_Cart_Icon_Widget extends Widget_Base {
                 'selectors' => array(
                     '#wsp-side-cart-drawer .wsp-sc-close-btn:hover' => 'color: {{VALUE}} !important; background: rgba(15, 23, 42, 0.06) !important;',
                 ),
-            )
-        );
-
-        $this->end_controls_section();
-
-
-        // ==========================================
-        // STYLE TAB: Free Shipping Goal Bar
-        // ==========================================
-        $this->start_controls_section(
-            'section_free_shipping_style',
-            array(
-                'label'     => esc_html__( 'Free Shipping Goal Bar', 'woo-style-plus' ),
-                'tab'       => Controls_Manager::TAB_STYLE,
-                'condition' => array(
-                    'show_free_shipping' => 'yes',
-                ),
-            )
-        );
-
-        $this->add_control(
-            'fs_bar_fill_color',
-            array(
-                'label'     => esc_html__( 'Progress Bar Color', 'woo-style-plus' ),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => '#10b981',
-                'selectors' => array(
-                    '#wsp-side-cart-drawer .wsp-sc-fs-progress-bar' => 'background: {{VALUE}} !important;',
-                ),
-            )
-        );
-
-        $this->add_control(
-            'fs_bar_bg_color',
-            array(
-                'label'     => esc_html__( 'Progress Bar Track', 'woo-style-plus' ),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => '#f1f5f9',
-                'selectors' => array(
-                    '#wsp-side-cart-drawer .wsp-sc-fs-progress-bg' => 'background-color: {{VALUE}} !important;',
-                ),
-            )
-        );
-
-        $this->add_control(
-            'fs_text_color',
-            array(
-                'label'     => esc_html__( 'Message Text Color', 'woo-style-plus' ),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => '#334155',
-                'selectors' => array(
-                    '#wsp-side-cart-drawer .wsp-sc-fs-message' => 'color: {{VALUE}} !important;',
-                ),
-            )
-        );
-
-        $this->add_group_control(
-            Group_Control_Typography::get_type(),
-            array(
-                'name'     => 'fs_typography',
-                'selector' => '#wsp-side-cart-drawer .wsp-sc-fs-message',
             )
         );
 

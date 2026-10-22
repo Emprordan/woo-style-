@@ -110,7 +110,6 @@ class WSP_Admin {
             'checkout_modern_inputs',
             'side_cart_enabled',
             'side_cart_auto_open',
-            'side_cart_free_shipping',
             'myaccount_redesign',
             'myaccount_show_user_header',
             'myaccount_order_badges',
@@ -180,7 +179,6 @@ class WSP_Admin {
             'checkout_layout',
             'shipping_methods_style',
             'side_cart_position',
-            'side_cart_fs_threshold',
             'side_cart_title',
             'myaccount_nav_style',
             'page_padding_top',
@@ -920,18 +918,14 @@ class WSP_Admin {
                                         <span><?php esc_html_e( 'Automatically open Side Cart drawer when a customer clicks "Add to Cart"', 'woo-style-plus' ); ?></span>
                                     </label>
 
-                                    <label class="wsp-checkbox-item">
-                                        <input type="checkbox" name="wsp_settings[side_cart_free_shipping]" value="yes" <?php checked( isset( $settings['side_cart_free_shipping'] ) ? $settings['side_cart_free_shipping'] : 'yes', 'yes' ); ?>>
-                                        <span><?php esc_html_e( 'Show Free Shipping Goal Progress Bar inside side cart', 'woo-style-plus' ); ?></span>
-                                    </label>
                                 </div>
 
-                                <div class="wsp-field-row" style="margin-top: 18px; display: flex; gap: 20px; flex-wrap: wrap;">
-                                    <div style="flex: 1 1 200px;">
+                                <div class="wsp-field-row" style="margin-top: 18px;">
+                                    <div>
                                         <label for="wsp-side-cart-position" style="display: block; font-weight: 600; font-size: 13.5px; margin-bottom: 4px; color: #0f172a;">
                                             <?php esc_html_e( 'Drawer Slide Position', 'woo-style-plus' ); ?>
                                         </label>
-                                        <select name="wsp_settings[side_cart_position]" id="wsp-side-cart-position" class="wsp-select" style="max-width: 240px;">
+                                        <select name="wsp_settings[side_cart_position]" id="wsp-side-cart-position" class="wsp-select" style="max-width: 260px;">
                                             <option value="right" <?php selected( isset( $settings['side_cart_position'] ) ? $settings['side_cart_position'] : 'right', 'right' ); ?>>
                                                 <?php esc_html_e( 'Slide from Right (Default)', 'woo-style-plus' ); ?>
                                             </option>
@@ -939,13 +933,6 @@ class WSP_Admin {
                                                 <?php esc_html_e( 'Slide from Left', 'woo-style-plus' ); ?>
                                             </option>
                                         </select>
-                                    </div>
-
-                                    <div style="flex: 1 1 220px;">
-                                        <label for="wsp-side-cart-threshold" style="display: block; font-weight: 600; font-size: 13.5px; margin-bottom: 4px; color: #0f172a;">
-                                            <?php esc_html_e( 'Free Shipping Goal Amount', 'woo-style-plus' ); ?>
-                                        </label>
-                                        <input type="number" name="wsp_settings[side_cart_fs_threshold]" id="wsp-side-cart-threshold" value="<?php echo esc_attr( isset( $settings['side_cart_fs_threshold'] ) ? $settings['side_cart_fs_threshold'] : '50000' ); ?>" class="wsp-input" style="max-width: 200px;" step="100" min="0">
                                     </div>
                                 </div>
 

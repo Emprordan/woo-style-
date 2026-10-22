@@ -252,7 +252,7 @@ body.wsp-side-cart-open {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 24px;
+    padding: 15px 20px;
     border-bottom: 1px solid var(--wsp-sc-border);
     background: #ffffff;
     flex-shrink: 0;
@@ -302,17 +302,17 @@ body.wsp-side-cart-open {
 
 
 /* ==========================================================================
-   5. DRAWER BODY & ITEMS LIST
+   5. DRAWER BODY & ITEMS LIST (COMPACT & MODERN)
    ========================================================================== */
 .wsp-sc-body {
     flex: 1 1 auto;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: 16px 24px;
+    padding: 14px 20px;
 }
 
 .wsp-sc-body::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
 }
 .wsp-sc-body::-webkit-scrollbar-track {
     background: transparent;
@@ -325,15 +325,17 @@ body.wsp-side-cart-open {
 .wsp-sc-items-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 0;
 }
 
 .wsp-sc-item {
     display: flex;
-    gap: 14px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #f1f5f9;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--wsp-sc-border, #f1f5f9);
     position: relative;
+    box-sizing: border-box;
     transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
@@ -352,15 +354,22 @@ body.wsp-side-cart-open {
     padding-bottom: 0;
 }
 
-/* Item Thumbnail */
+/* Item Thumbnail - Compact 58px */
 .wsp-sc-item-thumb {
-    width: 72px;
-    height: 72px;
+    width: 58px;
+    height: 58px;
     flex-shrink: 0;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
     background: #f8fafc;
-    border: 1px solid var(--wsp-sc-border);
+    border: 1px solid var(--wsp-sc-border, #e2e8f0);
+}
+
+.wsp-sc-item-thumb a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 0;
 }
 
 .wsp-sc-item-thumb img {
@@ -370,13 +379,14 @@ body.wsp-side-cart-open {
     display: block !important;
 }
 
-/* Item Details */
+/* Item Details - Compact Vertical Flow */
 .wsp-sc-item-details {
     flex: 1 1 auto;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 6px;
 }
 
 .wsp-sc-item-head {
@@ -388,20 +398,22 @@ body.wsp-side-cart-open {
 
 .wsp-sc-item-title {
     margin: 0 !important;
-    font-size: 14px !important;
+    padding: 0 !important;
+    font-size: 13.5px !important;
     font-weight: 600 !important;
-    line-height: 1.35 !important;
-    color: var(--wsp-sc-heading) !important;
+    line-height: 1.3 !important;
+    color: var(--wsp-sc-heading, #0f172a) !important;
 }
 
 .wsp-sc-item-title a {
     color: inherit !important;
     text-decoration: none !important;
     transition: color 0.15s ease;
+    word-break: break-word;
 }
 
 .wsp-sc-item-title a:hover {
-    color: var(--wsp-sc-primary) !important;
+    color: var(--wsp-sc-primary, #059669) !important;
 }
 
 /* Item Remove Button */
@@ -418,7 +430,8 @@ body.wsp-side-cart-open {
     justify-content: center;
     transition: all 0.15s ease;
     margin-top: -2px;
-    margin-right: -4px;
+    margin-right: -2px;
+    flex-shrink: 0;
 }
 
 .wsp-sc-item-remove:hover {
@@ -428,46 +441,64 @@ body.wsp-side-cart-open {
 
 /* Variation Metadata */
 .wsp-sc-item-meta {
-    font-size: 12px;
+    font-size: 11.5px;
     color: #64748b;
-    margin: 3px 0 6px 0;
-    line-height: 1.3;
+    margin: 0;
+    line-height: 1.25;
 }
 
 .wsp-sc-item-meta p {
     margin: 0 !important;
+    padding: 0 !important;
 }
 
-/* Item Foot (Quantity Stepper + Price) */
+.wsp-sc-item-meta dl {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 3px 6px !important;
+}
+
+.wsp-sc-item-meta dt,
+.wsp-sc-item-meta dd {
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+    display: inline-block !important;
+    font-size: 11.5px !important;
+}
+
+/* Item Foot (Quantity Stepper + Price) - Tight Layout */
 .wsp-sc-item-foot {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    margin-top: 6px;
+    margin-top: 2px;
 }
 
 .wsp-sc-item-stepper {
     display: inline-flex;
     align-items: center;
-    border: 1px solid var(--wsp-sc-border);
-    border-radius: 8px;
+    border: 1px solid var(--wsp-sc-border, #e2e8f0);
+    border-radius: 6px;
     background: #f8fafc;
     overflow: hidden;
-    height: 30px;
+    height: 28px;
 }
 
 .wsp-sc-step-btn {
-    width: 28px;
+    width: 26px;
     height: 100%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background: transparent;
     border: none;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: var(--wsp-sc-heading);
+    color: var(--wsp-sc-heading, #0f172a);
     cursor: pointer;
     padding: 0;
     user-select: none;
@@ -476,18 +507,18 @@ body.wsp-side-cart-open {
 
 .wsp-sc-step-btn:hover {
     background: #e2e8f0;
-    color: var(--wsp-sc-primary);
+    color: var(--wsp-sc-primary, #059669);
 }
 
 .wsp-sc-step-input {
-    width: 32px !important;
+    width: 28px !important;
     height: 100% !important;
     text-align: center !important;
     border: none !important;
     background: transparent !important;
-    font-size: 13px !important;
+    font-size: 12px !important;
     font-weight: 700 !important;
-    color: var(--wsp-sc-heading) !important;
+    color: var(--wsp-sc-heading, #0f172a) !important;
     padding: 0 !important;
     margin: 0 !important;
     -moz-appearance: textfield !important;
@@ -502,9 +533,9 @@ body.wsp-side-cart-open {
 }
 
 .wsp-sc-item-price {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 700;
-    color: var(--wsp-sc-heading);
+    color: var(--wsp-sc-heading, #0f172a);
     white-space: nowrap;
 }
 
@@ -576,7 +607,7 @@ body.wsp-side-cart-open {
    7. STICKY DRAWER FOOTER & ACTION BUTTONS
    ========================================================================== */
 .wsp-sc-footer {
-    padding: 20px 24px;
+    padding: 16px 20px;
     border-top: 1px solid var(--wsp-sc-border);
     background: #ffffff;
     flex-shrink: 0;
@@ -587,23 +618,23 @@ body.wsp-side-cart-open {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .wsp-sc-subtotal-label {
-    font-size: 15px;
+    font-size: 14.5px;
     font-weight: 600;
     color: var(--wsp-sc-heading);
 }
 
 .wsp-sc-subtotal-val {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--wsp-sc-heading);
 }
 
 .wsp-sc-tax-note {
-    margin: 0 0 16px 0 !important;
+    margin: 0 0 12px 0 !important;
     font-size: 12px !important;
     color: #94a3b8 !important;
     line-height: 1.3 !important;

@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,14 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.3.2 =
+* Fix: Completely redesigned Side Cart drawer items to be compact, tight, and unified without vertical gaps.
+* Fix: Removed unnatural `justify-content: space-between` on item details that was stretching the title away from the quantity stepper and price.
+* Enhancement: Compact 58px product thumbnail with block image anchor wrapping.
+* Enhancement: Streamlined quantity stepper to compact 28px height with refined buttons.
+* Enhancement: Reset variation and vendor metadata margins to prevent layout expansion.
+* Enhancement: Balanced drawer header (15px 20px) and footer padding (16px 20px) for an elegant slide-out cart experience.
 
 = 1.3.1 =
 * Fix: Redesigned Cart item layout on mobile screens into modern native app cards with zero horizontal clipping.

@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.1.5 =
+* Fix: Multi-row wrapping for category filter pills on mobile screens, completely eliminating horizontal blowout and off-screen overflow.
+* Enhancement: Compact category pill dimensions and typography optimized for mobile screens (up to 768px).
+* Fix: Expanded mobile responsive breakpoint to 768px for complete tablet and mobile coverage.
+* Enhancement: Text truncation with ellipsis for long category labels on mobile devices.
 
 = 1.1.4 =
 * Fix: Mobile category overflow containment preventing horizontal viewport blowout and layout shifting.

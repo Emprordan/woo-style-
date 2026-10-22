@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.7 =
+* Fix: Cart totals table column overflow where subtotal and grand total prices were pushed outside the right boundary of the Cart Totals card.
+* Enhancement: Converted Cart Totals summary table to a block and flexbox layout model with zero-overflow guarantee and proper left/right item alignment.
+* Enhancement: Reduced top padding on Cart page by 50% (from 40px to 20px) and reset theme wrapper spacing (#primary, .site-content, .entry-content, .entry-header) for a compact and consistent layout across both Cart and Checkout.
+* Enhancement: Added overflow-x containment on the Cart Totals card container.
 
 = 1.2.6 =
 * Enhancement: Reduced top padding on Checkout page by 50% (from 40px to 20px) for a more compact and elegant layout.

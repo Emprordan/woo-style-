@@ -748,7 +748,7 @@ body.wsp-active.wsp-cart-redesign .woocommerce {
     margin-right: auto !important;
     padding-left: var(--wsp-page-padding-horizontal, 20px) !important;
     padding-right: var(--wsp-page-padding-horizontal, 20px) !important;
-    padding-top: var(--wsp-cart-padding-top, 40px) !important;
+    padding-top: var(--wsp-cart-padding-top, 20px) !important;
     padding-bottom: var(--wsp-cart-padding-bottom, 80px) !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -756,6 +756,19 @@ body.wsp-active.wsp-cart-redesign .woocommerce {
     gap: 32px !important;
     align-items: flex-start !important;
     clear: both !important;
+}
+
+body.wsp-active.woocommerce-cart #primary,
+body.wsp-active.woocommerce-cart .site-content,
+body.wsp-active.woocommerce-cart .entry-content,
+body.wsp-active.woocommerce-cart .entry-header,
+body.wsp-active.wsp-cart-redesign #primary,
+body.wsp-active.wsp-cart-redesign .site-content,
+body.wsp-active.wsp-cart-redesign .entry-content,
+body.wsp-active.wsp-cart-redesign .entry-header {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 body.wsp-active.wsp-cart-redesign .woocommerce::before,
@@ -889,7 +902,7 @@ body.wsp-active.wsp-cart-redesign .woocommerce {
     margin-right: auto !important;
     padding-left: var(--wsp-page-padding-horizontal, 20px) !important;
     padding-right: var(--wsp-page-padding-horizontal, 20px) !important;
-    padding-top: var(--wsp-cart-padding-top, 40px) !important;
+    padding-top: var(--wsp-cart-padding-top, 20px) !important;
     padding-bottom: var(--wsp-cart-padding-bottom, 80px) !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -1194,6 +1207,7 @@ body.wsp-active.wsp-cart-redesign .cart-collaterals .cart_totals {
     padding: 22px 24px !important;
     box-shadow: var(--wsp-card-shadow, 0 4px 20px -2px rgba(15, 23, 42, 0.06)) !important;
     box-sizing: border-box !important;
+    overflow-x: hidden !important;
 }
 
 body.wsp-active.woocommerce-cart .cart_totals h2,
@@ -1206,40 +1220,101 @@ body.wsp-active.wsp-cart-redesign .cart_totals h2 {
     border-bottom: 1px solid #f1f5f9 !important;
 }
 
-/* Cart Totals Summary Table */
+/* Cart Totals Summary Table - Block + Flexbox Model (Zero Overflow Guarantee) */
 body.wsp-active.woocommerce-cart .cart_totals table.shop_table,
 body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     border: none !important;
     background: transparent !important;
     box-shadow: none !important;
     margin: 0 0 18px 0 !important;
+    padding: 0 !important;
+}
+
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tbody,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tbody {
+    display: block !important;
     width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Base Row in Cart Totals */
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px 0 !important;
+    border: none !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    background: transparent !important;
+    margin: 0 !important;
 }
 
 body.wsp-active.woocommerce-cart .cart_totals table.shop_table th,
 body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table th {
-    font-size: 13px !important;
-    font-weight: 500 !important;
-    color: #64748b !important;
+    flex: 1 1 auto !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    color: #475569 !important;
     background: transparent !important;
     border: none !important;
-    border-bottom: 1px solid #f1f5f9 !important;
-    padding: 10px 0 !important;
+    padding: 0 !important;
     text-transform: none !important;
     letter-spacing: normal !important;
-    width: 35% !important;
+    text-align: left !important;
 }
 
 body.wsp-active.woocommerce-cart .cart_totals table.shop_table td,
 body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table td {
+    flex: 0 0 auto !important;
     font-size: 14px !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
     color: var(--wsp-heading, #0f172a) !important;
     text-align: right !important;
     background: transparent !important;
     border: none !important;
-    border-bottom: 1px solid #f1f5f9 !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+}
+
+/* Subtotal Row */
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.cart-subtotal,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.cart-subtotal {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     padding: 10px 0 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+/* Discount Row */
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.cart-discount,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.cart-discount {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px 0 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.cart-discount th,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.cart-discount th {
+    color: #047857 !important;
+}
+
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.cart-discount td,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.cart-discount td {
+    color: var(--wsp-primary, #059669) !important;
 }
 
 /* ==========================================================================
@@ -1263,8 +1338,12 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table td {
 
 /* Full-width stacked shipment row in Cart totals */
 body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping,
-body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping {
-    display: block !important;
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.woocommerce-shipping-totals,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.woocommerce-shipping-totals {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -1273,21 +1352,28 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping {
 }
 
 body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping th,
-body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping th {
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.woocommerce-shipping-totals th,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping th,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.woocommerce-shipping-totals th {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
     padding: 0 0 8px 0 !important;
-    font-size: 13px !important;
+    font-size: 12px !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
     color: #64748b !important;
+    text-align: left !important;
+    border: none !important;
+    background: transparent !important;
 }
 
 body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping td,
-body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td {
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.woocommerce-shipping-totals td,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.woocommerce-shipping-totals td {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -1295,6 +1381,8 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td {
     padding: 0 !important;
     border: none !important;
     text-align: left !important;
+    white-space: normal !important;
+    background: transparent !important;
 }
 
 /* Custom Dropdown Main Container */
@@ -1619,25 +1707,42 @@ body.wsp-active.wsp-cart-redesign ul#shipping_method li label {
 }
 
 /* Total Row */
+body.wsp-active.woocommerce-cart .cart_totals table tr.order-total,
+body.wsp-active.wsp-cart-redesign .cart_totals table tr.order-total {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 14px 0 0 0 !important;
+    border: none !important;
+    border-top: 2px solid var(--wsp-border, #e2e8f0) !important;
+    margin-top: 4px !important;
+}
+
 body.wsp-active.woocommerce-cart .cart_totals table tr.order-total th,
 body.wsp-active.wsp-cart-redesign .cart_totals table tr.order-total th {
+    flex: 1 1 auto !important;
     font-size: 15px !important;
     font-weight: 700 !important;
     color: var(--wsp-heading, #0f172a) !important;
-    border-top: 2px solid var(--wsp-border, #e2e8f0) !important;
-    border-bottom: none !important;
-    padding-top: 14px !important;
+    text-align: left !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
 }
 
 body.wsp-active.woocommerce-cart .cart_totals table tr.order-total td,
 body.wsp-active.wsp-cart-redesign .cart_totals table tr.order-total td {
-    font-size: 19px !important;
+    flex: 0 0 auto !important;
+    font-size: 20px !important;
     font-weight: 800 !important;
-    color: var(--wsp-primary, #0f172a) !important;
-    border-top: 2px solid var(--wsp-border, #e2e8f0) !important;
-    border-bottom: none !important;
-    padding-top: 14px !important;
+    color: var(--wsp-primary, #059669) !important;
     text-align: right !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
 }
 
 /* Proceed to Checkout CTA */

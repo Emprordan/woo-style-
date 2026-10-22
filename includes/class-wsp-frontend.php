@@ -220,7 +220,7 @@ class WSP_Frontend {
         $single_pad_top      = $format_dim( isset( $settings['single_padding_top'] ) ? $settings['single_padding_top'] : '', $page_pad_top );
         $single_pad_bottom   = $format_dim( isset( $settings['single_padding_bottom'] ) ? $settings['single_padding_bottom'] : '', $page_pad_bottom );
 
-        $cart_pad_top        = $format_dim( isset( $settings['cart_padding_top'] ) ? $settings['cart_padding_top'] : '', $page_pad_top );
+        $cart_pad_top        = $format_dim( ( isset( $settings['cart_padding_top'] ) && '' !== $settings['cart_padding_top'] ) ? $settings['cart_padding_top'] : '', '20px' );
         $cart_pad_bottom     = $format_dim( isset( $settings['cart_padding_bottom'] ) ? $settings['cart_padding_bottom'] : '', $page_pad_bottom );
 
         $checkout_pad_top    = $format_dim( ( isset( $settings['checkout_padding_top'] ) && '' !== $settings['checkout_padding_top'] ) ? $settings['checkout_padding_top'] : '', '20px' );

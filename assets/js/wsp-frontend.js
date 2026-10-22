@@ -433,20 +433,18 @@
                     }
                 });
 
-                // Default to first option if none is marked checked
-                if (!activeMethod && methods.length) {
-                    activeMethod = methods[0];
-                    $radios.first().prop('checked', true);
-                }
+                var placeholderText = 'Select delivery zone...';
+                var isPlaceholder = !activeMethod;
+                var triggerTitle = activeMethod ? activeMethod.title : placeholderText;
 
                 // Build HTML for Fancy Custom Dropdown
                 var $dropdown = $('<div class="wsp-custom-shipping-select"></div>');
 
                 // Trigger button
                 var $trigger = $(
-                    '<button type="button" class="wsp-css-trigger" aria-haspopup="listbox" aria-expanded="false">' +
+                    '<button type="button" class="wsp-css-trigger' + (isPlaceholder ? ' is-placeholder' : '') + '" aria-haspopup="listbox" aria-expanded="false">' +
                         '<span class="wsp-css-trigger-content">' +
-                            '<span class="wsp-css-trigger-title">' + (activeMethod ? activeMethod.title : '') + '</span>' +
+                            '<span class="wsp-css-trigger-title' + (isPlaceholder ? ' wsp-css-placeholder' : '') + '">' + triggerTitle + '</span>' +
                             (activeMethod && activeMethod.price ? '<span class="wsp-css-trigger-price">' + activeMethod.price + '</span>' : '') +
                         '</span>' +
                         '<span class="wsp-css-trigger-arrow" aria-hidden="true">' +
@@ -481,10 +479,10 @@
 
                         // Close menu
                         $dropdown.removeClass('is-open');
-                        $trigger.attr('aria-expanded', 'false');
+                        $trigger.removeClass('is-placeholder wsp-field-required-pulse').attr('aria-expanded', 'false');
 
                         // Update trigger display
-                        $trigger.find('.wsp-css-trigger-title').text(m.title);
+                        $trigger.find('.wsp-css-trigger-title').removeClass('wsp-css-placeholder').text(m.title);
                         var $priceBadge = $trigger.find('.wsp-css-trigger-price');
                         if (m.price) {
                             if ($priceBadge.length) {
@@ -542,7 +540,8 @@
                             }
                         });
                         if (matchedOpt) {
-                            $trigger.find('.wsp-css-trigger-title').text(matchedOpt.title);
+                            $trigger.removeClass('is-placeholder wsp-field-required-pulse');
+                            $trigger.find('.wsp-css-trigger-title').removeClass('wsp-css-placeholder').text(matchedOpt.title);
                             var $priceBadge = $trigger.find('.wsp-css-trigger-price');
                             if (matchedOpt.price) {
                                 if ($priceBadge.length) {
@@ -556,11 +555,72 @@
                             $menu.find('.wsp-css-option').removeClass('is-selected').attr('aria-selected', 'false');
                             $menu.find('.wsp-css-option[data-value="' + matchedOpt.val + '"]').addClass('is-selected').attr('aria-selected', 'true');
                         }
+                    } else {
+                        $trigger.addClass('is-placeholder');
+                        $trigger.find('.wsp-css-trigger-title').addClass('wsp-css-placeholder').text(placeholderText);
+                        $trigger.find('.wsp-css-trigger-price').remove();
+                        $menu.find('.wsp-css-option').removeClass('is-selected').attr('aria-selected', 'false');
                     }
                 });
 
                 $dropdown.append($trigger).append($menu);
                 $ul.before($dropdown);
+            });
+
+            // Enforce required shipping selection on Cart "Proceed to checkout"
+            $(document).off('click.wsp_req_shipping', '.checkout-button, a.checkout-button, .wc-proceed-to-checkout a')
+                       .on('click.wsp_req_shipping', '.checkout-button, a.checkout-button, .wc-proceed-to-checkout a', function(e) {
+                var $radios = $('input.shipping_method');
+                if ($radios.length && !$radios.filter(':checked').length) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    var $dropdown = $('.wsp-custom-shipping-select').first();
+                    if ($dropdown.length) {
+                        $dropdown.find('.wsp-css-trigger').addClass('wsp-field-required-pulse');
+                        $dropdown.addClass('is-open').find('.wsp-css-trigger').attr('aria-expanded', 'true');
+                        $('html, body').animate({
+                            scrollTop: $dropdown.offset().top - 120
+                        }, 300);
+                    }
+
+                    $('.woocommerce-error, .woocommerce-message').remove();
+                    var alertHtml = '<ul class="woocommerce-error" role="alert"><li>Please select a delivery zone / shipping method before proceeding to checkout.</li></ul>';
+                    var $notices = $('.woocommerce-notices-wrapper').first();
+                    if ($notices.length) {
+                        $notices.html(alertHtml);
+                    } else {
+                        $('form.woocommerce-cart-form').before(alertHtml);
+                    }
+                }
+            });
+
+            // Enforce required shipping selection on Checkout "Place order"
+            $(document).off('click.wsp_req_shipping_checkout', '#place_order')
+                       .on('click.wsp_req_shipping_checkout', '#place_order', function(e) {
+                var $radios = $('input.shipping_method');
+                if ($radios.length && !$radios.filter(':checked').length) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    var $dropdown = $('.wsp-custom-shipping-select').first();
+                    if ($dropdown.length) {
+                        $dropdown.find('.wsp-css-trigger').addClass('wsp-field-required-pulse');
+                        $dropdown.addClass('is-open').find('.wsp-css-trigger').attr('aria-expanded', 'true');
+                        $('html, body').animate({
+                            scrollTop: $dropdown.offset().top - 140
+                        }, 300);
+                    }
+
+                    $('.woocommerce-error, .woocommerce-message').remove();
+                    var alertHtml = '<ul class="woocommerce-error" role="alert"><li>Please select a delivery zone / shipping method to complete your order.</li></ul>';
+                    var $notices = $('.woocommerce-notices-wrapper').first();
+                    if ($notices.length) {
+                        $notices.html(alertHtml);
+                    } else {
+                        $('form.checkout').before(alertHtml);
+                    }
+                }
             });
         },
 

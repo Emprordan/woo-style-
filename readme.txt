@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.4 =
+* Fix: Prevented shipping dropdown container overflow in Cart totals card by enforcing box-sizing, min-width: 0, and ellipsis truncation on long delivery zone names.
+* Enhancement: Expanded Cart Totals sidebar width to 420px to match checkout order summary card.
+* Feature: Prevented auto-selecting the first shipping method by default, displaying a clean "Select delivery zone..." placeholder until chosen.
+* Feature: Enforced required delivery zone / shipping method validation on both Cart ("Proceed to checkout") and Checkout ("Place order") with red alert highlight and warning shake animation.
 
 = 1.2.3 =
 * Feature: Embedded modern Checkout Coupon widget directly inside the right-hand "Your order" review container.

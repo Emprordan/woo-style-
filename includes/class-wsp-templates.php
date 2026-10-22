@@ -73,6 +73,12 @@ class WSP_Templates {
             add_action( 'woocommerce_checkout_order_review', array( $this, 'render_checkout_coupon_box' ), 5 );
         }
 
+        // Prevent auto-selecting default shipping method & require manual selection
+        if ( 'yes' === $settings['cart_redesign'] || 'yes' === $settings['checkout_redesign'] ) {
+            add_filter( 'woocommerce_shipping_chosen_method', array( $this, 'filter_shipping_chosen_method' ), 10, 2 );
+            add_action( 'woocommerce_checkout_process', array( $this, 'validate_shipping_method_selection' ) );
+        }
+
         // Clean accidental <pre class="wp-block-preformatted"> around shortcodes
         add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 1 );
         add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 9999 );
@@ -325,5 +331,36 @@ class WSP_Templates {
             </div>
         </div>
         <?php
+    }
+
+    /**
+     * Prevent WooCommerce from auto-selecting the first shipping method by default
+     *
+     * @param string $default
+     * @param array  $available_methods
+     * @return string
+     */
+    public function filter_shipping_chosen_method( $default, $available_methods ) {
+        $chosen_methods = ( function_exists( 'WC' ) && WC()->session ) ? WC()->session->get( 'chosen_shipping_methods' ) : array();
+
+        // If the customer has explicitly chosen an existing available method, retain it
+        if ( ! empty( $chosen_methods ) && ! empty( $chosen_methods[0] ) && isset( $available_methods[ $chosen_methods[0] ] ) ) {
+            return $chosen_methods[0];
+        }
+
+        // Return empty string so no method is checked by default
+        return '';
+    }
+
+    /**
+     * Enforce shipping method selection during checkout process
+     */
+    public function validate_shipping_method_selection() {
+        if ( function_exists( 'WC' ) && WC()->cart && WC()->cart->needs_shipping() ) {
+            $chosen_methods = WC()->session ? WC()->session->get( 'chosen_shipping_methods' ) : array();
+            if ( empty( $chosen_methods ) || empty( $chosen_methods[0] ) ) {
+                wc_add_notice( __( 'Please select a delivery zone / shipping method to complete your order.', 'woo-style-plus' ), 'error' );
+            }
+        }
     }
 }

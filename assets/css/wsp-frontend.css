@@ -1177,7 +1177,7 @@ body.wsp-active.woocommerce-cart.wsp-cart-auto-update button[name="update_cart"]
 /* Cart Collaterals & Totals (Right Column) */
 body.wsp-active.woocommerce-cart .cart-collaterals,
 body.wsp-active.wsp-cart-redesign .cart-collaterals {
-    flex: 0 0 380px !important;
+    flex: 0 0 420px !important;
     max-width: 100% !important;
     min-width: 320px !important;
     position: sticky !important;
@@ -1264,15 +1264,20 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table td {
 /* Full-width stacked shipment row in Cart totals */
 body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping,
 body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping {
-    display: flex !important;
-    flex-direction: column !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     padding: 12px 0 !important;
     border-bottom: 1px solid #f1f5f9 !important;
 }
 
 body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping th,
 body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping th {
+    display: block !important;
     width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     padding: 0 0 8px 0 !important;
     font-size: 13px !important;
     font-weight: 700 !important;
@@ -1283,7 +1288,10 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping th {
 
 body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping td,
 body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td {
+    display: block !important;
     width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     padding: 0 !important;
     border: none !important;
     text-align: left !important;
@@ -1294,6 +1302,7 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td {
     position: relative !important;
     display: block !important;
     width: 100% !important;
+    max-width: 100% !important;
     margin: 4px 0 8px 0 !important;
     box-sizing: border-box !important;
     text-align: left !important;
@@ -1302,6 +1311,7 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td {
 /* Trigger Button */
 .wsp-custom-shipping-select .wsp-css-trigger {
     width: 100% !important;
+    max-width: 100% !important;
     min-height: 48px !important;
     display: flex !important;
     align-items: center !important;
@@ -1318,6 +1328,7 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-sizing: border-box !important;
     user-select: none !important;
+    overflow: hidden !important;
 }
 
 .wsp-custom-shipping-select .wsp-css-trigger:hover {
@@ -1327,9 +1338,29 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td {
 }
 
 .wsp-custom-shipping-select.is-open .wsp-css-trigger {
-    border-color: var(--wsp-primary, #0f172a) !important;
-    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08) !important;
+    border-color: var(--wsp-primary, #059669) !important;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12) !important;
     background: #ffffff !important;
+}
+
+/* Placeholder unselected trigger styling */
+.wsp-custom-shipping-select .wsp-css-trigger.is-placeholder .wsp-css-trigger-title,
+.wsp-custom-shipping-select .wsp-css-trigger-title.wsp-css-placeholder {
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+}
+
+/* Required field pulse warning */
+.wsp-custom-shipping-select .wsp-css-trigger.wsp-field-required-pulse {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3.5px rgba(239, 68, 68, 0.22) !important;
+    animation: wsp-shipping-shake 0.4s ease-in-out !important;
+}
+
+@keyframes wsp-shipping-shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-4px); }
+    40%, 80% { transform: translateX(4px); }
 }
 
 /* Trigger Content (Title + Price Pill) */
@@ -1337,10 +1368,11 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    gap: 10px !important;
-    flex: 1 1 auto !important;
+    gap: 8px !important;
+    flex: 1 1 0% !important;
     min-width: 0 !important;
-    margin-right: 8px !important;
+    overflow: hidden !important;
+    margin-right: 6px !important;
 }
 
 .wsp-custom-shipping-select .wsp-css-trigger-title {
@@ -1351,6 +1383,8 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     text-align: left !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
 }
 
 .wsp-custom-shipping-select .wsp-css-trigger-price {

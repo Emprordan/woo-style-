@@ -1905,37 +1905,38 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
 /* Top Container Header Card */
 .wsp-custom-shop-header-box {
     position: relative !important;
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #eef2f6 100%) !important;
-    border: 1.5px solid rgba(15, 23, 42, 0.08) !important;
-    border-radius: var(--wsp-card-radius, 20px) !important;
-    padding: 36px 40px !important;
-    box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 12px -2px rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
-    margin-bottom: 36px !important;
+    background: #edf5f0 !important; /* Distinct, visible, soothing sage-mint surface */
+    border: 1.5px solid #d1e7d8 !important;
+    border-radius: var(--wsp-card-radius, 14px) !important;
+    padding: 18px 22px !important;
+    box-shadow: 0 4px 18px -2px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    margin-bottom: 24px !important;
     box-sizing: border-box !important;
-    transition: all 0.3s ease !important;
+    transition: all 0.25s ease !important;
 }
 
 /* Header Background Preset Themes */
-.wsp-custom-shop-header-box.wsp-header-bg-gradient {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #eef2f6 100%) !important;
-}
-
+.wsp-custom-shop-header-box.wsp-header-bg-default,
 .wsp-custom-shop-header-box.wsp-header-bg-emerald {
-    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 45%, #f8fafc 100%) !important;
-    border-color: rgba(16, 185, 129, 0.25) !important;
-    box-shadow: 0 12px 32px -4px rgba(16, 185, 129, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    background: #edf5f0 !important;
+    border-color: #d1e7d8 !important;
 }
 
 .wsp-custom-shop-header-box.wsp-header-bg-slate {
-    background: #f1f5f9 !important;
+    background: #edf2f7 !important;
     border-color: #cbd5e1 !important;
 }
 
+.wsp-custom-shop-header-box.wsp-header-bg-white {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+}
+
 .wsp-custom-shop-header-box.wsp-header-bg-dark {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
+    background: #0f172a !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
     color: #ffffff !important;
-    box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.35) !important;
+    box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.3) !important;
 }
 
 .wsp-custom-shop-header-box.wsp-header-bg-dark .wsp-cs-title {
@@ -1968,9 +1969,9 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     border-color: var(--wsp-primary, #10b981) !important;
 }
 
-/* Header Titles & Badges */
+/* Header Titles & Badges (Compact) */
 .wsp-cs-header-titles {
-    margin-bottom: 24px !important;
+    margin-bottom: 12px !important;
     text-align: left !important;
 }
 
@@ -1978,15 +1979,15 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     display: inline-flex !important;
     align-items: center !important;
     gap: 6px !important;
-    font-size: 11.5px !important;
+    font-size: 11px !important;
     font-weight: 700 !important;
-    letter-spacing: 0.05em !important;
+    letter-spacing: 0.04em !important;
     text-transform: uppercase !important;
-    padding: 5px 13px !important;
+    padding: 3px 10px !important;
     border-radius: 999px !important;
-    background: rgba(15, 23, 42, 0.06) !important;
+    background: rgba(15, 23, 42, 0.07) !important;
     color: var(--wsp-primary, #0f172a) !important;
-    margin-bottom: 10px !important;
+    margin-bottom: 6px !important;
 }
 
 .wsp-cs-badge-dot {
@@ -1998,26 +1999,26 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
 }
 
 .wsp-cs-title {
-    font-size: 28px !important;
+    font-size: 22px !important;
     font-weight: 800 !important;
     color: var(--wsp-heading, #0f172a) !important;
-    margin: 0 0 6px 0 !important;
+    margin: 0 0 3px 0 !important;
     line-height: 1.25 !important;
     letter-spacing: -0.02em !important;
 }
 
 .wsp-cs-subtitle {
-    font-size: 15px !important;
+    font-size: 13.5px !important;
     color: var(--wsp-text, #475569) !important;
     margin: 0 !important;
-    opacity: 0.88 !important;
-    line-height: 1.5 !important;
+    opacity: 0.85 !important;
+    line-height: 1.4 !important;
 }
 
-/* Search Bar Row */
+/* Row 1: Search Bar (Compact) */
 .wsp-cs-search-row {
     width: 100% !important;
-    margin-bottom: 22px !important;
+    margin-bottom: 12px !important;
 }
 
 .wsp-cs-search-box {
@@ -2025,12 +2026,12 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     display: flex !important;
     align-items: center !important;
     width: 100% !important;
-    gap: 12px !important;
+    gap: 10px !important;
 }
 
 .wsp-cs-search-icon {
     position: absolute !important;
-    left: 18px !important;
+    left: 14px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     color: #64748b !important;
@@ -2048,33 +2049,32 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
 
 .wsp-cs-search-input {
     flex: 1 !important;
-    height: 54px !important;
-    padding: 10px 48px 10px 52px !important;
-    font-size: 15px !important;
+    height: 44px !important;
+    padding: 8px 38px 8px 42px !important;
+    font-size: 14px !important;
     font-weight: 500 !important;
     border: 1.5px solid rgba(15, 23, 42, 0.12) !important;
-    border-radius: var(--wsp-btn-radius, 12px) !important;
+    border-radius: var(--wsp-btn-radius, 10px) !important;
     background: #ffffff !important;
     color: #0f172a !important;
     outline: none !important;
     box-sizing: border-box !important;
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03) !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .wsp-cs-search-input:focus {
     border-color: var(--wsp-primary, #0f172a) !important;
-    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08), 0 8px 20px -4px rgba(15, 23, 42, 0.08) !important;
-    transform: translateY(-1px) !important;
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.06) !important;
 }
 
 .wsp-cs-search-clear {
     position: absolute !important;
-    right: 156px !important;
+    right: 122px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    width: 26px !important;
-    height: 26px !important;
+    width: 22px !important;
+    height: 22px !important;
     border-radius: 50% !important;
     background: rgba(15, 23, 42, 0.08) !important;
     border: none !important;
@@ -2094,22 +2094,22 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
 }
 
 .wsp-cs-search-submit {
-    height: 54px !important;
-    padding: 0 32px !important;
+    height: 44px !important;
+    padding: 0 22px !important;
     background: var(--wsp-primary, #0f172a) !important;
     color: var(--wsp-primary-text, #ffffff) !important;
     border: none !important;
-    border-radius: var(--wsp-btn-radius, 12px) !important;
-    font-size: 15px !important;
+    border-radius: var(--wsp-btn-radius, 10px) !important;
+    font-size: 14px !important;
     font-weight: 700 !important;
     cursor: pointer !important;
     white-space: nowrap !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 8px !important;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18) !important;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    gap: 7px !important;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.16) !important;
+    transition: all 0.2s ease !important;
 }
 
 .wsp-cs-search-submit svg {
@@ -2119,71 +2119,85 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
 
 .wsp-cs-search-submit:hover {
     background: var(--wsp-primary-hover, #1e293b) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.22) !important;
 }
 
-/* Categories Pills Row */
-.wsp-cs-categories-row {
+/* Row 2: Unified Compact Controls (Categories + Sorting) */
+.wsp-cs-controls-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
     width: 100% !important;
-    margin-top: 18px !important;
+}
+
+.wsp-cs-categories-wrap {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
 }
 
 .wsp-cs-categories-scroll {
     overflow-x: auto !important;
-    padding-bottom: 6px !important;
+    padding-bottom: 2px !important;
     -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: thin !important;
+    scrollbar-width: none !important;
+}
+
+.wsp-cs-categories-scroll::-webkit-scrollbar {
+    display: none !important;
 }
 
 .wsp-cs-categories-list {
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 10px !important;
+    gap: 8px !important;
     align-items: center !important;
 }
 
-/* Category Pill Button */
+/* Category Pill Button (Compact) */
 .wsp-cs-cat-btn {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 8px !important;
-    padding: 9px 20px !important;
+    gap: 6px !important;
+    padding: 6px 15px !important;
+    height: 36px !important;
     border-radius: 999px !important;
     background: #ffffff !important;
     border: 1.5px solid rgba(15, 23, 42, 0.1) !important;
     color: var(--wsp-heading, #0f172a) !important;
-    font-size: 13.5px !important;
+    font-size: 13px !important;
     font-weight: 600 !important;
     cursor: pointer !important;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: all 0.2s ease !important;
     text-decoration: none !important;
     white-space: nowrap !important;
     user-select: none !important;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+    box-sizing: border-box !important;
 }
 
 .wsp-cs-cat-icon {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    opacity: 0.7 !important;
+    opacity: 0.75 !important;
 }
 
 .wsp-cs-cat-btn:hover {
-    background: #ffffff !important;
     border-color: var(--wsp-primary, #0f172a) !important;
     color: var(--wsp-primary, #0f172a) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08) !important;
 }
 
 .wsp-cs-cat-btn.is-active {
     background: var(--wsp-primary, #0f172a) !important;
     color: var(--wsp-primary-text, #ffffff) !important;
     border-color: var(--wsp-primary, #0f172a) !important;
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.22) !important;
-    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2) !important;
+    transform: translateY(-1px) !important;
 }
 
 .wsp-cs-cat-btn.is-active .wsp-cs-cat-icon {
@@ -2196,7 +2210,7 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     justify-content: center !important;
     font-size: 11px !important;
     font-weight: 700 !important;
-    padding: 2px 7px !important;
+    padding: 1px 6px !important;
     border-radius: 999px !important;
     background: rgba(15, 23, 42, 0.08) !important;
     color: inherit !important;
@@ -2208,33 +2222,31 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     color: #ffffff !important;
 }
 
-/* Meta & Sorting Bar */
-.wsp-cs-meta-row {
-    display: flex !important;
+/* Controls Right: Compact Count & Sort */
+.wsp-cs-controls-right {
+    display: inline-flex !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    flex-wrap: wrap !important;
-    gap: 16px !important;
-    margin-top: 24px !important;
-    padding-top: 20px !important;
-    border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
+    gap: 12px !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
 }
 
 .wsp-cs-result-count {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 8px !important;
-    font-size: 14px !important;
+    gap: 6px !important;
+    font-size: 13px !important;
     font-weight: 600 !important;
-    color: var(--wsp-text, #64748b) !important;
+    color: #475569 !important;
+    white-space: nowrap !important;
 }
 
 .wsp-cs-count-dot {
-    width: 8px !important;
-    height: 8px !important;
+    width: 7px !important;
+    height: 7px !important;
     border-radius: 50% !important;
     background: var(--wsp-primary, #10b981) !important;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+    box-shadow: 0 0 0 2.5px rgba(16, 185, 129, 0.25) !important;
     display: inline-block !important;
 }
 
@@ -2248,28 +2260,28 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     appearance: none !important;
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
-    height: 44px !important;
-    padding: 0 40px 0 16px !important;
+    height: 36px !important;
+    padding: 0 32px 0 12px !important;
     border: 1.5px solid rgba(15, 23, 42, 0.12) !important;
-    border-radius: var(--wsp-btn-radius, 10px) !important;
+    border-radius: var(--wsp-btn-radius, 8px) !important;
     background: #ffffff !important;
     color: var(--wsp-heading, #0f172a) !important;
-    font-size: 13.5px !important;
+    font-size: 13px !important;
     font-weight: 600 !important;
     outline: none !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
 }
 
 .wsp-cs-sort-select:focus {
     border-color: var(--wsp-primary, #0f172a) !important;
-    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1) !important;
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08) !important;
 }
 
 .wsp-cs-select-arrow {
     position: absolute !important;
-    right: 14px !important;
+    right: 10px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     pointer-events: none !important;
@@ -2284,7 +2296,7 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     position: relative !important;
     width: 100% !important;
     min-height: 250px !important;
-    margin-top: 36px !important;
+    margin-top: 24px !important;
 }
 
 /* Loading Overlay & Spinner */
@@ -2450,25 +2462,25 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
 /* Mobile Responsiveness for Custom Shop */
 @media (max-width: 680px) {
     .wsp-custom-shop-wrapper {
-        padding-top: 24px !important;
-        padding-bottom: 40px !important;
-        padding-left: 16px !important;
-        padding-right: 16px !important;
+        padding-top: 20px !important;
+        padding-bottom: 36px !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
     }
 
     .wsp-custom-shop-header-box {
-        padding: 24px 20px !important;
-        margin-bottom: 24px !important;
-        border-radius: 16px !important;
+        padding: 16px 14px !important;
+        margin-bottom: 18px !important;
+        border-radius: 12px !important;
     }
 
     .wsp-cs-title {
-        font-size: 22px !important;
+        font-size: 20px !important;
     }
 
     .wsp-cs-search-box {
         flex-direction: column !important;
-        gap: 12px !important;
+        gap: 8px !important;
     }
 
     .wsp-cs-search-input {
@@ -2476,25 +2488,32 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     }
 
     .wsp-cs-search-clear {
-        right: 18px !important;
-        top: 27px !important;
+        right: 14px !important;
+        top: 22px !important;
     }
 
     .wsp-cs-search-submit {
         width: 100% !important;
     }
 
+    .wsp-cs-controls-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+
     .wsp-cs-categories-list {
         flex-wrap: nowrap !important;
     }
 
-    .wsp-cs-meta-row {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 12px !important;
+    .wsp-cs-controls-right {
+        width: 100% !important;
+        justify-content: space-between !important;
+        margin-left: 0 !important;
+        padding-top: 8px !important;
+        border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
     }
 
-    .wsp-cs-meta-right,
     .wsp-cs-sorting-box,
     .wsp-cs-select-wrap,
     .wsp-cs-sort-select {

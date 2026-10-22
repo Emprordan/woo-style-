@@ -123,12 +123,15 @@ class WSP_Custom_Shop {
 
         if ( 'emerald' === $header_bg || 'green' === $header_bg ) {
             $header_classes[] = 'wsp-header-bg-emerald';
-        } elseif ( 'slate' === $header_bg ) {
+        } elseif ( 'slate' === $header_bg || 'gray' === $header_bg || 'grey' === $header_bg ) {
             $header_classes[] = 'wsp-header-bg-slate';
         } elseif ( 'dark' === $header_bg ) {
             $header_classes[] = 'wsp-header-bg-dark';
+        } elseif ( 'white' === $header_bg ) {
+            $header_classes[] = 'wsp-header-bg-white';
         } elseif ( 'gradient' === $header_bg || 'light' === $header_bg || empty( $header_bg ) ) {
-            $header_classes[] = 'wsp-header-bg-gradient';
+            // Default background: visibly colored soft mint/brand surface
+            $header_classes[] = 'wsp-header-bg-default';
         } else {
             // Custom CSS color or gradient
             $header_inline_style = 'background: ' . esc_attr( $header_bg ) . ' !important;';
@@ -170,7 +173,7 @@ class WSP_Custom_Shop {
              data-paginate="<?php echo esc_attr( $atts['paginate'] ); ?>"
              data-default-order="<?php echo esc_attr( $atts['order'] ); ?>"<?php echo $wrapper_style_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
-            <!-- TOP CONTAINER: SEARCH & CATEGORIES HEADER -->
+            <!-- COMPACT HEADER CONTAINER: SEARCH & CATEGORIES -->
             <div class="<?php echo esc_attr( implode( ' ', $header_classes ) ); ?>"<?php echo $header_style_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
                 <?php if ( ! empty( $atts['badge'] ) || ! empty( $atts['title'] ) || ! empty( $atts['subtitle'] ) ) : ?>
                     <div class="wsp-cs-header-titles">
@@ -189,13 +192,13 @@ class WSP_Custom_Shop {
                     </div>
                 <?php endif; ?>
 
-                <!-- Search Bar Row -->
+                <!-- Row 1: Search Bar -->
                 <?php if ( 'yes' === $atts['show_search'] ) : ?>
                     <div class="wsp-cs-search-row">
                         <form class="wsp-cs-search-form" role="search" onsubmit="return false;">
                             <div class="wsp-cs-search-box">
                                 <span class="wsp-cs-search-icon" aria-hidden="true">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                 </span>
                                 <input type="search" 
                                        class="wsp-cs-search-input" 
@@ -204,10 +207,10 @@ class WSP_Custom_Shop {
                                        placeholder="<?php esc_attr_e( 'Search products by title, keyword...', 'woo-style-plus' ); ?>" 
                                        autocomplete="off" />
                                 <button type="button" class="wsp-cs-search-clear" aria-label="<?php esc_attr_e( 'Clear search query', 'woo-style-plus' ); ?>" style="<?php echo empty( $current_search ) ? 'display: none;' : ''; ?>">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                                 </button>
                                 <button type="submit" class="wsp-cs-search-submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                     <span><?php esc_html_e( 'Search', 'woo-style-plus' ); ?></span>
                                 </button>
                             </div>
@@ -215,51 +218,50 @@ class WSP_Custom_Shop {
                     </div>
                 <?php endif; ?>
 
-                <!-- Categories Pills Row -->
-                <?php if ( 'yes' === $atts['show_categories'] && ! empty( $categories ) ) : ?>
-                    <div class="wsp-cs-categories-row">
-                        <div class="wsp-cs-categories-scroll">
-                            <div class="wsp-cs-categories-list" role="tablist">
-                                <!-- "All Products" Pill -->
-                                <button type="button" 
-                                        class="wsp-cs-cat-btn <?php echo empty( $current_category ) ? 'is-active' : ''; ?>" 
-                                        data-category="" 
-                                        role="tab" 
-                                        aria-selected="<?php echo empty( $current_category ) ? 'true' : 'false'; ?>">
-                                    <span class="wsp-cs-cat-icon" aria-hidden="true">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                                    </span>
-                                    <span class="wsp-cs-cat-name"><?php esc_html_e( 'All Products', 'woo-style-plus' ); ?></span>
-                                    <?php if ( 'yes' === $atts['show_counts'] && $total_all_products > 0 ) : ?>
-                                        <span class="wsp-cs-cat-count"><?php echo esc_html( $total_all_products ); ?></span>
-                                    <?php endif; ?>
-                                </button>
-
-                                <?php foreach ( $categories as $cat ) : ?>
+                <!-- Row 2: Compact Controls (Categories Pills on Left + Sorting & Count on Right) -->
+                <div class="wsp-cs-controls-row">
+                    <?php if ( 'yes' === $atts['show_categories'] && ! empty( $categories ) ) : ?>
+                        <div class="wsp-cs-categories-wrap">
+                            <div class="wsp-cs-categories-scroll">
+                                <div class="wsp-cs-categories-list" role="tablist">
+                                    <!-- "All Products" Pill -->
                                     <button type="button" 
-                                            class="wsp-cs-cat-btn <?php echo ( $current_category === $cat->slug ) ? 'is-active' : ''; ?>" 
-                                            data-category="<?php echo esc_attr( $cat->slug ); ?>" 
+                                            class="wsp-cs-cat-btn <?php echo empty( $current_category ) ? 'is-active' : ''; ?>" 
+                                            data-category="" 
                                             role="tab" 
-                                            aria-selected="<?php echo ( $current_category === $cat->slug ) ? 'true' : 'false'; ?>">
-                                        <span class="wsp-cs-cat-name"><?php echo esc_html( $cat->name ); ?></span>
-                                        <?php if ( 'yes' === $atts['show_counts'] ) : ?>
-                                            <span class="wsp-cs-cat-count"><?php echo esc_html( $cat->count ); ?></span>
+                                            aria-selected="<?php echo empty( $current_category ) ? 'true' : 'false'; ?>">
+                                        <span class="wsp-cs-cat-icon" aria-hidden="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                        </span>
+                                        <span class="wsp-cs-cat-name"><?php esc_html_e( 'All Products', 'woo-style-plus' ); ?></span>
+                                        <?php if ( 'yes' === $atts['show_counts'] && $total_all_products > 0 ) : ?>
+                                            <span class="wsp-cs-cat-count"><?php echo esc_html( $total_all_products ); ?></span>
                                         <?php endif; ?>
                                     </button>
-                                <?php endforeach; ?>
+
+                                    <?php foreach ( $categories as $cat ) : ?>
+                                        <button type="button" 
+                                                class="wsp-cs-cat-btn <?php echo ( $current_category === $cat->slug ) ? 'is-active' : ''; ?>" 
+                                                data-category="<?php echo esc_attr( $cat->slug ); ?>" 
+                                                role="tab" 
+                                                aria-selected="<?php echo ( $current_category === $cat->slug ) ? 'true' : 'false'; ?>">
+                                            <span class="wsp-cs-cat-name"><?php echo esc_html( $cat->name ); ?></span>
+                                            <?php if ( 'yes' === $atts['show_counts'] ) : ?>
+                                                <span class="wsp-cs-cat-count"><?php echo esc_html( $cat->count ); ?></span>
+                                            <?php endif; ?>
+                                        </button>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
 
-                <!-- Meta & Sorting Bar -->
-                <div class="wsp-cs-meta-row">
-                    <div class="wsp-cs-result-count" aria-live="polite">
-                        <span class="wsp-cs-count-dot" aria-hidden="true"></span>
-                        <span class="wsp-cs-count-label"><?php echo esc_html( $query_result['count_text'] ); ?></span>
-                    </div>
+                    <div class="wsp-cs-controls-right">
+                        <div class="wsp-cs-result-count" aria-live="polite">
+                            <span class="wsp-cs-count-dot" aria-hidden="true"></span>
+                            <span class="wsp-cs-count-label"><?php echo esc_html( $query_result['count_text'] ); ?></span>
+                        </div>
 
-                    <div class="wsp-cs-meta-right">
                         <?php if ( 'yes' === $atts['show_sorting'] ) : ?>
                             <div class="wsp-cs-sorting-box">
                                 <label for="wsp-sort-<?php echo esc_attr( $instance_id ); ?>" class="screen-reader-text"><?php esc_html_e( 'Sort products', 'woo-style-plus' ); ?></label>

@@ -216,7 +216,7 @@ class WSP_Presets {
             // Grid & Shop Layout
             'columns_desktop'         => '4',
             'columns_tablet'          => '2',
-            'columns_mobile'          => '1',
+            'columns_mobile'          => '2',
             'grid_gap'                => '28px',
             'shop_filter_bar'         => 'yes',
             'shop_pagination_style'   => 'modern_pills',

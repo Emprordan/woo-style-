@@ -192,7 +192,7 @@ class WSP_Frontend {
 
         $cols_desktop     = ! empty( $settings['columns_desktop'] ) ? intval( $settings['columns_desktop'] ) : 4;
         $cols_tablet      = ! empty( $settings['columns_tablet'] ) ? intval( $settings['columns_tablet'] ) : 2;
-        $cols_mobile      = ! empty( $settings['columns_mobile'] ) ? intval( $settings['columns_mobile'] ) : 1;
+        $cols_mobile      = ! empty( $settings['columns_mobile'] ) ? intval( $settings['columns_mobile'] ) : 2;
 
         $image_ratio      = ! empty( $settings['image_ratio'] ) ? $settings['image_ratio'] : '1/1';
 
@@ -327,13 +327,15 @@ class WSP_Frontend {
             }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             body.wsp-active ul.products,
             body.wsp-active .woocommerce ul.products,
             body.wsp-active .woocommerce-page ul.products,
-            body.wsp-active .wc-block-grid__products {
+            body.wsp-active div.products ul.products,
+            body.wsp-active .wc-block-grid__products,
+            body.wsp-active .wsp-custom-shop-grid {
                 grid-template-columns: repeat({$cols_mobile}, minmax(0, 1fr)) !important;
-                gap: 16px !important;
+                gap: 12px !important;
             }
         }
         ";

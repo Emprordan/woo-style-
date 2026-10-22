@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.1.6 =
+* Feature: Shop archive and custom shop page display in 2 columns on mobile screens by default.
+* Enhancement: Product card image thumbnails guaranteed perfect square (1:1 aspect ratio) with smooth rounded corners and cover crop.
+* Redesign: Pixel-perfect, modern, and compact Cart page with unified coupon group, circular remove action, crisp product thumbnails, styled shipping radio options, and sticky order totals.
+* Redesign: High-conversion, elegant Checkout page with compact input controls, borderless order review summary, and styled payment method cards.
+* Enhancement: Mobile native app card experience for Cart page with streamlined item summaries.
 
 = 1.1.5 =
 * Fix: Multi-row wrapping for category filter pills on mobile screens, completely eliminating horizontal blowout and off-screen overflow.

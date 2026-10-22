@@ -646,8 +646,8 @@ class WSP_Admin {
                                     <div class="wsp-form-row">
                                         <label for="columns_mobile"><?php esc_html_e( 'Mobile Columns', 'woo-style-plus' ); ?></label>
                                         <select name="wsp_settings[columns_mobile]" id="columns_mobile" class="wsp-select">
-                                            <option value="1" <?php selected( $settings['columns_mobile'], '1' ); ?>>1 Column (Default)</option>
-                                            <option value="2" <?php selected( $settings['columns_mobile'], '2' ); ?>>2 Columns</option>
+                                            <option value="2" <?php selected( $settings['columns_mobile'], '2' ); ?>>2 Columns (Recommended)</option>
+                                            <option value="1" <?php selected( $settings['columns_mobile'], '1' ); ?>>1 Column</option>
                                         </select>
                                     </div>
                                 </div>

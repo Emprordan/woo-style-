@@ -1653,10 +1653,10 @@ body.wsp-active.wsp-checkout-redesign .woocommerce {
 
 body.wsp-active.wsp-checkout-redesign form.checkout,
 body.wsp-active.woocommerce-checkout form.checkout {
-    display: flex !important;
-    flex-wrap: wrap !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 420px !important;
     gap: 28px !important;
-    align-items: flex-start !important;
+    align-items: start !important;
     clear: both !important;
     width: 100% !important;
 }
@@ -1671,11 +1671,11 @@ body.wsp-active.woocommerce-checkout form.checkout::after {
 /* Customer Details (Left Column) */
 body.wsp-active.wsp-checkout-redesign #customer_details,
 body.wsp-active.woocommerce-checkout #customer_details {
-    flex: 1 1 56% !important;
-    min-width: 320px !important;
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
     max-width: 100% !important;
     float: none !important;
-    width: auto !important;
     background: var(--wsp-card-bg, #ffffff) !important;
     border: 1px solid var(--wsp-border, #e2e8f0) !important;
     border-radius: var(--wsp-card-radius, 16px) !important;
@@ -1702,18 +1702,23 @@ body.wsp-active.woocommerce-checkout #customer_details .col-2 {
     margin: 0 !important;
 }
 
-/* Any loose heading directly under form.checkout is hidden to avoid breaking the 2-column flex row */
+/* Any loose heading directly outside #order_review is suppressed so it never disturbs the grid */
 body.wsp-active.wsp-checkout-redesign form.checkout > #order_review_heading,
-body.wsp-active.woocommerce-checkout form.checkout > #order_review_heading {
+body.wsp-active.woocommerce-checkout form.checkout > #order_review_heading,
+body.wsp-active.wsp-checkout-redesign #order_review_heading:not(#order_review #order_review_heading),
+body.wsp-active.woocommerce-checkout #order_review_heading:not(#order_review #order_review_heading),
+body.wsp-active #order_review_heading:not(#order_review #order_review_heading) {
     display: none !important;
 }
 
 /* Order Review Container (Right Column) */
 body.wsp-active.wsp-checkout-redesign #order_review,
 body.wsp-active.woocommerce-checkout #order_review {
-    flex: 0 0 420px !important;
-    max-width: 100% !important;
-    min-width: 320px !important;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    min-width: 0 !important;
     float: none !important;
     position: sticky !important;
     top: 24px !important;
@@ -1723,6 +1728,36 @@ body.wsp-active.woocommerce-checkout #order_review {
     border-radius: var(--wsp-card-radius, 16px) !important;
     padding: 24px !important;
     box-shadow: var(--wsp-card-shadow, 0 4px 20px -2px rgba(15, 23, 42, 0.05)) !important;
+}
+
+@media (max-width: 992px) {
+    body.wsp-active.wsp-checkout-redesign form.checkout,
+    body.wsp-active.woocommerce-checkout form.checkout {
+        grid-template-columns: 100% !important;
+        gap: 24px !important;
+    }
+
+    body.wsp-active.wsp-checkout-redesign #customer_details,
+    body.wsp-active.woocommerce-checkout #customer_details {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    body.wsp-active.wsp-checkout-redesign #order_review,
+    body.wsp-active.woocommerce-checkout #order_review {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        position: static !important;
+    }
+
+    body.wsp-active.wsp-checkout-redesign #customer_details.col2-set,
+    body.wsp-active.woocommerce-checkout #customer_details.col2-set {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 body.wsp-active.wsp-checkout-redesign .woocommerce-billing-fields h3,

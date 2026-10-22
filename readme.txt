@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.2 =
+* Fix: Converted Checkout layout from flexbox wrapping to bulletproof 2-column CSS Grid (`minmax(0, 1fr) 420px`).
+* Fix: Explicit grid item placement for `#customer_details` (Column 1) and `#order_review` (Column 2) preventing order summary wrap onto row 2.
+* Fix: Suppressed loose `#order_review_heading` from disturbing checkout columns and integrated clean card header inside `#order_review`.
+* Enhancement: Responsive single-column grid stacking for tablet and mobile devices under 992px.
 
 = 1.2.1 =
 * Feature: Automatic cart recalculation on quantity changes with debounced AJAX synchronization.

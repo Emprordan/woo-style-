@@ -536,12 +536,21 @@
          * Guarantee clean 2-column checkout layout by nesting #order_review_heading into #order_review
          */
         initCheckoutLayout: function() {
-            var $heading = $('form.checkout > #order_review_heading');
-            var $review = $('form.checkout #order_review');
-            if ($heading.length && $review.length) {
-                $review.prepend($heading);
-            } else if ($review.length && !$review.find('#order_review_heading, .wsp-order-review-heading').length) {
-                $review.prepend('<h3 id="order_review_heading" class="wsp-order-review-heading">Your order</h3>');
+            var $review = $('form.checkout #order_review, #order_review');
+            if (!$review.length) {
+                return;
+            }
+
+            var $outsideHeadings = $('form.checkout > #order_review_heading, #order_review_heading').not('#order_review #order_review_heading');
+            if (!$review.find('#order_review_heading, .wsp-order-review-heading').length) {
+                if ($outsideHeadings.length) {
+                    $review.prepend($outsideHeadings.first().show());
+                    $outsideHeadings.slice(1).remove();
+                } else {
+                    $review.prepend('<h3 id="order_review_heading" class="wsp-order-review-heading">Your order</h3>');
+                }
+            } else if ($outsideHeadings.length) {
+                $outsideHeadings.remove();
             }
         },
 

@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.9
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.0 =
+* Fix: Checkout 2-column layout shift where Order Review card dropped underneath customer details.
+* Fix: Prevented loose #order_review_heading from acting as an unnested flex row item in form.checkout.
+* Enhancement: Nested #order_review_heading into the sticky #order_review right column card for aligned, cohesive presentation.
+* Enhancement: Clean 2-column grid layout for customer details (billing fields and shipping/additional info) on desktop.
+* Enhancement: Full-width stacked shipment row in Checkout review order table for the fancy custom shipping dropdown.
 
 = 1.1.9 =
 * Redesign: Fancy custom dropdown UI for Cart & Checkout shipping / delivery methods with separate zone titles and highlighted emerald price badges.

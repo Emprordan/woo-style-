@@ -26,6 +26,8 @@
                     self.initShippingDropdown();
                 }
 
+                self.initCheckoutLayout();
+
                 // Global close for custom shipping dropdowns when clicking outside
                 $(document).on('click', function(e) {
                     if (!$(e.target).closest('.wsp-custom-shipping-select').length) {
@@ -53,6 +55,8 @@
                 if (typeof wspFrontendData === 'undefined' || wspFrontendData.shippingMethodsStyle !== 'cards') {
                     self.initShippingDropdown();
                 }
+
+                self.initCheckoutLayout();
             });
 
             // Catch any background WooCommerce AJAX completions
@@ -518,6 +522,19 @@
                 $dropdown.append($trigger).append($menu);
                 $ul.before($dropdown);
             });
+        },
+
+        /**
+         * Guarantee clean 2-column checkout layout by nesting #order_review_heading into #order_review
+         */
+        initCheckoutLayout: function() {
+            var $heading = $('form.checkout > #order_review_heading');
+            var $review = $('form.checkout #order_review');
+            if ($heading.length && $review.length) {
+                $review.prepend($heading);
+            } else if ($review.length && !$review.find('#order_review_heading, .wsp-order-review-heading').length) {
+                $review.prepend('<h3 id="order_review_heading" class="wsp-order-review-heading">Your order</h3>');
+            }
         }
     };
 

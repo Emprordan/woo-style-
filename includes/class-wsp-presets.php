@@ -252,6 +252,7 @@ class WSP_Presets {
             'cart_auto_update'        => 'yes',
             'cart_layout'             => 'two_columns',
             'checkout_redesign'       => 'yes',
+            'checkout_embedded_coupon' => 'yes',
             'checkout_layout'         => 'two_columns',
             'checkout_modern_inputs'  => 'yes',
             'shipping_methods_style'  => 'dropdown', // dropdown, cards

@@ -155,8 +155,9 @@ class WSP_Frontend {
             'stickyMobileCTA'      => ( 'yes' === $settings['single_sticky_mobile_cta'] ),
             'cartRedesign'         => ( 'yes' === $settings['cart_redesign'] ),
             'cartAutoUpdate'       => ( 'yes' === WSP_Core::get_setting( 'cart_auto_update', 'yes' ) ),
-            'checkoutRedesign'     => ( 'yes' === $settings['checkout_redesign'] ),
-            'shippingMethodsStyle' => isset( $settings['shipping_methods_style'] ) ? $settings['shipping_methods_style'] : 'dropdown',
+            'checkoutRedesign'       => ( 'yes' === $settings['checkout_redesign'] ),
+            'checkoutEmbeddedCoupon' => ( 'yes' === WSP_Core::get_setting( 'checkout_embedded_coupon', 'yes' ) ),
+            'shippingMethodsStyle'   => isset( $settings['shipping_methods_style'] ) ? $settings['shipping_methods_style'] : 'dropdown',
         ) );
     }
 

@@ -106,6 +106,7 @@ class WSP_Admin {
             'cart_redesign',
             'cart_auto_update',
             'checkout_redesign',
+            'checkout_embedded_coupon',
             'checkout_modern_inputs',
             'myaccount_redesign',
             'myaccount_show_user_header',
@@ -865,6 +866,11 @@ class WSP_Admin {
                                     <label class="wsp-checkbox-item">
                                         <input type="checkbox" name="wsp_settings[checkout_redesign]" value="yes" <?php checked( $settings['checkout_redesign'], 'yes' ); ?>>
                                         <span><strong><?php esc_html_e( 'Enable Checkout Redesign (Clean 2-column billing & order card)', 'woo-style-plus' ); ?></strong></span>
+                                    </label>
+
+                                    <label class="wsp-checkbox-item">
+                                        <input type="checkbox" name="wsp_settings[checkout_embedded_coupon]" value="yes" <?php checked( isset( $settings['checkout_embedded_coupon'] ) ? $settings['checkout_embedded_coupon'] : 'yes', 'yes' ); ?>>
+                                        <span><strong><?php esc_html_e( 'Embed Coupon Widget in Order Summary', 'woo-style-plus' ); ?></strong> (<?php esc_html_e( 'Moves the coupon widget into the "Your order" container with modern toggle & instant feedback', 'woo-style-plus' ); ?>)</span>
                                     </label>
 
                                     <label class="wsp-checkbox-item">

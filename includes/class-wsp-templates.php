@@ -68,6 +68,11 @@ class WSP_Templates {
             add_filter( 'wc_empty_cart_message', array( $this, 'render_empty_cart_message' ) );
         }
 
+        // Embedded Checkout Coupon Box inside #order_review
+        if ( 'yes' === $settings['checkout_redesign'] && ( ! isset( $settings['checkout_embedded_coupon'] ) || 'yes' === $settings['checkout_embedded_coupon'] ) ) {
+            add_action( 'woocommerce_checkout_order_review', array( $this, 'render_checkout_coupon_box' ), 5 );
+        }
+
         // Clean accidental <pre class="wp-block-preformatted"> around shortcodes
         add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 1 );
         add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 9999 );
@@ -271,5 +276,54 @@ class WSP_Templates {
     public function render_empty_cart_message( $message ) {
         return '<span class="wsp-empty-cart-title">' . esc_html__( 'Your cart is currently empty', 'woo-style-plus' ) . '</span>' .
                '<span class="wsp-empty-cart-desc">' . esc_html__( 'Looks like you haven\'t added any products to your shopping cart yet. Explore our shop to discover fresh items and great deals!', 'woo-style-plus' ) . '</span>';
+    }
+
+    /**
+     * Render sleek embedded coupon widget inside checkout #order_review card
+     */
+    public function render_checkout_coupon_box() {
+        if ( ! function_exists( 'wc_coupons_enabled' ) || ! wc_coupons_enabled() ) {
+            return;
+        }
+        ?>
+        <div class="wsp-checkout-coupon-box">
+            <div class="wsp-coupon-toggle-wrap">
+                <button type="button" class="wsp-coupon-toggle-btn" aria-expanded="false">
+                    <span class="wsp-coupon-toggle-left">
+                        <span class="wsp-coupon-tag-icon">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                            </svg>
+                        </span>
+                        <span class="wsp-coupon-toggle-title"><?php esc_html_e( 'Have a coupon code?', 'woo-style-plus' ); ?></span>
+                    </span>
+                    <span class="wsp-coupon-toggle-right">
+                        <span class="wsp-coupon-toggle-action"><?php esc_html_e( 'Enter code', 'woo-style-plus' ); ?></span>
+                        <span class="wsp-coupon-toggle-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </span>
+                    </span>
+                </button>
+            </div>
+            <div class="wsp-coupon-form-wrap" style="display: none;">
+                <div class="wsp-coupon-input-group">
+                    <div class="wsp-coupon-input-inner">
+                        <span class="wsp-coupon-input-icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                                <line x1="2" y1="10" x2="22" y2="10"></line>
+                            </svg>
+                        </span>
+                        <input type="text" class="wsp-coupon-input" placeholder="<?php esc_attr_e( 'Enter coupon code', 'woo-style-plus' ); ?>" autocomplete="off" />
+                    </div>
+                    <button type="button" class="wsp-coupon-apply-btn"><?php esc_html_e( 'Apply', 'woo-style-plus' ); ?></button>
+                </div>
+                <div class="wsp-coupon-msg" style="display: none;"></div>
+            </div>
+        </div>
+        <?php
     }
 }

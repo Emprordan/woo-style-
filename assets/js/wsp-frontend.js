@@ -27,6 +27,7 @@
                 }
 
                 self.initCheckoutLayout();
+                self.initCheckoutCoupon();
 
                 if (typeof wspFrontendData === 'undefined' || wspFrontendData.cartAutoUpdate) {
                     self.initCartAutoUpdate();
@@ -61,6 +62,7 @@
                 }
 
                 self.initCheckoutLayout();
+                self.initCheckoutCoupon();
 
                 if (typeof wspFrontendData === 'undefined' || wspFrontendData.cartAutoUpdate) {
                     self.initCartAutoUpdate();
@@ -74,6 +76,36 @@
                         setTimeout(function() {
                             self.initShippingDropdown();
                         }, 50);
+                    }
+                }
+
+                if (settings && settings.url && settings.url.indexOf('apply_coupon') !== -1) {
+                    var $couponBox = $('.wsp-checkout-coupon-box');
+                    var $applyBtn  = $couponBox.find('.wsp-coupon-apply-btn');
+                    var $input     = $couponBox.find('.wsp-coupon-input');
+                    var $msgBox    = $couponBox.find('.wsp-coupon-msg');
+
+                    $applyBtn.prop('disabled', false).removeClass('is-loading').text('Apply');
+
+                    var resp = xhr.responseText || '';
+                    if (resp.indexOf('woocommerce-error') !== -1) {
+                        var $temp = $('<div>').html(resp);
+                        var errText = $temp.find('.woocommerce-error li').first().text() || $temp.find('.woocommerce-error').text() || 'Invalid coupon code.';
+                        $msgBox.html(
+                            '<div class="wsp-coupon-badge wsp-coupon-badge-error">' +
+                                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>' +
+                                '<span>' + $('<div>').text(errText.trim()).html() + '</span>' +
+                            '</div>'
+                        ).slideDown(150);
+                        $input.select();
+                    } else if (resp.indexOf('woocommerce-message') !== -1 || resp.indexOf('applied_coupon') !== -1) {
+                        $msgBox.html(
+                            '<div class="wsp-coupon-badge wsp-coupon-badge-success">' +
+                                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' +
+                                '<span>Coupon applied successfully!</span>' +
+                            '</div>'
+                        ).slideDown(150);
+                        $input.val('');
                     }
                 }
             });
@@ -552,6 +584,171 @@
             } else if ($outsideHeadings.length) {
                 $outsideHeadings.remove();
             }
+        },
+
+        /**
+         * Initialize embedded Checkout Coupon Box inside #order_review card
+         */
+        initCheckoutCoupon: function() {
+            if (typeof wspFrontendData !== 'undefined' && wspFrontendData.checkoutEmbeddedCoupon === false) {
+                return;
+            }
+
+            var $review = $('form.checkout #order_review, #order_review');
+            if (!$review.length) {
+                return;
+            }
+
+            // If coupon box does not exist inside #order_review, inject it
+            var $couponBox = $review.find('.wsp-checkout-coupon-box');
+            if (!$couponBox.length) {
+                var $outsideBox = $('.wsp-checkout-coupon-box');
+                if ($outsideBox.length) {
+                    $couponBox = $outsideBox.first();
+                } else {
+                    $couponBox = $(
+                        '<div class="wsp-checkout-coupon-box">' +
+                            '<div class="wsp-coupon-toggle-wrap">' +
+                                '<button type="button" class="wsp-coupon-toggle-btn" aria-expanded="false">' +
+                                    '<span class="wsp-coupon-toggle-left">' +
+                                        '<span class="wsp-coupon-tag-icon">' +
+                                            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                                                '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>' +
+                                                '<line x1="7" y1="7" x2="7.01" y2="7"></line>' +
+                                            '</svg>' +
+                                        '</span>' +
+                                        '<span class="wsp-coupon-toggle-title">Have a coupon code?</span>' +
+                                    '</span>' +
+                                    '<span class="wsp-coupon-toggle-right">' +
+                                        '<span class="wsp-coupon-toggle-action">Enter code</span>' +
+                                        '<span class="wsp-coupon-toggle-arrow">' +
+                                            '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+                                                '<polyline points="6 9 12 15 18 9"></polyline>' +
+                                            '</svg>' +
+                                        '</span>' +
+                                    '</span>' +
+                                '</button>' +
+                            '</div>' +
+                            '<div class="wsp-coupon-form-wrap" style="display: none;">' +
+                                '<div class="wsp-coupon-input-group">' +
+                                    '<div class="wsp-coupon-input-inner">' +
+                                        '<span class="wsp-coupon-input-icon">' +
+                                            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                                                '<rect x="2" y="5" width="20" height="14" rx="2"></rect>' +
+                                                '<line x1="2" y1="10" x2="22" y2="10"></line>' +
+                                            '</svg>' +
+                                        '</span>' +
+                                        '<input type="text" class="wsp-coupon-input" placeholder="Enter coupon code" autocomplete="off" />' +
+                                    '</div>' +
+                                    '<button type="button" class="wsp-coupon-apply-btn">Apply</button>' +
+                                '</div>' +
+                                '<div class="wsp-coupon-msg" style="display: none;"></div>' +
+                            '</div>' +
+                        '</div>'
+                    );
+                }
+
+                // Place directly below heading
+                var $heading = $review.find('#order_review_heading, .wsp-order-review-heading');
+                if ($heading.length) {
+                    $heading.after($couponBox);
+                } else {
+                    $review.prepend($couponBox);
+                }
+            } else {
+                // Ensure correct position right under the heading before review table
+                var $heading = $review.find('#order_review_heading, .wsp-order-review-heading');
+                if ($heading.length && $heading.next()[0] !== $couponBox[0]) {
+                    $heading.after($couponBox);
+                }
+            }
+
+            // Bind toggle button click
+            $couponBox.find('.wsp-coupon-toggle-btn').off('click.wsp_coupon').on('click.wsp_coupon', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var $box = $(this).closest('.wsp-checkout-coupon-box');
+                var isOpen = $box.hasClass('is-open');
+                var $formWrap = $box.find('.wsp-coupon-form-wrap');
+                var $btn = $(this);
+
+                if (isOpen) {
+                    $box.removeClass('is-open');
+                    $btn.attr('aria-expanded', 'false');
+                    $formWrap.slideUp(200);
+                } else {
+                    $box.addClass('is-open');
+                    $btn.attr('aria-expanded', 'true');
+                    $formWrap.slideDown(200, function() {
+                        $box.find('.wsp-coupon-input').focus();
+                    });
+                }
+            });
+
+            // Function to execute coupon apply
+            var handleApply = function() {
+                var $box = $('.wsp-checkout-coupon-box');
+                var $input = $box.find('.wsp-coupon-input');
+                var $applyBtn = $box.find('.wsp-coupon-apply-btn');
+                var $msg = $box.find('.wsp-coupon-msg');
+                var code = $.trim($input.val());
+
+                if (!code) {
+                    $input.focus();
+                    return;
+                }
+
+                $applyBtn.prop('disabled', true).addClass('is-loading').text('Applying...');
+                $msg.slideUp(100).empty();
+
+                // Check native WooCommerce checkout_coupon form
+                var $nativeForm = $('form.checkout_coupon');
+                if ($nativeForm.length) {
+                    $nativeForm.find('input[name="coupon_code"]').val(code);
+                    $nativeForm.trigger('submit');
+                } else {
+                    var ajaxUrl = (typeof wc_checkout_params !== 'undefined' && wc_checkout_params.wc_ajax_url)
+                        ? wc_checkout_params.wc_ajax_url.toString().replace('%%endpoint%%', 'apply_coupon')
+                        : '/?wc-ajax=apply_coupon';
+                    var nonce = (typeof wc_checkout_params !== 'undefined' && wc_checkout_params.apply_coupon_nonce)
+                        ? wc_checkout_params.apply_coupon_nonce
+                        : '';
+
+                    $.ajax({
+                        type: 'POST',
+                        url: ajaxUrl,
+                        data: {
+                            security: nonce,
+                            coupon_code: code
+                        },
+                        dataType: 'html',
+                        success: function(response) {
+                            $('.woocommerce-error, .woocommerce-message').remove();
+                            if (response) {
+                                $('form.checkout').before(response);
+                                $(document.body).trigger('applied_coupon_in_checkout', [code]);
+                                $(document.body).trigger('update_checkout', { update_shipping_method: false });
+                            }
+                        }
+                    });
+                }
+            };
+
+            // Bind Apply button click
+            $couponBox.find('.wsp-coupon-apply-btn').off('click.wsp_apply').on('click.wsp_apply', function(e) {
+                e.preventDefault();
+                handleApply();
+            });
+
+            // Bind Enter key in coupon input
+            $couponBox.find('.wsp-coupon-input').off('keydown.wsp_enter').on('keydown.wsp_enter', function(e) {
+                if (e.key === 'Enter' || e.keyCode === 13) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleApply();
+                }
+            });
         },
 
         /**

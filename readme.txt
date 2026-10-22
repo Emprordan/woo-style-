@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,14 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.2.3 =
+* Feature: Embedded modern Checkout Coupon widget directly inside the right-hand "Your order" review container.
+* Enhancement: Sleek collapsible toggle card with emerald promo tag icon, rotating chevron, and focus rings.
+* Enhancement: Inline real-time coupon feedback badges with immediate error/success messaging without jumping to top of page.
+* Enhancement: Suppressed the default top standalone coupon notice banner for a streamlined, clutter-free checkout layout.
+* Enhancement: Styled applied discount rows in order review table with emerald badges and soft red remove actions.
+* Feature: Added admin setting to toggle embedded coupon widget on Cart & Checkout tab.
 
 = 1.2.2 =
 * Fix: Converted Checkout layout from flexbox wrapping to bulletproof 2-column CSS Grid (`minmax(0, 1fr) 420px`).

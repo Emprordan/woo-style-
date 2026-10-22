@@ -1787,6 +1787,277 @@ body.wsp-active.woocommerce-checkout #order_review .wsp-order-review-heading {
     border-bottom: 1px solid #f1f5f9 !important;
 }
 
+/* ==========================================================================
+   Embedded Checkout Coupon Box
+   ========================================================================== */
+
+/* Hide default standalone coupon notice banner & default form outside checkout */
+body.wsp-active.wsp-checkout-redesign .woocommerce-form-coupon-toggle,
+body.wsp-active.woocommerce-checkout .woocommerce-form-coupon-toggle,
+body.wsp-active.wsp-checkout-redesign form.checkout_coupon,
+body.wsp-active.woocommerce-checkout form.checkout_coupon {
+    display: none !important;
+}
+
+/* Coupon Box Container inside #order_review */
+body.wsp-active.wsp-checkout-redesign .wsp-checkout-coupon-box,
+body.wsp-active.woocommerce-checkout .wsp-checkout-coupon-box {
+    margin: 0 0 18px 0 !important;
+    background: #f8fafc !important;
+    border: 1px dashed #cbd5e1 !important;
+    border-radius: 12px !important;
+    padding: 10px 14px !important;
+    transition: all 0.2s ease !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    display: block !important;
+}
+
+body.wsp-active.wsp-checkout-redesign .wsp-checkout-coupon-box:hover,
+body.wsp-active.woocommerce-checkout .wsp-checkout-coupon-box:hover {
+    background: #f1f5f9 !important;
+    border-color: #94a3b8 !important;
+}
+
+body.wsp-active.wsp-checkout-redesign .wsp-checkout-coupon-box.is-open,
+body.wsp-active.woocommerce-checkout .wsp-checkout-coupon-box.is-open {
+    background: #ffffff !important;
+    border: 1px solid var(--wsp-primary, #059669) !important;
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.08) !important;
+    padding: 12px 14px !important;
+}
+
+/* Toggle Header Button */
+body.wsp-active .wsp-coupon-toggle-btn {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    text-align: left !important;
+    font-family: inherit !important;
+    color: var(--wsp-heading, #0f172a) !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+body.wsp-active .wsp-coupon-toggle-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+body.wsp-active .wsp-coupon-tag-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--wsp-primary, #059669) !important;
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 7px !important;
+    background: rgba(5, 150, 105, 0.1) !important;
+    flex-shrink: 0 !important;
+}
+
+body.wsp-active .wsp-coupon-toggle-title {
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    color: var(--wsp-heading, #0f172a) !important;
+}
+
+body.wsp-active .wsp-coupon-toggle-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+body.wsp-active .wsp-coupon-toggle-action {
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    color: var(--wsp-primary, #059669) !important;
+}
+
+body.wsp-active .wsp-coupon-toggle-arrow {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #64748b !important;
+    transition: transform 0.25s ease !important;
+}
+
+body.wsp-active .wsp-checkout-coupon-box.is-open .wsp-coupon-toggle-arrow {
+    transform: rotate(180deg) !important;
+    color: var(--wsp-primary, #059669) !important;
+}
+
+/* Collapsible Form Container */
+body.wsp-active .wsp-coupon-form-wrap {
+    margin-top: 12px !important;
+    padding-top: 10px !important;
+    border-top: 1px solid #f1f5f9 !important;
+}
+
+/* Input + Button Row */
+body.wsp-active .wsp-coupon-input-group {
+    display: flex !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+body.wsp-active .wsp-coupon-input-inner {
+    flex: 1 1 auto !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+body.wsp-active .wsp-coupon-input-icon {
+    position: absolute !important;
+    left: 11px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    color: #94a3b8 !important;
+    pointer-events: none !important;
+}
+
+body.wsp-active input.wsp-coupon-input {
+    width: 100% !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    box-sizing: border-box !important;
+    padding: 0 12px 0 34px !important;
+    background: #f8fafc !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 9px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    color: #0f172a !important;
+    outline: none !important;
+    transition: all 0.15s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+}
+
+body.wsp-active input.wsp-coupon-input::placeholder {
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    color: #94a3b8 !important;
+    font-weight: 400 !important;
+}
+
+body.wsp-active input.wsp-coupon-input:focus {
+    background: #ffffff !important;
+    border-color: var(--wsp-primary, #059669) !important;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15) !important;
+}
+
+body.wsp-active button.wsp-coupon-apply-btn {
+    flex: 0 0 auto !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 18px !important;
+    background: var(--wsp-primary, #059669) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 9px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 6px rgba(5, 150, 105, 0.2) !important;
+}
+
+body.wsp-active button.wsp-coupon-apply-btn:hover {
+    background: var(--wsp-primary-hover, #047857) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 10px rgba(5, 150, 105, 0.28) !important;
+}
+
+body.wsp-active button.wsp-coupon-apply-btn:disabled,
+body.wsp-active button.wsp-coupon-apply-btn.is-loading {
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+/* Feedback message pills */
+body.wsp-active .wsp-coupon-msg {
+    margin-top: 8px !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+}
+
+body.wsp-active .wsp-coupon-badge {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 7px 11px !important;
+    border-radius: 8px !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+}
+
+body.wsp-active .wsp-coupon-badge-success {
+    background: #ecfdf5 !important;
+    border: 1px solid #a7f3d0 !important;
+    color: #065f46 !important;
+}
+
+body.wsp-active .wsp-coupon-badge-error {
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    color: #991b1b !important;
+}
+
+/* Applied Discount Rows in Order Review Table */
+body.wsp-active table.woocommerce-checkout-review-order-table tr.cart-discount th,
+body.wsp-active.wsp-checkout-redesign table.woocommerce-checkout-review-order-table tr.cart-discount th {
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    color: #047857 !important;
+    padding: 10px 0 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+body.wsp-active table.woocommerce-checkout-review-order-table tr.cart-discount td,
+body.wsp-active.wsp-checkout-redesign table.woocommerce-checkout-review-order-table tr.cart-discount td {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: var(--wsp-primary, #059669) !important;
+    text-align: right !important;
+    padding: 10px 0 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+body.wsp-active table.woocommerce-checkout-review-order-table tr.cart-discount .woocommerce-remove-coupon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-left: 8px !important;
+    padding: 2px 7px !important;
+    background: #fee2e2 !important;
+    color: #ef4444 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    transition: all 0.15s ease !important;
+}
+
+body.wsp-active table.woocommerce-checkout-review-order-table tr.cart-discount .woocommerce-remove-coupon:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
 /* Shipping row in Checkout review table */
 body.wsp-active.woocommerce-checkout table.woocommerce-checkout-review-order-table tr.shipping,
 body.wsp-active.wsp-checkout-redesign table.woocommerce-checkout-review-order-table tr.shipping {

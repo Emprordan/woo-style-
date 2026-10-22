@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,10 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.1.7 =
+* Fix: Full-width layout containment for WooCommerce notices and alerts preventing 2-column cart layout shift upon cart updates.
+* Fix: Quantity controller numeric value visibility, contrast, and alignment across all themes.
 
 = 1.1.6 =
 * Feature: Shop archive and custom shop page display in 2 columns on mobile screens by default.

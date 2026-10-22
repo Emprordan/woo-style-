@@ -1913,6 +1913,9 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     margin-bottom: 24px !important;
     box-sizing: border-box !important;
     transition: all 0.25s ease !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 /* Header Background Preset Themes */
@@ -2144,13 +2147,19 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
 .wsp-cs-categories-wrap {
     flex: 1 1 auto !important;
     min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
 }
 
 .wsp-cs-categories-scroll {
+    width: 100% !important;
+    max-width: 100% !important;
     overflow-x: auto !important;
+    overflow-y: hidden !important;
     padding-bottom: 2px !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
 }
 
 .wsp-cs-categories-scroll::-webkit-scrollbar {
@@ -2474,12 +2483,18 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
         padding-bottom: 32px !important;
         padding-left: 12px !important;
         padding-right: 12px !important;
+        max-width: 100vw !important;
+        overflow-x: clip !important;
     }
 
     .wsp-custom-shop-header-box {
         padding: 14px 14px !important;
         margin-bottom: 18px !important;
         border-radius: 12px !important;
+        overflow: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .wsp-cs-title {
@@ -2487,23 +2502,35 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     }
 
     /* On mobile, keep search input and search button on the SAME line */
+    .wsp-cs-search-row {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
     .wsp-cs-search-box {
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
         gap: 8px !important;
         width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .wsp-cs-search-input-wrap {
         flex: 1 1 auto !important;
         min-width: 0 !important;
+        max-width: 100% !important;
+        position: relative !important;
     }
 
     .wsp-cs-search-input {
+        width: 100% !important;
         height: 42px !important;
         font-size: 13.5px !important;
         padding: 6px 32px 6px 36px !important;
+        box-sizing: border-box !important;
     }
 
     .wsp-cs-search-icon {
@@ -2541,27 +2568,85 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     }
 
     .wsp-cs-controls-row {
+        display: flex !important;
         flex-direction: column !important;
         align-items: stretch !important;
         gap: 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .wsp-cs-categories-wrap {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    .wsp-cs-categories-scroll {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+        padding-bottom: 2px !important;
+        box-sizing: border-box !important;
+    }
+
+    .wsp-cs-categories-scroll::-webkit-scrollbar {
+        display: none !important;
     }
 
     .wsp-cs-categories-list {
+        display: inline-flex !important;
         flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 8px !important;
+        width: max-content !important;
+        min-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .wsp-cs-cat-btn {
+        flex-shrink: 0 !important;
     }
 
     .wsp-cs-controls-right {
         width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
         justify-content: space-between !important;
         margin-left: 0 !important;
         padding-top: 8px !important;
         border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
+        box-sizing: border-box !important;
+        gap: 8px !important;
     }
 
-    .wsp-cs-sorting-box,
-    .wsp-cs-select-wrap,
+    .wsp-cs-result-count {
+        font-size: 12px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        flex-shrink: 1 !important;
+    }
+
+    .wsp-cs-sorting-box {
+        flex-shrink: 0 !important;
+    }
+
     .wsp-cs-sort-select {
-        width: auto !important;
+        height: 34px !important;
+        font-size: 12px !important;
+        padding: 0 28px 0 10px !important;
+        max-width: 155px !important;
     }
 }
 

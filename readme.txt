@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.1.4 =
+* Fix: Mobile category overflow containment preventing horizontal viewport blowout and layout shifting.
+* Fix: Search input and search button remain strictly on the same row on mobile screens.
+* Enhancement: Search submit button displays exclusively the search icon on mobile devices with compact touch target.
+* Fix: Wrapped search input inside an isolated relative container to eliminate floating search icon misalignment.
 
 = 1.0.6 =
 * Fix: Add `upgrader_source_selection` hook to prevent GitHub folder renaming issues during 1-click update.

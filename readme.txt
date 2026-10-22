@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,14 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.3.1 =
+* Fix: Redesigned Cart item layout on mobile screens into modern native app cards with zero horizontal clipping.
+* Fix: Suppressed theme/WooCommerce default `data-title::before` pseudo-element text labels (`Product:`, `Quantity:`, `Subtotal:`) in mobile cart items and cart totals.
+* Fix: Restored circular remove (X) button at top-right of mobile cart item cards and properly contained product thumbnail and title text.
+* Fix: Balanced 2nd row layout in mobile cart item placing quantity stepper on bottom-left and line subtotal on bottom-right.
+* Fix: Prevented mobile coupon input and "Apply coupon" button from clipping by applying flex shrinking and zero-overflow boundaries.
+* Enhancement: Added theme wrapper padding and margin resets on Cart page for `#primary`, `.site-content`, `.entry-content`, and `.entry-header`.
 
 = 1.3.0 =
 * Cleanup: Removed Free Shipping Goal Progress Bar and associated threshold settings from the Side Cart drawer, Elementor widget, and plugin settings.

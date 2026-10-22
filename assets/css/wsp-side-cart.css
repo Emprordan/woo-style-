@@ -329,71 +329,84 @@ body.wsp-side-cart-open {
 }
 
 .wsp-sc-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--wsp-sc-border, #f1f5f9);
-    position: relative;
-    box-sizing: border-box;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 12px 0 !important;
+    border-bottom: 1px solid var(--wsp-sc-border, #f1f5f9) !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+    min-height: 0 !important;
+    height: auto !important;
+    transition: opacity 0.25s ease, transform 0.25s ease !important;
 }
 
 .wsp-sc-item.is-updating {
-    opacity: 0.55;
-    pointer-events: none;
+    opacity: 0.55 !important;
+    pointer-events: none !important;
 }
 
 .wsp-sc-item.is-removing {
-    opacity: 0;
-    transform: translateX(20px);
+    opacity: 0 !important;
+    transform: translateX(20px) !important;
 }
 
 .wsp-sc-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
 }
 
-/* Item Thumbnail - Compact 58px */
+/* Item Thumbnail - Compact 58px strictly locked */
 .wsp-sc-item-thumb {
-    width: 58px;
-    height: 58px;
-    flex-shrink: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #f8fafc;
-    border: 1px solid var(--wsp-sc-border, #e2e8f0);
+    width: 58px !important;
+    height: 58px !important;
+    min-width: 58px !important;
+    max-width: 58px !important;
+    min-height: 58px !important;
+    max-height: 58px !important;
+    flex: 0 0 58px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    background: #f8fafc !important;
+    border: 1px solid var(--wsp-sc-border, #e2e8f0) !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
 }
 
 .wsp-sc-item-thumb a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    line-height: 0;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    line-height: 0 !important;
 }
 
 .wsp-sc-item-thumb img {
     width: 100% !important;
     height: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
     object-fit: cover !important;
     display: block !important;
 }
 
 /* Item Details - Compact Vertical Flow */
 .wsp-sc-item-details {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 6px;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    gap: 5px !important;
+    height: auto !important;
 }
 
 .wsp-sc-item-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 8px;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
 }
 
 .wsp-sc-item-title {
@@ -408,8 +421,8 @@ body.wsp-side-cart-open {
 .wsp-sc-item-title a {
     color: inherit !important;
     text-decoration: none !important;
-    transition: color 0.15s ease;
-    word-break: break-word;
+    transition: color 0.15s ease !important;
+    word-break: break-word !important;
 }
 
 .wsp-sc-item-title a:hover {
@@ -418,25 +431,25 @@ body.wsp-side-cart-open {
 
 /* Item Remove Button */
 .wsp-sc-item-remove {
-    background: transparent;
-    border: none;
-    color: #94a3b8;
-    padding: 3px;
-    border-radius: 4px;
-    cursor: pointer;
-    line-height: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s ease;
-    margin-top: -2px;
-    margin-right: -2px;
-    flex-shrink: 0;
+    background: transparent !important;
+    border: none !important;
+    color: #94a3b8 !important;
+    padding: 3px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.15s ease !important;
+    margin-top: -2px !important;
+    margin-right: -2px !important;
+    flex-shrink: 0 !important;
 }
 
 .wsp-sc-item-remove:hover {
-    color: #ef4444;
-    background: #fee2e2;
+    color: #ef4444 !important;
+    background: #fee2e2 !important;
 }
 
 /* Variation Metadata */

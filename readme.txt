@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.3.3 =
+* Fix: Completely redesigned and compacted the item cards on the Cart page for mobile and desktop screens.
+* Enhancement: Mobile cart items styled into individual modern native app cards with crisp borders, subtle elevation, and rounded corners.
+* Enhancement: Compacted product thumbnail (54px), streamlined quantity stepper (30px), and aligned line subtotal price on mobile cart items.
+* Enhancement: Refined desktop cart table row padding (12px 14px) and thumbnail dimensions (52px) with centered alignment.
+* Fix: Strictly locked side cart drawer item and thumbnail dimensions with high-specificity overrides to prevent external theme image stretching.
 
 = 1.3.2 =
 * Fix: Completely redesigned Side Cart drawer items to be compact, tight, and unified without vertical gaps.

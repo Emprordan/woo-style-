@@ -149,12 +149,13 @@ class WSP_Frontend {
         );
 
         wp_localize_script( 'wsp-frontend-script', 'wspFrontendData', array(
-            'ajaxUrl'         => admin_url( 'admin-ajax.php' ),
-            'nonce'           => wp_create_nonce( 'wsp_custom_shop_nonce' ),
-            'qtyStepper'      => ( 'yes' === $settings['single_qty_stepper'] ),
-            'stickyMobileCTA' => ( 'yes' === $settings['single_sticky_mobile_cta'] ),
-            'cartRedesign'    => ( 'yes' === $settings['cart_redesign'] ),
-            'checkoutRedesign'=> ( 'yes' === $settings['checkout_redesign'] ),
+            'ajaxUrl'              => admin_url( 'admin-ajax.php' ),
+            'nonce'                => wp_create_nonce( 'wsp_custom_shop_nonce' ),
+            'qtyStepper'           => ( 'yes' === $settings['single_qty_stepper'] ),
+            'stickyMobileCTA'      => ( 'yes' === $settings['single_sticky_mobile_cta'] ),
+            'cartRedesign'         => ( 'yes' === $settings['cart_redesign'] ),
+            'checkoutRedesign'     => ( 'yes' === $settings['checkout_redesign'] ),
+            'shippingMethodsStyle' => isset( $settings['shipping_methods_style'] ) ? $settings['shipping_methods_style'] : 'dropdown',
         ) );
     }
 

@@ -22,13 +22,32 @@
                     self.initStickyMobileCTA();
                 }
 
+                if (typeof wspFrontendData === 'undefined' || wspFrontendData.shippingMethodsStyle !== 'cards') {
+                    self.initShippingDropdown();
+                }
+
                 self.initCustomShop();
             });
 
             // Re-initialize features on WooCommerce AJAX updates
-            $(document.body).on('updated_wc_div updated_cart_totals wc_fragments_refreshed wsp_custom_shop_updated', function() {
+            $(document.body).on('updated_wc_div updated_cart_totals updated_checkout country_to_state_changed applied_coupon removed_coupon wc_fragments_refreshed wsp_custom_shop_updated', function() {
                 if (typeof wspFrontendData !== 'undefined' && wspFrontendData.qtyStepper) {
                     self.initQuantitySteppers();
+                }
+
+                if (typeof wspFrontendData === 'undefined' || wspFrontendData.shippingMethodsStyle !== 'cards') {
+                    self.initShippingDropdown();
+                }
+            });
+
+            // Catch any background WooCommerce AJAX completions
+            $(document).ajaxComplete(function(event, xhr, settings) {
+                if (typeof wspFrontendData === 'undefined' || wspFrontendData.shippingMethodsStyle !== 'cards') {
+                    if (settings && settings.url && (settings.url.indexOf('wc-ajax') !== -1 || settings.url.indexOf('admin-ajax.php') !== -1)) {
+                        setTimeout(function() {
+                            self.initShippingDropdown();
+                        }, 50);
+                    }
                 }
             });
         },
@@ -283,6 +302,100 @@
                     }
                     fetchProducts(1, false);
                 });
+            });
+        },
+
+        /**
+         * Initialize compact modern dropdown for delivery / shipping methods
+         */
+        initShippingDropdown: function() {
+            $('ul#shipping_method, ul.woocommerce-shipping-methods').each(function() {
+                var $ul = $(this);
+                var $radios = $ul.find('input.shipping_method');
+
+                // If only 1 option or none, keep standard presentation and clean up any dropdown
+                if ($radios.length <= 1) {
+                    $ul.siblings('.wsp-shipping-dropdown-wrap').remove();
+                    $ul.removeClass('wsp-shipping-hidden');
+                    return;
+                }
+
+                // Hide native radio list visually while keeping accessible for WooCommerce AJAX forms
+                $ul.addClass('wsp-shipping-hidden');
+
+                // Remove existing dropdown wrapper if present to refresh with latest options
+                $ul.siblings('.wsp-shipping-dropdown-wrap').remove();
+
+                var $wrap = $(
+                    '<div class="wsp-shipping-dropdown-wrap">' +
+                        '<select class="wsp-shipping-select" aria-label="Select delivery method"></select>' +
+                        '<span class="wsp-shipping-dropdown-icon" aria-hidden="true">' +
+                            '<svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">' +
+                                '<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />' +
+                            '</svg>' +
+                        '</span>' +
+                    '</div>'
+                );
+
+                var $select = $wrap.find('select.wsp-shipping-select');
+                var hasChecked = false;
+
+                $radios.each(function() {
+                    var $radio = $(this);
+                    var val = $radio.val();
+                    var isChecked = $radio.is(':checked');
+                    var $li = $radio.closest('li');
+                    var $label = $li.find('label');
+
+                    var labelText = '';
+                    if ($label.length) {
+                        var $clone = $label.clone();
+                        $clone.find('script, style, noscript').remove();
+                        labelText = $clone.text().replace(/\s+/g, ' ').trim();
+                    }
+
+                    if (!labelText) {
+                        labelText = val;
+                    }
+
+                    var $opt = $('<option></option>').val(val).text(labelText);
+
+                    if (isChecked) {
+                        $opt.prop('selected', true);
+                        hasChecked = true;
+                    }
+
+                    $select.append($opt);
+                });
+
+                // Default to first option if none is marked checked
+                if (!hasChecked && $radios.length) {
+                    $radios.first().prop('checked', true);
+                    $select.val($radios.first().val());
+                }
+
+                // Handle dropdown change -> sync with hidden radio and fire WooCommerce recalculation
+                $select.on('change', function(e) {
+                    e.stopPropagation();
+                    var newVal = $(this).val();
+                    var $targetRadio = $ul.find('input.shipping_method').filter(function() {
+                        return $(this).val() === newVal;
+                    });
+
+                    if ($targetRadio.length) {
+                        $targetRadio.prop('checked', true).trigger('change');
+                    }
+                });
+
+                // Handle external radio button changes
+                $ul.find('input.shipping_method').off('change.wsp_sync').on('change.wsp_sync', function() {
+                    var checkedVal = $ul.find('input.shipping_method:checked').val();
+                    if (checkedVal && $select.val() !== checkedVal) {
+                        $select.val(checkedVal);
+                    }
+                });
+
+                $ul.before($wrap);
             });
         }
     };

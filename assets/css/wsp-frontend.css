@@ -1233,7 +1233,134 @@ body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table td {
     padding: 10px 0 !important;
 }
 
-/* Styled Shipping Radio Buttons */
+/* ==========================================================================
+   SHIPPING METHODS DROPDOWN & ACCESSIBILITY-SAFE TOGGLE
+   ========================================================================== */
+
+/* Visually hide native radio list when dropdown is active */
+.wsp-shipping-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Shipping Dropdown Container */
+.wsp-shipping-dropdown-wrap {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 4px 0 8px 0 !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+}
+
+/* Shipping Dropdown Select Element */
+.wsp-shipping-dropdown-wrap select.wsp-shipping-select,
+body.wsp-active select.wsp-shipping-select {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    line-height: 1.4 !important;
+    padding: 10px 38px 10px 14px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+    color: var(--wsp-heading, #0f172a) !important;
+    background-color: #ffffff !important;
+    border: 1.5px solid var(--wsp-border, #e2e8f0) !important;
+    border-radius: var(--wsp-btn-radius, 10px) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    cursor: pointer !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+    box-sizing: border-box !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    vertical-align: middle !important;
+}
+
+.wsp-shipping-dropdown-wrap select.wsp-shipping-select:hover {
+    border-color: #cbd5e1 !important;
+    background-color: #f8fafc !important;
+}
+
+.wsp-shipping-dropdown-wrap select.wsp-shipping-select:focus {
+    outline: none !important;
+    border-color: var(--wsp-primary, #0f172a) !important;
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08) !important;
+    background-color: #ffffff !important;
+}
+
+/* Shipping Dropdown SVG Arrow */
+.wsp-shipping-dropdown-wrap .wsp-shipping-dropdown-icon {
+    position: absolute !important;
+    top: 50% !important;
+    right: 14px !important;
+    transform: translateY(-50%) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    pointer-events: none !important;
+    color: #64748b !important;
+    width: 16px !important;
+    height: 16px !important;
+    transition: color 0.2s ease !important;
+}
+
+.wsp-shipping-dropdown-wrap:hover .wsp-shipping-dropdown-icon {
+    color: var(--wsp-primary, #0f172a) !important;
+}
+
+/* Align Shipping Table Cell on Cart & Checkout */
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping td,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping td,
+body.wsp-active.woocommerce-checkout table.woocommerce-checkout-review-order-table tr.shipping td,
+body.wsp-active.wsp-checkout-redesign table.woocommerce-checkout-review-order-table tr.shipping td {
+    text-align: left !important;
+}
+
+/* Shipping Destination text below dropdown */
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping p.woocommerce-shipping-destination,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping p.woocommerce-shipping-destination,
+body.wsp-active.woocommerce-checkout table.woocommerce-checkout-review-order-table tr.shipping p.woocommerce-shipping-destination,
+body.wsp-active.wsp-checkout-redesign table.woocommerce-checkout-review-order-table tr.shipping p.woocommerce-shipping-destination {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: var(--wsp-text, #64748b) !important;
+    margin: 6px 0 4px 0 !important;
+    text-align: left !important;
+    line-height: 1.4 !important;
+}
+
+/* Shipping Calculator Form */
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping form.woocommerce-shipping-calculator,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping form.woocommerce-shipping-calculator {
+    text-align: left !important;
+    margin-top: 8px !important;
+}
+
+body.wsp-active.woocommerce-cart .cart_totals table.shop_table tr.shipping .shipping-calculator-button,
+body.wsp-active.wsp-cart-redesign .cart_totals table.shop_table tr.shipping .shipping-calculator-button {
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    color: var(--wsp-primary, #0f172a) !important;
+    text-decoration: underline !important;
+}
+
+/* Styled Shipping Radio Buttons (when cards mode active or fallback) */
 body.wsp-active.woocommerce-cart ul#shipping_method,
 body.wsp-active.wsp-cart-redesign ul#shipping_method {
     list-style: none !important;

@@ -173,6 +173,7 @@ class WSP_Admin {
             'single_tabs_style',
             'cart_layout',
             'checkout_layout',
+            'shipping_methods_style',
             'myaccount_nav_style',
             'page_padding_top',
             'page_padding_bottom',
@@ -864,6 +865,23 @@ class WSP_Admin {
                                         <input type="checkbox" name="wsp_settings[checkout_modern_inputs]" value="yes" <?php checked( $settings['checkout_modern_inputs'], 'yes' ); ?>>
                                         <span><?php esc_html_e( 'Modern Form Fields (Rounded borders, focus glow, sleek payment method cards)', 'woo-style-plus' ); ?></span>
                                     </label>
+                                </div>
+
+                                <div class="wsp-field-row" style="margin-top: 22px; padding-top: 18px; border-top: 1px solid #f1f5f9;">
+                                    <label for="wsp-shipping-methods-style" style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 4px; color: #0f172a;">
+                                        <?php esc_html_e( 'Shipping Methods Display', 'woo-style-plus' ); ?>
+                                    </label>
+                                    <p class="description" style="font-size: 12.5px; color: #64748b; margin-top: 0; margin-bottom: 10px;">
+                                        <?php esc_html_e( 'Display available delivery / shipment zones as a clean, compact dropdown select menu or stacked radio cards on Cart & Checkout.', 'woo-style-plus' ); ?>
+                                    </p>
+                                    <select name="wsp_settings[shipping_methods_style]" id="wsp-shipping-methods-style" class="wsp-select" style="max-width: 380px;">
+                                        <option value="dropdown" <?php selected( isset( $settings['shipping_methods_style'] ) ? $settings['shipping_methods_style'] : 'dropdown', 'dropdown' ); ?>>
+                                            <?php esc_html_e( 'Compact Dropdown Select (Recommended)', 'woo-style-plus' ); ?>
+                                        </option>
+                                        <option value="cards" <?php selected( isset( $settings['shipping_methods_style'] ) ? $settings['shipping_methods_style'] : 'dropdown', 'cards' ); ?>>
+                                            <?php esc_html_e( 'Stacked Radio Cards', 'woo-style-plus' ); ?>
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

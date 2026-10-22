@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.1.8 =
+* Feature: Compact Dropdown Select for Cart & Checkout shipping / delivery methods, replacing stacked radio lists with a sleek single-line select menu and custom chevron icon.
+* Enhancement: Real-time bidirectional sync between custom shipping dropdown and WooCommerce AJAX recalculation triggers.
+* Feature: Admin setting in Cart & Checkout tab to switch between "Compact Dropdown Select" and "Stacked Radio Cards".
+* Enhancement: Responsive mobile optimization for shipping selection with native OS bottom sheet/picker support.
 
 = 1.1.7 =
 * Fix: Full-width layout containment for WooCommerce notices and alerts preventing 2-column cart layout shift upon cart updates.

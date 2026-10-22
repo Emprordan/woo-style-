@@ -253,6 +253,7 @@ class WSP_Presets {
             'checkout_redesign'       => 'yes',
             'checkout_layout'         => 'two_columns',
             'checkout_modern_inputs'  => 'yes',
+            'shipping_methods_style'  => 'dropdown', // dropdown, cards
 
             // My Account Page
             'myaccount_redesign'          => 'yes',

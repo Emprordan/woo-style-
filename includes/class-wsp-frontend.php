@@ -43,6 +43,9 @@ class WSP_Frontend {
         if ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) {
             return true;
         }
+        if ( function_exists( 'is_product' ) && is_product() ) {
+            return true;
+        }
         if ( function_exists( 'is_cart' ) && is_cart() ) {
             return true;
         }
@@ -481,7 +484,7 @@ class WSP_Frontend {
         $classes[] = 'wsp-badge-' . sanitize_html_class( $settings['badge_style'] );
         $classes[] = 'wsp-btn-style-' . sanitize_html_class( $settings['add_to_cart_style'] );
 
-        if ( 'yes' === $settings['single_product_redesign'] ) {
+        if ( 'no' !== WSP_Core::get_setting( 'single_product_redesign', 'yes' ) ) {
             $classes[] = 'wsp-single-redesign';
         }
         if ( 'yes' === $settings['cart_redesign'] ) {

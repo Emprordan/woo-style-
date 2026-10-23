@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,14 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.3.5 =
+* Redesign: Completely overhauled Single Product page into a unified, modern, elevated 2-column showcase layout.
+* Redesign: Modern single product gallery card with 16px rounded borders, smooth main image framing, and clean inline thumbnail slider (suppressing unstyled theme FlexSlider bullets).
+* Redesign: Beautiful product summary card with modern typography, prominent strike-through del / highlighted ins pricing, glowing stock status pill badges, and refined category/vendor metadata pills.
+* Redesign: Enhanced variation selection dropdowns, sleek quantity stepper (+ / -), and elevated Add to Cart button with subtle hover elevation and focus rings.
+* Redesign: Modern pill/card tabs for Description, Additional Information, and Customer Reviews with clean attributes table and review styling.
+* Enhancement: Applied high-specificity selectors across all single product elements to firmly override stubborn theme defaults (Astra, Storefront, OceanWP, etc.).
 
 = 1.3.4 =
 * Fix: Enforced bulletproof 2-column layout on mobile screens across all product catalog and archive pages (Shop, Product Categories, Product Tags, Attributes, Brand archives, Gutenberg product templates, and Elementor archive grids).

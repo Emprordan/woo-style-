@@ -111,8 +111,6 @@ class WSP_Updater {
             }
         }
 
-        $url = 'https://api.github.com/repos/' . $this->github_repo . '/releases/latest';
-
         $args = array(
             'timeout' => 15,
             'headers' => array(
@@ -125,62 +123,66 @@ class WSP_Updater {
             $args['headers']['Authorization'] = 'token ' . $this->access_token;
         }
 
+        $latest_release = null;
+        $url = 'https://api.github.com/repos/' . $this->github_repo . '/releases/latest';
         $response = wp_remote_get( $url, $args );
 
-        // If no latest release found, fallback to tags
-        if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
-            $tags_url = 'https://api.github.com/repos/' . $this->github_repo . '/tags';
-            $tags_res = wp_remote_get( $tags_url, $args );
+        if ( ! is_wp_error( $response ) && 200 === wp_remote_retrieve_response_code( $response ) ) {
+            $body = json_decode( wp_remote_retrieve_body( $response ) );
+            if ( $body && ! empty( $body->tag_name ) ) {
+                $version = ltrim( $body->tag_name, 'v' );
+                $package = ! empty( $body->zipball_url ) ? $body->zipball_url : '';
 
-            if ( ! is_wp_error( $tags_res ) && 200 === wp_remote_retrieve_response_code( $tags_res ) ) {
-                $tags_body = json_decode( wp_remote_retrieve_body( $tags_res ) );
-                if ( is_array( $tags_body ) && ! empty( $tags_body ) ) {
-                    $latest_tag = $tags_body[0];
-                    $version    = ltrim( $latest_tag->name, 'v' );
-                    $data = (object) array(
+                if ( ! empty( $body->assets ) && is_array( $body->assets ) ) {
+                    foreach ( $body->assets as $asset ) {
+                        if ( isset( $asset->browser_download_url ) && substr( $asset->browser_download_url, -4 ) === '.zip' ) {
+                            $package = $asset->browser_download_url;
+                            break;
+                        }
+                    }
+                }
+
+                $latest_release = (object) array(
+                    'tag_name'     => $body->tag_name,
+                    'version'      => $version,
+                    'zipball_url'  => $package,
+                    'html_url'     => $body->html_url,
+                    'body'         => ! empty( $body->body ) ? $body->body : '',
+                    'published_at' => ! empty( $body->published_at ) ? $body->published_at : current_time( 'mysql' ),
+                );
+            }
+        }
+
+        // Also query tags to ensure any newly pushed git tags without a full release are detected
+        $tags_url = 'https://api.github.com/repos/' . $this->github_repo . '/tags';
+        $tags_res = wp_remote_get( $tags_url, $args );
+
+        if ( ! is_wp_error( $tags_res ) && 200 === wp_remote_retrieve_response_code( $tags_res ) ) {
+            $tags_body = json_decode( wp_remote_retrieve_body( $tags_res ) );
+            if ( is_array( $tags_body ) && ! empty( $tags_body ) ) {
+                $latest_tag = $tags_body[0];
+                $tag_version = ltrim( $latest_tag->name, 'v' );
+
+                // If no release was found OR the latest tag is newer than the latest release
+                if ( ! $latest_release || version_compare( $latest_release->version, $tag_version, '<' ) ) {
+                    $latest_release = (object) array(
                         'tag_name'     => $latest_tag->name,
-                        'version'      => $version,
+                        'version'      => $tag_version,
                         'zipball_url'  => $latest_tag->zipball_url,
                         'html_url'     => 'https://github.com/' . $this->github_repo . '/releases',
                         'body'         => sprintf( __( 'Release %s from GitHub.', 'woo-style-plus' ), $latest_tag->name ),
                         'published_at' => current_time( 'mysql' ),
                     );
-                    set_transient( $this->transient_key, $data, 3 * HOUR_IN_SECONDS );
-                    return $data;
-                }
-            }
-            return false;
-        }
-
-        $body = json_decode( wp_remote_retrieve_body( $response ) );
-        if ( ! $body || empty( $body->tag_name ) ) {
-            return false;
-        }
-
-        $version = ltrim( $body->tag_name, 'v' );
-        $package = ! empty( $body->zipball_url ) ? $body->zipball_url : '';
-
-        // Check if there is an uploaded .zip asset attached to the release
-        if ( ! empty( $body->assets ) && is_array( $body->assets ) ) {
-            foreach ( $body->assets as $asset ) {
-                if ( isset( $asset->browser_download_url ) && substr( $asset->browser_download_url, -4 ) === '.zip' ) {
-                    $package = $asset->browser_download_url;
-                    break;
                 }
             }
         }
 
-        $data = (object) array(
-            'tag_name'     => $body->tag_name,
-            'version'      => $version,
-            'zipball_url'  => $package,
-            'html_url'     => $body->html_url,
-            'body'         => ! empty( $body->body ) ? $body->body : '',
-            'published_at' => ! empty( $body->published_at ) ? $body->published_at : current_time( 'mysql' ),
-        );
+        if ( $latest_release ) {
+            set_transient( $this->transient_key, $latest_release, 30 * MINUTE_IN_SECONDS );
+            return $latest_release;
+        }
 
-        set_transient( $this->transient_key, $data, 3 * HOUR_IN_SECONDS );
-        return $data;
+        return false;
     }
 
     /**
@@ -194,7 +196,8 @@ class WSP_Updater {
             return $transient;
         }
 
-        $remote = $this->get_remote_release_info( false );
+        $force  = isset( $_GET['force-check'] ) || isset( $_GET['wsp_check_updates'] );
+        $remote = $this->get_remote_release_info( $force );
         if ( ! $remote || empty( $remote->version ) ) {
             return $transient;
         }

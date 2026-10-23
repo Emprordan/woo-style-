@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.3.7 =
+* Fix: Targeted and completely suppressed Uncut theme specific single product components (`.tp-breadcrumb-area`, `.tp-hero-cpr-shape`, `.tp-postbox-cpr-left-social`, `.tp-postbox-cpr-comment`, `.tp-blog-area`, `.tp-postbox-details-form`).
+* Enhancement: Expanded product container in Uncut theme from restricted 66% width (`.col-lg-8`) to 100% full showcase width and reduced excessive 110px top theme padding.
+* Enhancement: Upgraded automatic updater engine to check both GitHub releases and git tags with live cache busting on "Check Again".
 
 = 1.3.6 =
 * Feature: Added automatic suppression for extraneous theme components on Single Product pages.

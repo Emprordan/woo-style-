@@ -604,6 +604,40 @@ html body.wsp-active.single-product .site-main {
     margin-right: auto !important;
 }
 
+/* 8. Specific Uncut / ThemePure Theme Single Product Overrides */
+html body.wsp-active.single-product section.tp-breadcrumb-area,
+html body.wsp-active.single-product .tp-breadcrumb-area,
+html body.wsp-active.single-product .tp-hero-cpr-shape,
+html body.wsp-active.single-product .tp-breadcrumb-cpr-overly,
+html body.wsp-active.single-product .tp-breadcrumb-cpr-wrap,
+html body.wsp-active.single-product .tp-breadcrumb-cpr-list,
+html body.wsp-active.single-product [class*="tp-breadcrumb"],
+html body.wsp-active.single-product .tp-postbox-cpr-left-social,
+html body.wsp-active.single-product .tp-postbox-area .col-lg-2,
+html body.wsp-active.single-product .tp-postbox-cpr-comment,
+html body.wsp-active.single-product .tp-postbox-cpr-social,
+html body.wsp-active.single-product .tp-postbox-cpr-social-wrap,
+html body.wsp-active.single-product .tp-blog-area,
+html body.wsp-active.single-product div.tp-blog-area,
+html body.wsp-active.single-product .tp-blog-cpr-title,
+html body.wsp-active.single-product .tp-postbox-details-form {
+    display: none !important;
+}
+
+/* Expand main product column to full width in Uncut theme */
+html body.wsp-active.single-product .tp-postbox-area {
+    padding-top: 35px !important;
+    padding-bottom: 50px !important;
+}
+
+html body.wsp-active.single-product .tp-postbox-area .col-lg-8,
+html body.wsp-active.single-product .tp-postbox-area .col-lg-10,
+html body.wsp-active.single-product .tp-postbox-area .tp-postbox-cpr-details-wrapper {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
 /* Main Product Layout Container - 2-Column Responsive Grid */
 html body.wsp-active.single-product div.product,
 html body.wsp-active.wsp-single-redesign div.product,

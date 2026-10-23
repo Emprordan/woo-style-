@@ -957,6 +957,19 @@
 
             // 5. Hide post navigation (Prev / Next Post)
             $('.post-navigation, .navigation.post-navigation, .nav-links, .single-post-nav, .ast-single-post-navigation').hide();
+
+            // 6. Uncut / ThemePure theme elements
+            $('.tp-breadcrumb-area, .tp-hero-cpr-shape, .tp-breadcrumb-cpr-wrap, .tp-breadcrumb-cpr-overly, .tp-postbox-cpr-left-social, .tp-postbox-cpr-comment, .tp-postbox-cpr-social, .tp-postbox-cpr-social-wrap, .tp-blog-area, .tp-blog-cpr-title, .tp-postbox-details-form').hide();
+            $('.tp-postbox-area .col-lg-2').hide();
+            $('.tp-postbox-area .col-lg-8, .tp-postbox-area .col-lg-10, .tp-postbox-cpr-details-wrapper').css({
+                'flex': '0 0 100%',
+                'max-width': '100%',
+                'width': '100%'
+            });
+            $('.tp-postbox-area').css({
+                'padding-top': '35px',
+                'padding-bottom': '50px'
+            });
         }
     };
 

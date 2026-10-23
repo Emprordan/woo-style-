@@ -246,6 +246,7 @@ class WSP_Presets {
             'single_tabs_style'       => 'modern_pill', // modern_pill, clean_underline, accordion
             'single_sticky_mobile_cta'=> 'yes',
             'single_stock_badge'      => 'yes',
+            'single_hide_theme_components' => 'yes',
 
             // Cart & Checkout
             'cart_redesign'           => 'yes',

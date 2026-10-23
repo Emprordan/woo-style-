@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.5
+Stable tag: 1.3.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.3.6 =
+* Feature: Added automatic suppression for extraneous theme components on Single Product pages.
+* Enhancement: Completely disabled theme hero sections, author/date headers, and wave shape dividers on product pages.
+* Enhancement: Hidden theme author bio box, theme related blog posts ("You may also like!"), and duplicate blog comment forms ("Leave A Comment") outside WooCommerce tabs.
+* Enhancement: Added admin setting under Single Product tab to manage theme component suppression.
+* Fix: Prevented themes from calling standard blog comments.php on product pages via comments_template filter.
 
 = 1.3.5 =
 * Redesign: Completely overhauled Single Product page into a unified, modern, elevated 2-column showcase layout.

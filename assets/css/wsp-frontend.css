@@ -427,6 +427,183 @@ body.wsp-active ul.products li.product .added_to_cart {
    4. SINGLE PRODUCT PAGE REDESIGN (COMPACT, MODERN & BEAUTIFUL)
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   4.0 Suppress Extraneous Theme Components on Single Product Page
+   (Theme Hero Banner, Page Header, Author Box, Related Blog Posts, Blog Comments)
+   -------------------------------------------------------------------------- */
+
+/* 1. Theme Hero Section, Page Header Banner & Shape Dividers */
+html body.wsp-active.single-product .entry-hero,
+html body.wsp-active.single-product .entry-hero-container-inner,
+html body.wsp-active.single-product .hero-section,
+html body.wsp-active.single-product .site-hero,
+html body.wsp-active.single-product .theme-hero,
+html body.wsp-active.single-product .page-header,
+html body.wsp-active.single-product .page-title-bar,
+html body.wsp-active.single-product .page-banner,
+html body.wsp-active.single-product .ast-single-post-order,
+html body.wsp-active.single-product .ast-title-bar,
+html body.wsp-active.single-product .ast-archive-entry-banner,
+html body.wsp-active.single-product .custom-page-header,
+html body.wsp-active.single-product .title-section,
+html body.wsp-active.single-product .banner-section,
+html body.wsp-active.single-product .entry-header-wrap,
+html body.wsp-active.single-product .page-title-section,
+html body.wsp-active.single-product .post-header,
+html body.wsp-active.single-product .single-post-header,
+html body.wsp-active.single-product .post-title-wrapper,
+html body.wsp-active.single-product .page-title-wrapper,
+html body.wsp-active.single-product .kadence-breadcrumbs-wrap,
+html body.wsp-active.single-product .custom-shape-divider-bottom,
+html body.wsp-active.single-product .shape-divider,
+html body.wsp-active.single-product .wave-divider,
+html body.wsp-active.single-product #primary > header,
+html body.wsp-active.single-product #main > header,
+html body.wsp-active.single-product .site-main > header,
+html body.wsp-active.single-product .content-area > header,
+html body.wsp-active.single-product #primary > .entry-header,
+html body.wsp-active.single-product #main > .entry-header,
+html body.wsp-active.single-product .site-main > .entry-header,
+html body.wsp-active.single-product .content-area > .entry-header,
+html body.wsp-active.single-product #primary > .page-header,
+html body.wsp-active.single-product #main > .page-header,
+html body.wsp-active.single-product .site-main > .page-header,
+html body.wsp-active.single-product .content-area > .page-header,
+html body.wsp-active.single-product > header.entry-header,
+html body.wsp-active.single-product #page > header.entry-header,
+html body.wsp-active.single-product #content > header.entry-header,
+html body.wsp-active.single-product .site-content > header.entry-header,
+html body.wsp-active.single-product article.product > header.entry-header,
+html body.wsp-active.single-product article.product > .entry-header,
+html body.wsp-active.single-product article.product > .post-header,
+html body.wsp-active.single-product article.type-product > header.entry-header,
+html body.wsp-active.single-product article.type-product > .entry-header,
+html body.wsp-active.single-product header.entry-header:not(div.product header):not(div.summary header) {
+    display: none !important;
+}
+
+/* 2. Theme Author Bio Box */
+html body.wsp-active.single-product .author-box,
+html body.wsp-active.single-product .post-author,
+html body.wsp-active.single-product .entry-author,
+html body.wsp-active.single-product .author-bio,
+html body.wsp-active.single-product .about-author,
+html body.wsp-active.single-product .post-author-box,
+html body.wsp-active.single-product .author-info,
+html body.wsp-active.single-product .author-description,
+html body.wsp-active.single-product .entry-author-box,
+html body.wsp-active.single-product .single-author,
+html body.wsp-active.single-product .ast-author-box,
+html body.wsp-active.single-product .w-author-box,
+html body.wsp-active.single-product .author-section,
+html body.wsp-active.single-product .author-profile,
+html body.wsp-active.single-product div.product ~ .author-box,
+html body.wsp-active.single-product div.product ~ .post-author,
+html body.wsp-active.single-product div.product ~ .entry-author,
+html body.wsp-active.single-product div.product ~ .author-bio,
+html body.wsp-active.single-product article.product > .author-box,
+html body.wsp-active.single-product article.type-product > .author-box {
+    display: none !important;
+}
+
+/* 3. Theme Related Blog Posts ("You may also like!") */
+html body.wsp-active.single-product .related-posts:not(.products),
+html body.wsp-active.single-product .post-related,
+html body.wsp-active.single-product .theme-related-posts,
+html body.wsp-active.single-product .entry-related,
+html body.wsp-active.single-product .single-post-related,
+html body.wsp-active.single-product .related-articles,
+html body.wsp-active.single-product .ast-related-posts-wrap,
+html body.wsp-active.single-product .related-posts-wrapper,
+html body.wsp-active.single-product .you-may-also-like,
+html body.wsp-active.single-product .jp-relatedposts,
+html body.wsp-active.single-product .ct-related-posts,
+html body.wsp-active.single-product .related-entries,
+html body.wsp-active.single-product .crp_related,
+html body.wsp-active.single-product .yarpp-related,
+html body.wsp-active.single-product div.product ~ .related-posts,
+html body.wsp-active.single-product div.product ~ .post-related,
+html body.wsp-active.single-product div.product ~ .theme-related-posts,
+html body.wsp-active.single-product article.product > .related-posts,
+html body.wsp-active.single-product article.type-product > .related-posts {
+    display: none !important;
+}
+
+/* 4. Theme Blog Post Comments ("Leave A Comment") Outside WooCommerce Product Tabs */
+html body.wsp-active.single-product #primary > #comments,
+html body.wsp-active.single-product #primary > .comments-area,
+html body.wsp-active.single-product #main > #comments,
+html body.wsp-active.single-product #main > .comments-area,
+html body.wsp-active.single-product .site-main > #comments,
+html body.wsp-active.single-product .site-main > .comments-area,
+html body.wsp-active.single-product .content-area > #comments,
+html body.wsp-active.single-product .content-area > .comments-area,
+html body.wsp-active.single-product #primary > #respond,
+html body.wsp-active.single-product #main > #respond,
+html body.wsp-active.single-product .site-main > #respond,
+html body.wsp-active.single-product div.product ~ #comments,
+html body.wsp-active.single-product div.product ~ .comments-area,
+html body.wsp-active.single-product div.product ~ #respond,
+html body.wsp-active.single-product div.product ~ .comment-respond,
+html body.wsp-active.single-product article.product > #comments,
+html body.wsp-active.single-product article.product > .comments-area,
+html body.wsp-active.single-product article.product > #respond,
+html body.wsp-active.single-product article.type-product > #comments,
+html body.wsp-active.single-product article.type-product > .comments-area,
+html body.wsp-active.single-product article.type-product > #respond,
+html body.wsp-active.single-product #comments:not(.woocommerce-tabs #comments):not(#reviews #comments),
+html body.wsp-active.single-product .comments-area:not(.woocommerce-tabs .comments-area):not(#reviews .comments-area),
+html body.wsp-active.single-product #respond:not(.woocommerce-tabs #respond):not(#reviews #respond),
+html body.wsp-active.single-product .comment-respond:not(.woocommerce-tabs .comment-respond):not(#reviews .comment-respond) {
+    display: none !important;
+}
+
+/* 5. Theme Post Navigation (Prev / Next Post Links) */
+html body.wsp-active.single-product .post-navigation,
+html body.wsp-active.single-product .navigation.post-navigation,
+html body.wsp-active.single-product .nav-links,
+html body.wsp-active.single-product .single-post-nav,
+html body.wsp-active.single-product .ast-single-post-navigation,
+html body.wsp-active.single-product div.product ~ .post-navigation,
+html body.wsp-active.single-product article.product > .post-navigation {
+    display: none !important;
+}
+
+/* 6. Theme Entry Footer & Meta Outside Product */
+html body.wsp-active.single-product #primary > footer.entry-footer,
+html body.wsp-active.single-product #main > footer.entry-footer,
+html body.wsp-active.single-product .site-main > footer.entry-footer,
+html body.wsp-active.single-product .content-area > footer.entry-footer,
+html body.wsp-active.single-product div.product ~ footer.entry-footer,
+html body.wsp-active.single-product div.product ~ .entry-footer,
+html body.wsp-active.single-product article.product > footer.entry-footer,
+html body.wsp-active.single-product article.product > .entry-footer,
+html body.wsp-active.single-product article.type-product > footer.entry-footer,
+html body.wsp-active.single-product article.type-product > .entry-footer,
+html body.wsp-active.single-product footer.entry-footer:not(div.product footer) {
+    display: none !important;
+}
+
+/* 7. Theme Sidebar on Single Product Page */
+html body.wsp-active.single-product #secondary,
+html body.wsp-active.single-product aside#sidebar,
+html body.wsp-active.single-product .sidebar-main,
+html body.wsp-active.single-product .widget-area:not(.wsp-widget-area),
+html body.wsp-active.single-product aside.widget-area {
+    display: none !important;
+}
+
+html body.wsp-active.single-product #primary,
+html body.wsp-active.single-product .content-area,
+html body.wsp-active.single-product #main,
+html body.wsp-active.single-product .site-main {
+    width: 100% !important;
+    max-width: 1200px !important;
+    float: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 /* Main Product Layout Container - 2-Column Responsive Grid */
 html body.wsp-active.single-product div.product,
 html body.wsp-active.wsp-single-redesign div.product,

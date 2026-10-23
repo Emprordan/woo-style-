@@ -836,6 +836,11 @@ class WSP_Admin {
                                         <input type="checkbox" name="wsp_settings[single_sticky_mobile_cta]" value="yes" <?php checked( $settings['single_sticky_mobile_cta'], 'yes' ); ?>>
                                         <span><?php esc_html_e( 'Sticky Add-to-Cart bar on Mobile when scrolling', 'woo-style-plus' ); ?></span>
                                     </label>
+
+                                    <label class="wsp-checkbox-item">
+                                        <input type="checkbox" name="wsp_settings[single_hide_theme_components]" value="yes" <?php checked( ! isset( $settings['single_hide_theme_components'] ) || 'yes' === $settings['single_hide_theme_components'] ); ?>>
+                                        <span><?php esc_html_e( 'Disable extraneous theme components (Theme Hero Banner, Author Box, Related Blog Posts & Non-Woo Comments)', 'woo-style-plus' ); ?></span>
+                                    </label>
                                 </div>
 
                                 <div class="wsp-form-row" style="margin-top: 20px;">

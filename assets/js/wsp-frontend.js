@@ -48,6 +48,8 @@
                     self.initCartAutoUpdate();
                 }
 
+                self.cleanSingleProductThemeComponents();
+
                 // Global close for custom shipping dropdowns when clicking outside
                 $(document).on('click', function(e) {
                     if (!$(e.target).closest('.wsp-custom-shipping-select').length) {
@@ -899,6 +901,62 @@
                     }
                 }, 550);
             });
+        },
+
+        /**
+         * Hide extraneous theme components on Single Product page
+         * (Hero header banners, author bio, related blog posts, non-Woo blog comments)
+         */
+        cleanSingleProductThemeComponents: function() {
+            if (!$('body').hasClass('single-product')) {
+                return;
+            }
+
+            var $product = $('div.product').first();
+            if (!$product.length) {
+                return;
+            }
+
+            // 1. Hide theme hero headers, title bars, or entry-headers outside div.product
+            $('.entry-hero, .hero-section, .site-hero, .theme-hero, .page-header, .page-title-bar, .page-banner, .ast-single-post-order, .ast-title-bar, .custom-page-header, .title-section, .entry-header-wrap, .page-title-section, .banner-section, .post-header, .single-post-header, .custom-shape-divider-bottom, .wave-divider, .shape-divider').hide();
+
+            $('header.entry-header, .entry-header').each(function() {
+                if (!$(this).closest('div.product').length) {
+                    $(this).hide();
+                }
+            });
+
+            // Hide any top header inside main content area that appears before div.product
+            $('#primary, #main, .site-main, .content-area, #content, .site-content').find('> header, > .page-header, > .entry-header, > .hero-section, > .entry-hero').hide();
+
+            // 2. Hide author box outside div.product
+            $('.author-box, .post-author, .entry-author, .author-bio, .about-author, .post-author-box, .author-info, .author-description, .single-author, .ast-author-box, .w-author-box').hide();
+
+            // 3. Hide non-WooCommerce related posts / "You may also like!"
+            $('.related-posts, .post-related, .theme-related-posts, .entry-related, .single-post-related, .related-articles, .ast-related-posts-wrap, .related-posts-wrapper, .you-may-also-like, .jp-relatedposts').hide();
+
+            // Specifically detect any section or container containing "You may also like" outside div.product that does not contain product cards
+            $('section, div').filter(function() {
+                var $el = $(this);
+                if ($el.closest('div.product').length) {
+                    return false;
+                }
+                if ($el.hasClass('products') || $el.find('ul.products').length) {
+                    return false;
+                }
+                var heading = $el.find('> h2, > h3, > h4, > .heading').text().toLowerCase();
+                return heading.indexOf('you may also like') !== -1;
+            }).hide();
+
+            // 4. Hide blog comment section outside WooCommerce tabs
+            $('#comments, .comments-area, #respond, .comment-respond').each(function() {
+                if (!$(this).closest('.woocommerce-tabs').length && !$(this).closest('#reviews').length) {
+                    $(this).hide();
+                }
+            });
+
+            // 5. Hide post navigation (Prev / Next Post)
+            $('.post-navigation, .navigation.post-navigation, .nav-links, .single-post-nav, .ast-single-post-navigation').hide();
         }
     };
 

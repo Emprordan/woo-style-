@@ -85,6 +85,12 @@ class WSP_Templates {
         // Clean accidental <pre class="wp-block-preformatted"> around shortcodes
         add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 1 );
         add_filter( 'the_content', array( $this, 'clean_preformatted_shortcode_wrappers' ), 9999 );
+
+        // Suppress extraneous theme components on Single Product (hero banners, author bio, related blog posts, theme comments)
+        if ( 'no' !== WSP_Core::get_setting( 'single_hide_theme_components', 'yes' ) ) {
+            add_filter( 'comments_template', array( $this, 'filter_comments_template' ), 999 );
+            add_action( 'wp', array( $this, 'maybe_remove_theme_single_product_elements' ), 20 );
+        }
     }
 
     /**
@@ -455,5 +461,53 @@ class WSP_Templates {
                 }
             }
         }
+    }
+
+    /**
+     * Remove theme hooks on single product pages
+     */
+    public function maybe_remove_theme_single_product_elements() {
+        if ( function_exists( 'is_product' ) && is_product() ) {
+            // Astra
+            remove_all_actions( 'astra_single_post_banner_inside' );
+            remove_all_actions( 'astra_entry_header' );
+            remove_all_actions( 'astra_author_box' );
+            remove_all_actions( 'astra_related_posts' );
+
+            // Kadence
+            remove_all_actions( 'kadence_entry_hero' );
+            remove_all_actions( 'kadence_entry_footer' );
+            remove_all_actions( 'kadence_single_post_nav' );
+
+            // OceanWP
+            remove_all_actions( 'ocean_page_header' );
+            remove_all_actions( 'ocean_after_single_post_content' );
+
+            // GeneratePress
+            remove_all_actions( 'generate_after_entry_header' );
+            remove_all_actions( 'generate_after_content' );
+
+            // Blocksy
+            remove_all_actions( 'blocksy:single:post:top' );
+            remove_all_actions( 'blocksy:single:post:bottom' );
+        }
+    }
+
+    /**
+     * Suppress default blog comments.php on single product page
+     *
+     * @param string $template
+     * @return string
+     */
+    public function filter_comments_template( $template ) {
+        if ( function_exists( 'is_product' ) && is_product() ) {
+            if ( 'comments.php' === basename( $template ) ) {
+                $empty_file = WSP_PLUGIN_DIR . 'templates/empty-comments.php';
+                if ( file_exists( $empty_file ) ) {
+                    return $empty_file;
+                }
+            }
+        }
+        return $template;
     }
 }

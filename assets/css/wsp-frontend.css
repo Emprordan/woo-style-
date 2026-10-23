@@ -682,8 +682,8 @@ html body.wsp-active.wsp-single-redesign div.product .woocommerce-product-galler
     padding: 16px !important;
     box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05) !important;
     box-sizing: border-box !important;
-    position: sticky !important;
-    top: 30px !important;
+    position: relative !important;
+    top: auto !important;
 }
 
 html body.wsp-active.single-product div.product .woocommerce-product-gallery__wrapper,
@@ -1222,6 +1222,9 @@ html body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs {
     padding-top: 0 !important;
     border-top: none !important;
     box-sizing: border-box !important;
+    position: relative !important;
+    clear: both !important;
+    z-index: 1 !important;
 }
 
 html body.wsp-active.single-product div.product .woocommerce-tabs ul.tabs,
@@ -1397,6 +1400,8 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products {
     margin-top: 48px !important;
     float: none !important;
     clear: both !important;
+    position: relative !important;
+    z-index: 1 !important;
 }
 
 html body.wsp-active.single-product div.product .related.products > h2,

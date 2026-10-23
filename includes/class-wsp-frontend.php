@@ -16,6 +16,8 @@ class WSP_Frontend {
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ), 20 );
         add_filter( 'body_class', array( $this, 'add_body_classes' ) );
         add_filter( 'post_class', array( $this, 'add_product_card_classes' ), 10, 3 );
+        add_filter( 'loop_shop_columns', array( $this, 'filter_loop_shop_columns' ), 999 );
+        add_filter( 'woocommerce_loop_columns', array( $this, 'filter_loop_shop_columns' ), 999 );
     }
 
     /**
@@ -293,52 +295,160 @@ class WSP_Frontend {
 
         // Responsive grid columns
         $css .= "
-        body.wsp-active ul.products,
-        body.wsp-active .woocommerce ul.products,
-        body.wsp-active .woocommerce-page ul.products,
-        body.wsp-active div.products ul.products,
-        body.wsp-active .wc-block-grid__products {
+        html body.wsp-active ul.products,
+        html body.wsp-active .woocommerce ul.products,
+        html body.wsp-active .woocommerce-page ul.products,
+        html body.wsp-active #primary ul.products,
+        html body.wsp-active #main ul.products,
+        html body.wsp-active #content ul.products,
+        html body.wsp-active .site-main ul.products,
+        html body.wsp-active .ast-woocommerce-container ul.products,
+        html body.wsp-active div.products ul.products,
+        html body.wsp-active ul.products[class*='columns-'],
+        html body.wsp-active .woocommerce ul.products[class*='columns-'],
+        html body.wsp-active .woocommerce-page ul.products[class*='columns-'],
+        html body.wsp-active.archive ul.products,
+        html body.wsp-active.tax-product_cat ul.products,
+        html body.wsp-active.tax-product_tag ul.products,
+        html body.wsp-active.post-type-archive-product ul.products,
+        html body.wsp-active.woocommerce-shop ul.products,
+        html body.wsp-active .wc-block-grid__products,
+        html body.wsp-active .wc-block-product-template,
+        html body.wsp-active .wp-block-woocommerce-product-template,
+        html body.wsp-active .elementor-products-grid ul.products,
+        html body.wsp-active .elementor-widget-wc-archive-products ul.products,
+        html body.wsp-active .wsp-custom-shop-grid {
             display: grid !important;
             grid-template-columns: repeat({$cols_desktop}, minmax(0, 1fr)) !important;
             gap: var(--wsp-grid-gap) !important;
             float: none !important;
             margin-left: 0 !important;
             margin-right: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
             width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
         }
 
-        body.wsp-active ul.products::before,
-        body.wsp-active ul.products::after {
+        html body.wsp-active ul.products::before,
+        html body.wsp-active ul.products::after,
+        html body.wsp-active .woocommerce ul.products::before,
+        html body.wsp-active .woocommerce ul.products::after,
+        html body.wsp-active .woocommerce-page ul.products::before,
+        html body.wsp-active .woocommerce-page ul.products::after,
+        html body.wsp-active div.products ul.products::before,
+        html body.wsp-active div.products ul.products::after {
             display: none !important;
+            content: none !important;
+            width: 0 !important;
+            height: 0 !important;
         }
 
-        body.wsp-active ul.products li.product,
-        body.wsp-active .woocommerce ul.products li.product,
-        body.wsp-active .wc-block-grid__product {
+        html body.wsp-active ul.products li.product,
+        html body.wsp-active .woocommerce ul.products li.product,
+        html body.wsp-active .woocommerce-page ul.products li.product,
+        html body.wsp-active #primary ul.products li.product,
+        html body.wsp-active #main ul.products li.product,
+        html body.wsp-active #content ul.products li.product,
+        html body.wsp-active .site-main ul.products li.product,
+        html body.wsp-active .ast-woocommerce-container ul.products li.product,
+        html body.wsp-active ul.products[class*='columns-'] li.product,
+        html body.wsp-active .woocommerce ul.products[class*='columns-'] li.product,
+        html body.wsp-active .woocommerce-page ul.products[class*='columns-'] li.product,
+        html body.wsp-active.archive ul.products li.product,
+        html body.wsp-active.tax-product_cat ul.products li.product,
+        html body.wsp-active.tax-product_tag ul.products li.product,
+        html body.wsp-active.post-type-archive-product ul.products li.product,
+        html body.wsp-active.woocommerce-shop ul.products li.product,
+        html body.wsp-active .wc-block-grid__product,
+        html body.wsp-active .wc-block-product-template__product,
+        html body.wsp-active .wp-block-woocommerce-product-template__product,
+        html body.wsp-active .elementor-products-grid ul.products li.product,
+        html body.wsp-active .elementor-widget-wc-archive-products ul.products li.product,
+        html body.wsp-active .wsp-custom-shop-grid li.product {
             width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
             margin: 0 !important;
             float: none !important;
             clear: none !important;
+            box-sizing: border-box !important;
         }
 
         @media (max-width: 1024px) {
-            body.wsp-active ul.products,
-            body.wsp-active .woocommerce ul.products,
-            body.wsp-active .woocommerce-page ul.products,
-            body.wsp-active .wc-block-grid__products {
+            html body.wsp-active ul.products,
+            html body.wsp-active .woocommerce ul.products,
+            html body.wsp-active .woocommerce-page ul.products,
+            html body.wsp-active #primary ul.products,
+            html body.wsp-active #main ul.products,
+            html body.wsp-active .site-main ul.products,
+            html body.wsp-active ul.products[class*='columns-'],
+            html body.wsp-active .wc-block-grid__products,
+            html body.wsp-active .wc-block-product-template,
+            html body.wsp-active .wp-block-woocommerce-product-template,
+            html body.wsp-active .elementor-products-grid ul.products,
+            html body.wsp-active .wsp-custom-shop-grid {
                 grid-template-columns: repeat({$cols_tablet}, minmax(0, 1fr)) !important;
             }
         }
 
         @media (max-width: 768px) {
-            body.wsp-active ul.products,
-            body.wsp-active .woocommerce ul.products,
-            body.wsp-active .woocommerce-page ul.products,
-            body.wsp-active div.products ul.products,
-            body.wsp-active .wc-block-grid__products,
-            body.wsp-active .wsp-custom-shop-grid {
+            html body.wsp-active ul.products,
+            html body.wsp-active .woocommerce ul.products,
+            html body.wsp-active .woocommerce-page ul.products,
+            html body.wsp-active #primary ul.products,
+            html body.wsp-active #main ul.products,
+            html body.wsp-active #content ul.products,
+            html body.wsp-active .site-main ul.products,
+            html body.wsp-active .ast-woocommerce-container ul.products,
+            html body.wsp-active div.products ul.products,
+            html body.wsp-active ul.products[class*='columns-'],
+            html body.wsp-active .woocommerce ul.products[class*='columns-'],
+            html body.wsp-active .woocommerce-page ul.products[class*='columns-'],
+            html body.wsp-active.archive ul.products,
+            html body.wsp-active.tax-product_cat ul.products,
+            html body.wsp-active.tax-product_tag ul.products,
+            html body.wsp-active.post-type-archive-product ul.products,
+            html body.wsp-active.woocommerce-shop ul.products,
+            html body.wsp-active .wc-block-grid__products,
+            html body.wsp-active .wc-block-product-template,
+            html body.wsp-active .wp-block-woocommerce-product-template,
+            html body.wsp-active .elementor-products-grid ul.products,
+            html body.wsp-active .elementor-widget-wc-archive-products ul.products,
+            html body.wsp-active .wsp-custom-shop-grid {
                 grid-template-columns: repeat({$cols_mobile}, minmax(0, 1fr)) !important;
                 gap: 12px !important;
+            }
+
+            html body.wsp-active ul.products li.product,
+            html body.wsp-active .woocommerce ul.products li.product,
+            html body.wsp-active .woocommerce-page ul.products li.product,
+            html body.wsp-active #primary ul.products li.product,
+            html body.wsp-active #main ul.products li.product,
+            html body.wsp-active .ast-woocommerce-container ul.products li.product,
+            html body.wsp-active ul.products[class*='columns-'] li.product,
+            html body.wsp-active .woocommerce ul.products[class*='columns-'] li.product,
+            html body.wsp-active .woocommerce-page ul.products[class*='columns-'] li.product,
+            html body.wsp-active.archive ul.products li.product,
+            html body.wsp-active.tax-product_cat ul.products li.product,
+            html body.wsp-active.tax-product_tag ul.products li.product,
+            html body.wsp-active.post-type-archive-product ul.products li.product,
+            html body.wsp-active.woocommerce-shop ul.products li.product,
+            html body.wsp-active .wc-block-grid__product,
+            html body.wsp-active .wc-block-product-template__product,
+            html body.wsp-active .wp-block-woocommerce-product-template__product,
+            html body.wsp-active .elementor-products-grid ul.products li.product,
+            html body.wsp-active .wsp-custom-shop-grid li.product {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                padding: 10px 10px 14px 10px !important;
+                border-radius: 12px !important;
+                margin: 0 !important;
+                float: none !important;
+                clear: none !important;
+                box-sizing: border-box !important;
             }
         }
         ";
@@ -413,5 +523,25 @@ class WSP_Frontend {
         }
 
         return $classes;
+    }
+
+    /**
+     * Filter WooCommerce catalog loop columns to ensure 2 columns on mobile screens
+     *
+     * @param int $cols
+     * @return int
+     */
+    public function filter_loop_shop_columns( $cols ) {
+        if ( ! $this->is_enabled() ) {
+            return $cols;
+        }
+
+        if ( function_exists( 'wp_is_mobile' ) && wp_is_mobile() ) {
+            $mobile_cols = WSP_Core::get_setting( 'columns_mobile', '2' );
+            return ! empty( $mobile_cols ) ? intval( $mobile_cols ) : 2;
+        }
+
+        $desktop_cols = WSP_Core::get_setting( 'columns_desktop', '4' );
+        return ! empty( $desktop_cols ) ? intval( $desktop_cols ) : ( $cols ? $cols : 4 );
     }
 }

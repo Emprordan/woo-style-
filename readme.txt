@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.3.4 =
+* Fix: Enforced bulletproof 2-column layout on mobile screens across all product catalog and archive pages (Shop, Product Categories, Product Tags, Attributes, Brand archives, Gutenberg product templates, and Elementor archive grids).
+* Feature: Filtered `loop_shop_columns` and `woocommerce_loop_columns` hooks in PHP to ensure WooCommerce renders 2 columns on mobile devices by default.
+* Enhancement: Applied ultra-high specificity CSS selectors (`html body.wsp-active #primary ul.products...`) to firmly override stubborn theme mobile column restrictions (Astra, Storefront, OceanWP, Kadence, Flatsome, Hello Elementor).
+* Enhancement: Proportional mobile card sizing with 1:1 square thumbnails, compact 13px titles, 34px action buttons, and aligned sale badges.
+* Fix: Suppressed theme pseudo-element clearfix floats (`::before` / `::after`) that could disrupt mobile grid tracks.
 
 = 1.3.3 =
 * Fix: Completely redesigned and compacted the item cards on the Cart page for mobile and desktop screens.

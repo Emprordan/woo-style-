@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.4 =
+* Critical Fix: Category Archive products display guaranteed with automatic query fallback (WP_Query by term slug) and loop rewind.
+* Critical Fix: Reduced in-app updater cache duration to 60 seconds in admin so new updates are discovered immediately on Check Again.
+* Fix: Full-width container and balanced 14px mobile margins preventing layout squishing.
+* Fix: Compact single-row controls toolbar for mobile screens.
+* Enhancement: 2-column mobile product catalog grid with square thumbnails.
 
 = 1.4.3 =
 * Critical Fix: Category Archive product loop now executes directly on have_posts() eliminating skipped product rendering.

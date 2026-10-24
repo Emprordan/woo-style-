@@ -178,7 +178,8 @@ class WSP_Updater {
         }
 
         if ( $latest_release ) {
-            set_transient( $this->transient_key, $latest_release, 30 * MINUTE_IN_SECONDS );
+            $cache_duration = is_admin() ? 60 : 10 * MINUTE_IN_SECONDS;
+            set_transient( $this->transient_key, $latest_release, $cache_duration );
             return $latest_release;
         }
 

@@ -197,15 +197,18 @@ if ( is_wp_error( $all_categories ) ) {
             </div>
 
             <!-- PRODUCT GRID -->
-            <ul class="products columns-4">
-                <?php
-                while ( $search_query_obj->have_posts() ) {
-                    $search_query_obj->the_post();
-                    wc_get_template_part( 'content', 'product' );
-                }
-                wp_reset_postdata();
-                ?>
-            </ul>
+            <?php
+            woocommerce_product_loop_start();
+
+            while ( $search_query_obj->have_posts() ) {
+                $search_query_obj->the_post();
+                do_action( 'woocommerce_shop_loop' );
+                wc_get_template_part( 'content', 'product' );
+            }
+            wp_reset_postdata();
+
+            woocommerce_product_loop_end();
+            ?>
 
             <!-- PAGINATION -->
             <?php if ( $max_pages > 1 ) : ?>

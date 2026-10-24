@@ -103,7 +103,46 @@ $ancestors = array_reverse( $ancestors );
         </div>
 
         <!-- PRODUCT LOOP & CONTROLS -->
-        <?php if ( have_posts() ) : ?>
+        <?php
+        global $wp_query;
+        $has_posts = have_posts();
+
+        // If main query has posts, rewind to guarantee first item
+        if ( $has_posts && isset( $wp_query ) ) {
+            $wp_query->rewind_posts();
+        }
+
+        // Setup WooCommerce loop
+        if ( function_exists( 'woocommerce_setup_loop' ) ) {
+            woocommerce_setup_loop();
+        }
+
+        // Fallback: If have_posts() is false or query returned empty, query category directly
+        if ( ! $has_posts && $cat_id ) {
+            $cat_term = get_term( $cat_id, 'product_cat' );
+            $cat_slug = ( $cat_term && ! is_wp_error( $cat_term ) ) ? $cat_term->slug : '';
+            if ( $cat_slug ) {
+                $fallback_query = new WP_Query( array(
+                    'post_type'      => 'product',
+                    'post_status'    => 'publish',
+                    'posts_per_page' => 12,
+                    'tax_query'      => array(
+                        array(
+                            'taxonomy' => 'product_cat',
+                            'field'    => 'slug',
+                            'terms'    => $cat_slug,
+                        ),
+                    ),
+                ) );
+                if ( $fallback_query->have_posts() ) {
+                    $has_posts = true;
+                    $wp_query  = $fallback_query;
+                }
+            }
+        }
+        ?>
+
+        <?php if ( $has_posts ) : ?>
 
             <div class="wsp-archive-toolbar">
                 <div class="wsp-archive-result-count">

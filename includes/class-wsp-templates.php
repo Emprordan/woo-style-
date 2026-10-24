@@ -99,6 +99,10 @@ class WSP_Templates {
         add_filter( 'woocommerce_show_page_title', array( $this, 'filter_show_page_title' ) );
         add_action( 'woocommerce_archive_description', array( $this, 'render_category_archive_header' ), 1 );
         add_action( 'pre_get_posts', array( $this, 'maybe_filter_search_query' ) );
+
+        // Make product loop title a clickable link to the single product page
+        remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
+        add_action( 'woocommerce_shop_loop_item_title', array( $this, 'render_linked_loop_product_title' ), 10 );
     }
 
     /**
@@ -114,6 +118,27 @@ class WSP_Templates {
         if ( $categories && ! is_wp_error( $categories ) ) {
             echo '<div class="wsp-product-category">' . wp_kses_post( $categories ) . '</div>';
         }
+    }
+
+    /**
+     * Render the product loop title wrapped in a clickable link to the single product page.
+     * Replaces the default woocommerce_template_loop_product_title action.
+     */
+    public function render_linked_loop_product_title() {
+        global $product;
+        if ( ! $product ) {
+            woocommerce_template_loop_product_title();
+            return;
+        }
+
+        $permalink = get_permalink( $product->get_id() );
+        $title     = get_the_title( $product->get_id() );
+
+        echo '<h2 class="woocommerce-loop-product__title">';
+        echo '<a href="' . esc_url( $permalink ) . '" class="wsp-product-title-link" aria-label="' . esc_attr( $title ) . '">';
+        echo esc_html( $title );
+        echo '</a>';
+        echo '</h2>';
     }
 
     /**

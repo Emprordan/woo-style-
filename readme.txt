@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.7
+Stable tag: 1.4.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.8 =
+* Feature: Product title in the loop is now a clickable link directly to the single product detail page.
+* Enhancement: Replaced `woocommerce_template_loop_product_title` with `render_linked_loop_product_title` in PHP to guarantee anchor wrapping across all themes.
+* Enhancement: Added `.wsp-product-title-link` CSS with hover color transition and underline styling on desktop and mobile screens.
 
 = 1.4.7 =
 * Feature: Custom Shop Page (All Products archive) redesign replacing the default theme shop template.

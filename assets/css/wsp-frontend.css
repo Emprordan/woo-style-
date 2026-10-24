@@ -321,6 +321,23 @@ body.wsp-active ul.products li.product:hover .woocommerce-loop-product__title {
     color: var(--wsp-accent) !important;
 }
 
+/* Product title link — clickable, visually styled */
+body.wsp-active ul.products li.product .woocommerce-loop-product__title a.wsp-product-title-link {
+    color: inherit !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    display: block !important;
+    transition: color 0.2s ease !important;
+}
+
+body.wsp-active ul.products li.product .woocommerce-loop-product__title a.wsp-product-title-link:hover,
+body.wsp-active ul.products li.product:hover .woocommerce-loop-product__title a.wsp-product-title-link {
+    color: var(--wsp-primary, #059669) !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px !important;
+    text-decoration-thickness: 1.5px !important;
+}
+
 /* Star Rating */
 body.wsp-active .star-rating {
     font-size: 13px !important;
@@ -6990,6 +7007,17 @@ body.wsp-active .wsp-archive-page-wrap ul.products {
         -webkit-line-clamp: 2 !important;
         -webkit-box-orient: vertical !important;
         overflow: hidden !important;
+    }
+
+    html body.wsp-active .wsp-archive-page-wrap ul.products li.product .woocommerce-loop-product__title a.wsp-product-title-link {
+        color: inherit !important;
+        text-decoration: none !important;
+        display: block !important;
+    }
+
+    html body.wsp-active .wsp-archive-page-wrap ul.products li.product .woocommerce-loop-product__title a.wsp-product-title-link:hover {
+        color: var(--wsp-primary, #059669) !important;
+        text-decoration: underline !important;
     }
 
     html body.wsp-active .wsp-archive-page-wrap ul.products li.product .price {

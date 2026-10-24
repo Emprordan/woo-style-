@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.9
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.0 =
+* Fix: Enforced 2 columns on mobile screens across all product grids, archives, shortcodes ([wsp_custom_shop]), and page builders.
+* Fix: Overrode legacy saved setting in database that previously generated repeat(1) in dynamic inline CSS styles.
+* Enhancement: Enhanced mobile product card image containment (aspect-ratio 1:1, max-height 180px) for tight 2-column storefront cards.
 
 = 1.3.9 =
 * Fix: Restored single product title in summary card when themes (such as Uncut) unhook standard WooCommerce title template.

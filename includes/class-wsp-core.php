@@ -108,7 +108,17 @@ class WSP_Core {
             $saved_settings = array();
         }
 
-        return wp_parse_args( $saved_settings, $default_settings );
+        $settings = wp_parse_args( $saved_settings, $default_settings );
+
+        // Enforce 2 columns on mobile screen
+        $settings['columns_mobile'] = '2';
+
+        if ( isset( $saved_settings['columns_mobile'] ) && '1' === (string) $saved_settings['columns_mobile'] ) {
+            $saved_settings['columns_mobile'] = '2';
+            update_option( 'wsp_settings', $saved_settings );
+        }
+
+        return $settings;
     }
 
     /**

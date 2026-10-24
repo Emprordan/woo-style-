@@ -5854,7 +5854,12 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     html body.wsp-active .wp-block-woocommerce-product-template,
     html body.wsp-active .elementor-products-grid ul.products,
     html body.wsp-active .elementor-widget-wc-archive-products ul.products,
-    html body.wsp-active .wsp-custom-shop-grid {
+    html body.wsp-active .wsp-custom-shop-grid,
+    html body.wsp-active .wsp-cs-grid-container ul.products,
+    html body.wsp-active .wsp-custom-shop-catalogue ul.products,
+    html body .wsp-custom-shop-grid,
+    html body .wsp-cs-grid-container ul.products,
+    .wsp-custom-shop-grid {
         display: grid !important;
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         gap: 12px !important;
@@ -5904,7 +5909,12 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     html body.wsp-active .wp-block-woocommerce-product-template__product,
     html body.wsp-active .elementor-products-grid ul.products li.product,
     html body.wsp-active .elementor-widget-wc-archive-products ul.products li.product,
-    html body.wsp-active .wsp-custom-shop-grid li.product {
+    html body.wsp-active .wsp-custom-shop-grid li.product,
+    html body.wsp-active .wsp-cs-grid-container ul.products li.product,
+    html body.wsp-active .wsp-custom-shop-catalogue ul.products li.product,
+    html body .wsp-custom-shop-grid li.product,
+    html body .wsp-cs-grid-container ul.products li.product,
+    .wsp-custom-shop-grid li.product {
         width: 100% !important;
         max-width: 100% !important;
         min-width: 0 !important;
@@ -5922,7 +5932,10 @@ body.wsp-active.wsp-account-redesign form.woocommerce-EditAccountForm .woocommer
     html body.wsp-active .wc-block-grid__product-image img,
     html body.wsp-active .wc-block-product-template__product img,
     html body.wsp-active .wp-block-woocommerce-product-template__product img,
-    html body.wsp-active .wsp-custom-shop-grid li.product a img {
+    html body.wsp-active .wsp-custom-shop-grid li.product a img,
+    html body.wsp-active .wsp-cs-grid-container ul.products li.product a img,
+    html body .wsp-custom-shop-grid li.product a img,
+    .wsp-custom-shop-grid li.product a img {
         width: 100% !important;
         aspect-ratio: 1 / 1 !important;
         height: auto !important;

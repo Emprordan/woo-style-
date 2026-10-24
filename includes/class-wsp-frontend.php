@@ -200,7 +200,7 @@ class WSP_Frontend {
 
         $cols_desktop     = ! empty( $settings['columns_desktop'] ) ? intval( $settings['columns_desktop'] ) : 4;
         $cols_tablet      = ! empty( $settings['columns_tablet'] ) ? intval( $settings['columns_tablet'] ) : 2;
-        $cols_mobile      = ! empty( $settings['columns_mobile'] ) ? intval( $settings['columns_mobile'] ) : 2;
+        $cols_mobile      = 2;
 
         $image_ratio      = ! empty( $settings['image_ratio'] ) ? $settings['image_ratio'] : '1/1';
 
@@ -414,13 +414,19 @@ class WSP_Frontend {
             html body.wsp-active.tax-product_tag ul.products,
             html body.wsp-active.post-type-archive-product ul.products,
             html body.wsp-active.woocommerce-shop ul.products,
+            html body.wsp-active.single-product .related.products ul.products,
+            html body.wsp-active.single-product .upsells.products ul.products,
+            html body.wsp-active.single-product ul.products,
             html body.wsp-active .wc-block-grid__products,
             html body.wsp-active .wc-block-product-template,
             html body.wsp-active .wp-block-woocommerce-product-template,
             html body.wsp-active .elementor-products-grid ul.products,
             html body.wsp-active .elementor-widget-wc-archive-products ul.products,
-            html body.wsp-active .wsp-custom-shop-grid {
-                grid-template-columns: repeat({$cols_mobile}, minmax(0, 1fr)) !important;
+            html body.wsp-active .wsp-custom-shop-grid,
+            html body.wsp-active .wsp-cs-grid-container ul.products,
+            html body.wsp-active .wsp-custom-shop-catalogue ul.products,
+            .wsp-custom-shop-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
                 gap: 12px !important;
             }
 
@@ -540,8 +546,7 @@ class WSP_Frontend {
         }
 
         if ( function_exists( 'wp_is_mobile' ) && wp_is_mobile() ) {
-            $mobile_cols = WSP_Core::get_setting( 'columns_mobile', '2' );
-            return ! empty( $mobile_cols ) ? intval( $mobile_cols ) : 2;
+            return 2;
         }
 
         $desktop_cols = WSP_Core::get_setting( 'columns_desktop', '4' );

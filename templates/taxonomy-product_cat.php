@@ -93,66 +93,61 @@ $ancestors = array_reverse( $ancestors );
 <div class="wsp-archive-page-wrap wsp-category-archive-page">
     <div class="container container-1230 woocommerce">
 
-        <!-- CATEGORY HERO HEADER BANNER -->
-        <div class="wsp-archive-hero-banner wsp-category-hero-banner">
+        <!-- COMPACT CATEGORY HERO HEADER BANNER -->
+        <div class="wsp-archive-hero-banner wsp-category-hero-banner wsp-hero-compact">
             <div class="wsp-archive-hero-inner">
 
-                <!-- Breadcrumbs -->
-                <nav class="wsp-archive-breadcrumbs" aria-label="Breadcrumb">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'woo-style-plus' ); ?></a>
-                    <span class="wsp-sep">/</span>
-                    <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Shop', 'woo-style-plus' ); ?></a>
-                    <?php foreach ( $ancestors as $ancestor_id ) : 
-                        $ancestor = get_term( $ancestor_id, 'product_cat' );
-                        if ( $ancestor && ! is_wp_error( $ancestor ) ) : ?>
-                            <span class="wsp-sep">/</span>
-                            <a href="<?php echo esc_url( get_term_link( $ancestor ) ); ?>"><?php echo esc_html( $ancestor->name ); ?></a>
-                        <?php endif;
-                    endforeach; ?>
-                    <span class="wsp-sep">/</span>
-                    <span class="wsp-current"><?php echo esc_html( $cat_name ); ?></span>
-                </nav>
+                <!-- Row 1: Breadcrumbs on Left, Product Count Badge on Right -->
+                <div class="wsp-archive-hero-top-row">
+                    <nav class="wsp-archive-breadcrumbs" aria-label="Breadcrumb">
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'woo-style-plus' ); ?></a>
+                        <span class="wsp-sep">/</span>
+                        <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Shop', 'woo-style-plus' ); ?></a>
+                        <?php foreach ( $ancestors as $ancestor_id ) : 
+                            $ancestor = get_term( $ancestor_id, 'product_cat' );
+                            if ( $ancestor && ! is_wp_error( $ancestor ) ) : ?>
+                                <span class="wsp-sep">/</span>
+                                <a href="<?php echo esc_url( get_term_link( $ancestor ) ); ?>"><?php echo esc_html( $ancestor->name ); ?></a>
+                            <?php endif;
+                        endforeach; ?>
+                        <span class="wsp-sep">/</span>
+                        <span class="wsp-current"><?php echo esc_html( $cat_name ); ?></span>
+                    </nav>
 
-                <div class="wsp-category-hero-main">
-                    <div class="wsp-category-hero-info">
-                        <span class="wsp-archive-pill-tag">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                            <span><?php esc_html_e( 'Product Collection', 'woo-style-plus' ); ?></span>
-                        </span>
-                        <div class="wsp-archive-title-wrap">
-                            <h1 class="wsp-archive-hero-title"><?php echo esc_html( $cat_name ); ?></h1>
-                            <span class="wsp-archive-inline-badge"><?php printf( esc_html( _n( '%s Product', '%s Products', $total_products, 'woo-style-plus' ) ), number_format_i18n( $total_products ) ); ?></span>
+                    <div class="wsp-archive-count-pill">
+                        <span class="wsp-count-dot"></span>
+                        <span><?php printf( esc_html( _n( '%s Product', '%s Products', $total_products, 'woo-style-plus' ) ), number_format_i18n( $total_products ) ); ?></span>
+                    </div>
+                </div>
+
+                <!-- Row 2: Category Title on Left, Category Switcher Pills on Right -->
+                <div class="wsp-archive-hero-bottom-row">
+                    <div class="wsp-archive-title-group">
+                        <h1 class="wsp-archive-hero-title"><?php echo esc_html( $cat_name ); ?></h1>
+                    </div>
+
+                    <?php if ( ! empty( $all_categories ) ) : ?>
+                        <div class="wsp-archive-cat-pills-bar">
+                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="wsp-archive-cat-pill">
+                                <span class="wsp-cat-pill-icon">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                </span>
+                                <span><?php esc_html_e( 'All', 'woo-style-plus' ); ?></span>
+                            </a>
+                            <?php foreach ( $all_categories as $cat ) : ?>
+                                <a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" 
+                                   class="wsp-archive-cat-pill <?php echo ( $cat->term_id === $cat_id ) ? 'is-active' : ''; ?>">
+                                    <span><?php echo esc_html( $cat->name ); ?></span>
+                                    <span class="wsp-cat-pill-count"><?php echo esc_html( $cat->count ); ?></span>
+                                </a>
+                            <?php endforeach; ?>
                         </div>
-                    </div>
-
-                    <div class="wsp-archive-count-badge wsp-desktop-count-badge">
-                        <span class="wsp-count-num"><?php echo esc_html( $total_products ); ?></span>
-                        <span class="wsp-count-label"><?php echo esc_html( _n( 'Product', 'Products', $total_products, 'woo-style-plus' ) ); ?></span>
-                    </div>
+                    <?php endif; ?>
                 </div>
 
                 <?php if ( ! empty( $cat_desc ) ) : ?>
                     <div class="wsp-archive-hero-desc">
                         <?php echo wp_kses_post( wpautop( $cat_desc ) ); ?>
-                    </div>
-                <?php endif; ?>
-
-                <!-- CATEGORY NAVIGATION PILLS -->
-                <?php if ( ! empty( $all_categories ) ) : ?>
-                    <div class="wsp-archive-cat-pills-bar">
-                        <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="wsp-archive-cat-pill">
-                            <span class="wsp-cat-pill-icon">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                            </span>
-                            <span><?php esc_html_e( 'All Products', 'woo-style-plus' ); ?></span>
-                        </a>
-                        <?php foreach ( $all_categories as $cat ) : ?>
-                            <a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" 
-                               class="wsp-archive-cat-pill <?php echo ( $cat->term_id === $cat_id ) ? 'is-active' : ''; ?>">
-                                <span><?php echo esc_html( $cat->name ); ?></span>
-                                <span class="wsp-cat-pill-count"><?php echo esc_html( $cat->count ); ?></span>
-                            </a>
-                        <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
 

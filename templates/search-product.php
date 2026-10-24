@@ -86,61 +86,66 @@ if ( is_wp_error( $all_categories ) ) {
 <div class="wsp-archive-page-wrap wsp-search-page-wrap">
     <div class="container container-1230 woocommerce">
 
-        <!-- SEARCH HERO BANNER -->
-        <div class="wsp-archive-hero-banner wsp-search-hero-banner">
+        <!-- COMPACT SEARCH HERO BANNER -->
+        <div class="wsp-archive-hero-banner wsp-search-hero-banner wsp-hero-compact">
             <div class="wsp-archive-hero-inner">
                 
-                <div class="wsp-search-hero-top">
-                    <div class="wsp-search-hero-meta">
-                        <span class="wsp-archive-pill-tag">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <span><?php esc_html_e( 'Catalogue Search', 'woo-style-plus' ); ?></span>
-                        </span>
-                        <div class="wsp-archive-title-wrap">
-                            <h1 class="wsp-archive-hero-title">
-                                <?php if ( ! empty( $search_query ) ) : ?>
-                                    <?php printf( esc_html__( 'Results for: "%s"', 'woo-style-plus' ), esc_html( $search_query ) ); ?>
-                                <?php else : ?>
-                                    <?php esc_html_e( 'Search Products', 'woo-style-plus' ); ?>
-                                <?php endif; ?>
-                            </h1>
-                            <span class="wsp-archive-inline-badge"><?php printf( esc_html( _n( '%s Found', '%s Found', $total_products, 'woo-style-plus' ) ), number_format_i18n( $total_products ) ); ?></span>
-                        </div>
-                    </div>
+                <!-- Row 1: Breadcrumbs on Left, Results Count Badge on Right -->
+                <div class="wsp-archive-hero-top-row">
+                    <nav class="wsp-archive-breadcrumbs" aria-label="Breadcrumb">
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'woo-style-plus' ); ?></a>
+                        <span class="wsp-sep">/</span>
+                        <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Shop', 'woo-style-plus' ); ?></a>
+                        <span class="wsp-sep">/</span>
+                        <span class="wsp-current"><?php esc_html_e( 'Search', 'woo-style-plus' ); ?></span>
+                    </nav>
 
-                    <div class="wsp-archive-count-badge wsp-desktop-count-badge">
-                        <span class="wsp-count-num"><?php echo esc_html( $total_products ); ?></span>
-                        <span class="wsp-count-label"><?php echo esc_html( _n( 'Found', 'Found', $total_products, 'woo-style-plus' ) ); ?></span>
+                    <div class="wsp-archive-count-pill wsp-search-count-pill">
+                        <span class="wsp-count-dot"></span>
+                        <span><?php printf( esc_html( _n( '%s Result', '%s Results', $total_products, 'woo-style-plus' ) ), number_format_i18n( $total_products ) ); ?></span>
                     </div>
                 </div>
 
-                <!-- LIVE SEARCH BAR -->
-                <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="wsp-search-page-form">
-                    <div class="wsp-search-input-wrap">
-                        <span class="wsp-search-input-icon">
-                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        </span>
-                        <input type="search" 
-                               name="s" 
-                               class="wsp-search-page-input" 
-                               value="<?php echo esc_attr( $search_query ); ?>" 
-                               placeholder="<?php esc_attr_e( 'Search again by product name or keyword...', 'woo-style-plus' ); ?>" 
-                               autocomplete="off">
-                        <input type="hidden" name="post_type" value="product">
-                        <?php if ( ! empty( $selected_cat ) ) : ?>
-                            <input type="hidden" name="product_cat" value="<?php echo esc_attr( $selected_cat ); ?>">
-                        <?php endif; ?>
-                        <button type="submit" class="wsp-search-page-submit">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <span><?php esc_html_e( 'Search', 'woo-style-plus' ); ?></span>
-                        </button>
+                <!-- Row 2: Search Title on Left, Compact Live Search Bar on Right -->
+                <div class="wsp-archive-hero-bottom-row wsp-search-hero-bottom-row">
+                    <div class="wsp-archive-title-group">
+                        <h1 class="wsp-archive-hero-title">
+                            <?php if ( ! empty( $search_query ) ) : ?>
+                                <?php printf( esc_html__( 'Results for: "%s"', 'woo-style-plus' ), esc_html( $search_query ) ); ?>
+                            <?php else : ?>
+                                <?php esc_html_e( 'Search Products', 'woo-style-plus' ); ?>
+                            <?php endif; ?>
+                        </h1>
                     </div>
-                </form>
+
+                    <!-- LIVE SEARCH BAR -->
+                    <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="wsp-search-page-form wsp-search-form-compact">
+                        <div class="wsp-search-input-wrap">
+                            <span class="wsp-search-input-icon">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            </span>
+                            <input type="search" 
+                                   name="s" 
+                                   class="wsp-search-page-input" 
+                                   value="<?php echo esc_attr( $search_query ); ?>" 
+                                   placeholder="<?php esc_attr_e( 'Search again...', 'woo-style-plus' ); ?>" 
+                                   autocomplete="off">
+                            <input type="hidden" name="post_type" value="product">
+                            <?php if ( ! empty( $selected_cat ) ) : ?>
+                                <input type="hidden" name="product_cat" value="<?php echo esc_attr( $selected_cat ); ?>">
+                            <?php endif; ?>
+                            <button type="submit" class="wsp-search-page-submit">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                <span><?php esc_html_e( 'Search', 'woo-style-plus' ); ?></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
                 <!-- QUICK CATEGORY FILTER CHIPS -->
                 <?php if ( ! empty( $all_categories ) ) : ?>
-                    <div class="wsp-search-cat-chips-bar">
-                        <span class="wsp-search-filter-label"><?php esc_html_e( 'Filter by:', 'woo-style-plus' ); ?></span>
+                    <div class="wsp-search-cat-chips-bar wsp-search-chips-compact">
+                        <span class="wsp-search-filter-label"><?php esc_html_e( 'Filter:', 'woo-style-plus' ); ?></span>
                         <a href="<?php echo esc_url( add_query_arg( array( 's' => $search_query, 'post_type' => 'product' ), home_url( '/' ) ) ); ?>" 
                            class="wsp-archive-cat-pill <?php echo empty( $selected_cat ) ? 'is-active' : ''; ?>">
                             <span><?php esc_html_e( 'All', 'woo-style-plus' ); ?></span>

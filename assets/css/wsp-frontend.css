@@ -6124,6 +6124,141 @@ body.wsp-active.search .tp-postbox-cpr-details-wrapper {
     box-sizing: border-box;
     overflow: hidden;
 }
+/* Compact Hero Banner Override */
+.wsp-hero-compact {
+    padding: 14px 20px !important;
+    margin-bottom: 16px !important;
+    border-radius: 14px !important;
+}
+
+/* Compact Hero: Row 1 - Breadcrumbs left, Count pill right */
+.wsp-archive-hero-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.wsp-archive-hero-top-row .wsp-archive-breadcrumbs {
+    margin-bottom: 0 !important;
+    font-size: 12px !important;
+}
+
+/* Count pill badge */
+.wsp-archive-count-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    background: #ffffff;
+    border: 1px solid #d1fae5;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--wsp-primary, #059669);
+    box-shadow: 0 1px 3px rgba(5, 150, 105, 0.08);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.wsp-search-count-pill {
+    border-color: #bfdbfe;
+    color: #2563eb;
+}
+
+.wsp-count-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--wsp-primary, #059669);
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.wsp-search-count-pill .wsp-count-dot {
+    background: #2563eb;
+}
+
+/* Compact Hero: Row 2 - Title left, category pills / search form right */
+.wsp-archive-hero-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.wsp-archive-title-group {
+    flex-shrink: 0;
+}
+
+.wsp-archive-hero-bottom-row .wsp-archive-hero-title {
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+}
+
+/* Pills bar sits inline on the right in compact mode */
+.wsp-archive-hero-bottom-row .wsp-archive-cat-pills-bar {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    width: auto !important;
+    gap: 6px !important;
+    flex-wrap: wrap;
+}
+
+/* Compact pill size */
+.wsp-hero-compact .wsp-archive-cat-pill {
+    padding: 4px 10px !important;
+    font-size: 12px !important;
+    height: 28px !important;
+}
+
+/* Compact search form sits inline on the right */
+.wsp-search-hero-bottom-row {
+    gap: 12px;
+}
+
+.wsp-search-form-compact {
+    flex: 1;
+    min-width: 200px;
+    max-width: 360px;
+}
+
+.wsp-search-form-compact .wsp-search-input-wrap {
+    height: 36px !important;
+}
+
+.wsp-search-form-compact .wsp-search-page-input {
+    height: 36px !important;
+    font-size: 13px !important;
+    padding-left: 36px !important;
+    padding-right: 90px !important;
+}
+
+.wsp-search-form-compact .wsp-search-page-submit {
+    height: 28px !important;
+    padding: 0 12px !important;
+    font-size: 12px !important;
+    right: 4px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+/* Compact category chips bar (search page) */
+.wsp-search-chips-compact {
+    margin-top: 10px !important;
+    padding-top: 10px !important;
+    border-top: 1px solid rgba(15, 23, 42, 0.06) !important;
+}
+
+.wsp-search-chips-compact .wsp-search-filter-label {
+    font-size: 11px !important;
+}
+
 
 .wsp-search-hero-banner {
     background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #f8fafc 100%);
@@ -6607,6 +6742,58 @@ body.wsp-active .wsp-archive-page-wrap ul.products {
         padding: 16px 14px !important;
         border-radius: 14px !important;
         margin-bottom: 14px !important;
+        width: 100% !important;
+    }
+
+    /* Compact hero: stack both rows on mobile */
+    .wsp-archive-hero-top-row {
+        flex-wrap: nowrap !important;
+        gap: 8px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .wsp-archive-hero-top-row .wsp-archive-breadcrumbs {
+        font-size: 11px !important;
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        flex-wrap: nowrap !important;
+        margin-bottom: 0 !important;
+    }
+
+    .wsp-archive-count-pill {
+        font-size: 11px !important;
+        padding: 2px 8px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .wsp-archive-hero-bottom-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+    }
+
+    .wsp-archive-hero-bottom-row .wsp-archive-hero-title {
+        font-size: 18px !important;
+    }
+
+    /* On mobile: pills bar reverts to horizontal scroll strip */
+    .wsp-archive-hero-bottom-row .wsp-archive-cat-pills-bar {
+        width: 100% !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        border-top: 1px solid rgba(15, 23, 42, 0.06) !important;
+        padding-top: 8px !important;
+        margin-top: 0 !important;
+    }
+
+    /* Search compact form: full width on mobile */
+    .wsp-search-form-compact {
+        max-width: 100% !important;
         width: 100% !important;
     }
 

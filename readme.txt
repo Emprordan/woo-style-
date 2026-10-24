@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.5
+Stable tag: 1.4.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,15 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.6 =
+* Enhancement: Ultra-compact Category Archive hero banner — eliminated all excess vertical white space by collapsing to a 2-row layout (breadcrumbs + count pill on row 1, title + category switcher pills on row 2) reducing banner height from ~220px to ~70px.
+* Enhancement: Compact Search Results hero banner — matching 2-row layout with breadcrumbs + results count pill on row 1 and search title + inline live search bar on row 2.
+* Enhancement: Category Switcher pills now appear inline to the right of the category title on desktop for maximum information density.
+* Enhancement: Live search bar repositioned inline with search title on desktop, eliminating the large standalone search form block.
+* Enhancement: Compact `.wsp-hero-compact` CSS modifier class added for reusable ultra-tight banner padding (14px vertical, 20px horizontal).
+* Enhancement: New `.wsp-archive-hero-top-row` and `.wsp-archive-hero-bottom-row` flex row components for clean 2-row compact banner architecture.
+* Enhancement: New `.wsp-archive-count-pill` badge replacing the bulky standalone count card — sleek pill with green dot indicator.
 
 = 1.4.5 =
 * Critical Fix: Category Archive products query completely decoupled from external theme/header loops using explicit WP_Query(tax_query) guaranteeing 100% reliable product display.

@@ -519,7 +519,15 @@ class WSP_Templates {
      * @return string
      */
     public function filter_archive_search_templates( $template ) {
-        // 1. Category Archive
+        // 1. Main Shop Page (All Products)
+        if ( function_exists( 'is_shop' ) && is_shop() ) {
+            $shop_template = WSP_PLUGIN_DIR . 'templates/archive-product.php';
+            if ( file_exists( $shop_template ) ) {
+                return $shop_template;
+            }
+        }
+
+        // 2. Category Archive
         if ( is_product_category() || is_tax( 'product_cat' ) ) {
             $cat_template = WSP_PLUGIN_DIR . 'templates/taxonomy-product_cat.php';
             if ( file_exists( $cat_template ) ) {
@@ -527,7 +535,7 @@ class WSP_Templates {
             }
         }
 
-        // 2. Product Search Page
+        // 3. Product Search Page
         if ( is_search() && ! is_admin() ) {
             $post_type = isset( $_GET['post_type'] ) ? sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) : get_query_var( 'post_type' );
             if ( 'product' === $post_type || ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) || isset( $_GET['wsp_search'] ) ) {
@@ -548,7 +556,7 @@ class WSP_Templates {
      * @return bool
      */
     public function filter_show_page_title( $show ) {
-        if ( is_product_category() || is_tax( 'product_cat' ) || is_tax( 'product_tag' ) || is_search() ) {
+        if ( is_shop() || is_product_category() || is_tax( 'product_cat' ) || is_tax( 'product_tag' ) || is_search() ) {
             return false;
         }
         return $show;

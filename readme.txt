@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.6
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,16 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.7 =
+* Feature: Custom Shop Page (All Products archive) redesign replacing the default theme shop template.
+* Feature: New `templates/archive-product.php` renders the same modern compact 2-row hero banner as the Category Archive page.
+* Feature: Shop hero banner — Row 1: "Home / Shop" breadcrumbs + total product count pill. Row 2: "All Products" title + full category switcher pills (All active, then each category with count badge).
+* Feature: Same 4-column desktop / 2-column mobile product grid, sorting toolbar, and pagination as the category archive.
+* Feature: Shop page description (WooCommerce Shop page content) renders as a compact sub-header when set.
+* Enhancement: `filter_show_page_title` now also suppresses the default WooCommerce shop page title.
+* Enhancement: `filter_archive_search_templates` now intercepts `is_shop()` to serve the custom template at priority 99.
+* Fix: "All" category pill is always marked `is-active` on the shop page, while individual category pills link through to their respective archive pages.
 
 = 1.4.6 =
 * Enhancement: Ultra-compact Category Archive hero banner — eliminated all excess vertical white space by collapsing to a 2-row layout (breadcrumbs + count pill on row 1, title + category switcher pills on row 2) reducing banner height from ~220px to ~70px.

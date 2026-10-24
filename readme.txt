@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.1 =
+* Critical Fix: Completely redesigned mobile cart item cards using a dedicated 2-row CSS Grid layout.
+* Fix: Eliminated vertical letter-by-letter title collapse on mobile cart by dedicating full remaining middle width to product title and assigning quantity stepper and subtotal price to row 2.
+* Enhancement: Neatly positioned remove button (X) at top right, 56x56 thumbnail at top left, and quantity stepper aligned directly below product title.
 
 = 1.4.0 =
 * Fix: Enforced 2 columns on mobile screens across all product grids, archives, shortcodes ([wsp_custom_shop]), and page builders.

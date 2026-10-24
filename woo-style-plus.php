@@ -3,7 +3,7 @@
  * Plugin Name: Woo Style+
  * Plugin URI: https://wordpress.org/plugins/woo-style-plus/
  * Description: Ultimate WooCommerce redesign suite. Transform your Shop page, Product cards, Single product, Cart, and Checkout pages with modern presets, responsive grids, and full styling controls. Fully compatible with all themes and shortcodes.
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author: Excellence
  * Author URI: https://woostyleplus.local
  * Text Domain: woo-style-plus
@@ -19,7 +19,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Plugin Constants
-define( 'WSP_VERSION', '1.4.0' );
+define( 'WSP_VERSION', '1.4.1' );
 define( 'WSP_PLUGIN_FILE', __FILE__ );
 define( 'WSP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WSP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

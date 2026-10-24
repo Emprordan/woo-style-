@@ -96,16 +96,19 @@ if ( is_wp_error( $all_categories ) ) {
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                             <span><?php esc_html_e( 'Catalogue Search', 'woo-style-plus' ); ?></span>
                         </span>
-                        <h1 class="wsp-archive-hero-title">
-                            <?php if ( ! empty( $search_query ) ) : ?>
-                                <?php printf( esc_html__( 'Results for: "%s"', 'woo-style-plus' ), esc_html( $search_query ) ); ?>
-                            <?php else : ?>
-                                <?php esc_html_e( 'Search Products', 'woo-style-plus' ); ?>
-                            <?php endif; ?>
-                        </h1>
+                        <div class="wsp-archive-title-wrap">
+                            <h1 class="wsp-archive-hero-title">
+                                <?php if ( ! empty( $search_query ) ) : ?>
+                                    <?php printf( esc_html__( 'Results for: "%s"', 'woo-style-plus' ), esc_html( $search_query ) ); ?>
+                                <?php else : ?>
+                                    <?php esc_html_e( 'Search Products', 'woo-style-plus' ); ?>
+                                <?php endif; ?>
+                            </h1>
+                            <span class="wsp-archive-inline-badge"><?php printf( esc_html( _n( '%s Found', '%s Found', $total_products, 'woo-style-plus' ) ), number_format_i18n( $total_products ) ); ?></span>
+                        </div>
                     </div>
 
-                    <div class="wsp-archive-count-badge">
+                    <div class="wsp-archive-count-badge wsp-desktop-count-badge">
                         <span class="wsp-count-num"><?php echo esc_html( $total_products ); ?></span>
                         <span class="wsp-count-label"><?php echo esc_html( _n( 'Found', 'Found', $total_products, 'woo-style-plus' ) ); ?></span>
                     </div>

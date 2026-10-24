@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,14 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.3 =
+* Critical Fix: Category Archive product loop now executes directly on have_posts() eliminating skipped product rendering.
+* Fix: Replaced stacked multi-line mobile archive toolbar with a sleek, compact single-row controls bar (result count on left, sorting dropdown on right).
+* Fix: Container layout on mobile screens now expands to 100% full viewport with clean 14px padding, preventing hero banner and toolbar from squishing or stopping prematurely.
+* Enhancement: Streamlined Category Hero title on mobile with an inline count badge pill, removing bulky vertical space.
+* Enhancement: Enforced responsive 2-column mobile catalog cards with 1:1 square thumbnails, 2-line title clamps, and compact action buttons.
+* Enhancement: Smooth horizontal touch scroll for category navigation pills on mobile devices.
 
 = 1.4.2 =
 * Feature: Custom Category Archive page redesign replacing default theme templates.

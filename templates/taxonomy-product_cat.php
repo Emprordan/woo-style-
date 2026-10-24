@@ -62,10 +62,13 @@ $ancestors = array_reverse( $ancestors );
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                             <span><?php esc_html_e( 'Product Collection', 'woo-style-plus' ); ?></span>
                         </span>
-                        <h1 class="wsp-archive-hero-title"><?php echo esc_html( $cat_name ); ?></h1>
+                        <div class="wsp-archive-title-wrap">
+                            <h1 class="wsp-archive-hero-title"><?php echo esc_html( $cat_name ); ?></h1>
+                            <span class="wsp-archive-inline-badge"><?php printf( esc_html( _n( '%s Product', '%s Products', $total_products, 'woo-style-plus' ) ), number_format_i18n( $total_products ) ); ?></span>
+                        </div>
                     </div>
 
-                    <div class="wsp-archive-count-badge">
+                    <div class="wsp-archive-count-badge wsp-desktop-count-badge">
                         <span class="wsp-count-num"><?php echo esc_html( $total_products ); ?></span>
                         <span class="wsp-count-label"><?php echo esc_html( _n( 'Product', 'Products', $total_products, 'woo-style-plus' ) ); ?></span>
                     </div>
@@ -100,7 +103,7 @@ $ancestors = array_reverse( $ancestors );
         </div>
 
         <!-- PRODUCT LOOP & CONTROLS -->
-        <?php if ( woocommerce_product_loop() ) : ?>
+        <?php if ( have_posts() ) : ?>
 
             <div class="wsp-archive-toolbar">
                 <div class="wsp-archive-result-count">
@@ -116,11 +119,10 @@ $ancestors = array_reverse( $ancestors );
             <?php
             woocommerce_product_loop_start();
 
-            if ( wc_get_loop_prop( 'total' ) ) {
-                while ( have_posts() ) {
-                    the_post();
-                    wc_get_template_part( 'content', 'product' );
-                }
+            while ( have_posts() ) {
+                the_post();
+                do_action( 'woocommerce_shop_loop' );
+                wc_get_template_part( 'content', 'product' );
             }
 
             woocommerce_product_loop_end();

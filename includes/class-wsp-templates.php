@@ -93,6 +93,12 @@ class WSP_Templates {
             add_action( 'woocommerce_before_single_product', array( $this, 'ensure_single_product_title' ), 1 );
             add_action( 'woocommerce_single_product_summary', array( $this, 'ensure_single_product_title' ), 1 );
         }
+
+        // Custom Category Archive & Search Page Templates
+        add_filter( 'template_include', array( $this, 'filter_archive_search_templates' ), 99 );
+        add_filter( 'woocommerce_show_page_title', array( $this, 'filter_show_page_title' ) );
+        add_action( 'woocommerce_archive_description', array( $this, 'render_category_archive_header' ), 1 );
+        add_action( 'pre_get_posts', array( $this, 'maybe_filter_search_query' ) );
     }
 
     /**
@@ -504,6 +510,152 @@ class WSP_Templates {
         if ( ! has_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title' ) ) {
             add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
         }
+    }
+
+    /**
+     * Route Category Archives & Product Search to custom modern templates
+     *
+     * @param string $template
+     * @return string
+     */
+    public function filter_archive_search_templates( $template ) {
+        // 1. Category Archive
+        if ( is_product_category() || is_tax( 'product_cat' ) ) {
+            $cat_template = WSP_PLUGIN_DIR . 'templates/taxonomy-product_cat.php';
+            if ( file_exists( $cat_template ) ) {
+                return $cat_template;
+            }
+        }
+
+        // 2. Product Search Page
+        if ( is_search() && ! is_admin() ) {
+            $post_type = isset( $_GET['post_type'] ) ? sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) : get_query_var( 'post_type' );
+            if ( 'product' === $post_type || ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) || isset( $_GET['wsp_search'] ) ) {
+                $search_template = WSP_PLUGIN_DIR . 'templates/search-product.php';
+                if ( file_exists( $search_template ) ) {
+                    return $search_template;
+                }
+            }
+        }
+
+        return $template;
+    }
+
+    /**
+     * Suppress default WooCommerce archive page titles to let our modern hero shine
+     *
+     * @param bool $show
+     * @return bool
+     */
+    public function filter_show_page_title( $show ) {
+        if ( is_product_category() || is_tax( 'product_cat' ) || is_tax( 'product_tag' ) || is_search() ) {
+            return false;
+        }
+        return $show;
+    }
+
+    /**
+     * Ensure product search query targets products
+     *
+     * @param WP_Query $query
+     */
+    public function maybe_filter_search_query( $query ) {
+        if ( ! is_admin() && $query->is_main_query() && $query->is_search() ) {
+            if ( isset( $_GET['post_type'] ) && 'product' === $_GET['post_type'] ) {
+                $query->set( 'post_type', 'product' );
+            }
+        }
+    }
+
+    /**
+     * Fallback Category Archive Header Hook for standard WooCommerce templates
+     */
+    public function render_category_archive_header() {
+        if ( ! ( is_product_category() || is_tax( 'product_cat' ) ) ) {
+            return;
+        }
+
+        if ( defined( 'WSP_CATEGORY_HERO_RENDERED' ) && WSP_CATEGORY_HERO_RENDERED ) {
+            return;
+        }
+
+        $current_cat = get_queried_object();
+        $cat_id      = ( $current_cat && isset( $current_cat->term_id ) ) ? $current_cat->term_id : 0;
+        $cat_name    = ( $current_cat && isset( $current_cat->name ) ) ? $current_cat->name : __( 'Category', 'woo-style-plus' );
+        $cat_desc    = ( $current_cat && isset( $current_cat->description ) ) ? $current_cat->description : '';
+        $total_prods = ( $current_cat && isset( $current_cat->count ) ) ? intval( $current_cat->count ) : 0;
+
+        $all_categories = get_terms( array(
+            'taxonomy'   => 'product_cat',
+            'hide_empty' => true,
+            'orderby'    => 'name',
+            'order'      => 'ASC',
+        ) );
+        if ( is_wp_error( $all_categories ) ) {
+            $all_categories = array();
+        }
+
+        $ancestors = $cat_id ? get_ancestors( $cat_id, 'product_cat' ) : array();
+        $ancestors = array_reverse( $ancestors );
+        ?>
+        <div class="wsp-archive-hero-banner wsp-category-hero-banner">
+            <div class="wsp-archive-hero-inner">
+                <nav class="wsp-archive-breadcrumbs" aria-label="Breadcrumb">
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'woo-style-plus' ); ?></a>
+                    <span class="wsp-sep">/</span>
+                    <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Shop', 'woo-style-plus' ); ?></a>
+                    <?php foreach ( $ancestors as $ancestor_id ) : 
+                        $ancestor = get_term( $ancestor_id, 'product_cat' );
+                        if ( $ancestor && ! is_wp_error( $ancestor ) ) : ?>
+                            <span class="wsp-sep">/</span>
+                            <a href="<?php echo esc_url( get_term_link( $ancestor ) ); ?>"><?php echo esc_html( $ancestor->name ); ?></a>
+                        <?php endif;
+                    endforeach; ?>
+                    <span class="wsp-sep">/</span>
+                    <span class="wsp-current"><?php echo esc_html( $cat_name ); ?></span>
+                </nav>
+
+                <div class="wsp-category-hero-main">
+                    <div class="wsp-category-hero-info">
+                        <span class="wsp-archive-pill-tag">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                            <span><?php esc_html_e( 'Product Collection', 'woo-style-plus' ); ?></span>
+                        </span>
+                        <h1 class="wsp-archive-hero-title"><?php echo esc_html( $cat_name ); ?></h1>
+                    </div>
+                    <div class="wsp-archive-count-badge">
+                        <span class="wsp-count-num"><?php echo esc_html( $total_prods ); ?></span>
+                        <span class="wsp-count-label"><?php echo esc_html( _n( 'Product', 'Products', $total_prods, 'woo-style-plus' ) ); ?></span>
+                    </div>
+                </div>
+
+                <?php if ( ! empty( $cat_desc ) ) : ?>
+                    <div class="wsp-archive-hero-desc">
+                        <?php echo wp_kses_post( wpautop( $cat_desc ) ); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ( ! empty( $all_categories ) ) : ?>
+                    <div class="wsp-archive-cat-pills-bar">
+                        <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="wsp-archive-cat-pill">
+                            <span class="wsp-cat-pill-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                            </span>
+                            <span><?php esc_html_e( 'All Products', 'woo-style-plus' ); ?></span>
+                        </a>
+                        <?php foreach ( $all_categories as $cat ) : ?>
+                            <a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" 
+                               class="wsp-archive-cat-pill <?php echo ( $cat->term_id === $cat_id ) ? 'is-active' : ''; ?>">
+                                <span><?php echo esc_html( $cat->name ); ?></span>
+                                <span class="wsp-cat-pill-count"><?php echo esc_html( $cat->count ); ?></span>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php
+        remove_action( 'woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10 );
     }
 
     /**

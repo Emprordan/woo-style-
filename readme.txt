@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,17 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.2 =
+* Feature: Custom Category Archive page redesign replacing default theme templates.
+* Feature: Modern Category Hero Banner with breadcrumb navigation, category title, active product counter badge, and category description.
+* Feature: Horizontal scrollable Category Switcher chips enabling instant 1-click navigation between product categories.
+* Feature: Toolbar with live result count indicator and styled sorting dropdown.
+* Feature: Responsive 2-column mobile and 4-column desktop product grid with modern empty state.
+* Feature: Custom Product Search Results page redesign replacing theme blog post fallback search template.
+* Feature: Prominent live search input bar in the search hero with clear and search actions.
+* Feature: Quick category filter chips on search results page to filter search results by category.
+* Fix: Suppressed Uncut theme clutter (.tp-breadcrumb-area, animated wave shape .tp-hero-cpr-shape, and excessive top paddings) on category archives and search results.
 
 = 1.4.1 =
 * Critical Fix: Completely redesigned mobile cart item cards using a dedicated 2-row CSS Grid layout.

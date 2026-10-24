@@ -49,6 +49,7 @@
                 }
 
                 self.cleanSingleProductThemeComponents();
+                self.cleanArchiveThemeComponents();
 
                 // Global close for custom shipping dropdowns when clicking outside
                 $(document).on('click', function(e) {
@@ -1003,6 +1004,31 @@
                 if (!$.trim($btn.text())) {
                     $btn.text('Add to cart');
                 }
+            });
+        },
+
+        /**
+         * Clean theme clutter on Category Archive & Search result pages
+         */
+        cleanArchiveThemeComponents: function() {
+            if (!$('body').is('.tax-product_cat, .tax-product_tag, .post-type-archive-product, .search-results, .search')) {
+                return;
+            }
+
+            // Suppress Uncut theme breadcrumbs, decorative wave shapes, and hero overlays
+            $('.tp-breadcrumb-area, .tp-hero-cpr-shape, .tp-breadcrumb-cpr-overly, .tp-breadcrumb-cpr-wrap').hide();
+
+            // Normalize blog wrapper if present
+            $('.tp-blog-area').css({
+                'padding-top': '24px',
+                'padding-bottom': '50px'
+            });
+
+            // Expand postbox details wrapper to full width
+            $('.tp-postbox-cpr-details-wrapper').css({
+                'flex': '0 0 100%',
+                'max-width': '100%',
+                'width': '100%'
             });
         }
     };

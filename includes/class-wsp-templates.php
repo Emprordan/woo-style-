@@ -90,6 +90,8 @@ class WSP_Templates {
         if ( 'no' !== WSP_Core::get_setting( 'single_hide_theme_components', 'yes' ) ) {
             add_filter( 'comments_template', array( $this, 'filter_comments_template' ), 999 );
             add_action( 'wp', array( $this, 'maybe_remove_theme_single_product_elements' ), 20 );
+            add_action( 'woocommerce_before_single_product', array( $this, 'ensure_single_product_title' ), 1 );
+            add_action( 'woocommerce_single_product_summary', array( $this, 'ensure_single_product_title' ), 1 );
         }
     }
 
@@ -490,6 +492,17 @@ class WSP_Templates {
             // Blocksy
             remove_all_actions( 'blocksy:single:post:top' );
             remove_all_actions( 'blocksy:single:post:bottom' );
+
+            $this->ensure_single_product_title();
+        }
+    }
+
+    /**
+     * Ensure product title is present in single product summary
+     */
+    public function ensure_single_product_title() {
+        if ( ! has_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title' ) ) {
+            add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
         }
     }
 

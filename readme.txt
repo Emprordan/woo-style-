@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.8
+Stable tag: 1.3.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,14 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.3.9 =
+* Fix: Restored single product title in summary card when themes (such as Uncut) unhook standard WooCommerce title template.
+* Fix: Add to Cart button text visibility on mobile screens ensuring crisp white text with explicit color, flex alignment, and proper touch sizing.
+* Enhancement: Redesigned mobile single product gallery image to clean 1:1 square aspect ratio (max-height 350px) preventing vertical stretching and long scrolling.
+* Enhancement: Compact, inline-wrap product metadata pills (categories, tags, vendor) on mobile devices.
+* Enhancement: Clean horizontal scrollable pill navigation for product tabs on small screens.
+* Enhancement: Formatted Related Products and Up-sells on mobile screens into 2-column catalog cards matching the shop archive grid.
 
 = 1.3.8 =
 * Fix: Removed `position: sticky` from single product gallery card to completely eliminate scroll collision and overlapping of product tabs, description, and related products over the image.

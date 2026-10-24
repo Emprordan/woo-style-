@@ -970,6 +970,40 @@
                 'padding-top': '35px',
                 'padding-bottom': '50px'
             });
+
+            // 7. Ensure Product Title is present in summary card
+            var $summary = $product.find('div.summary').first();
+            if ($summary.length && !$summary.find('.product_title, h1').length) {
+                var titleText = $('.tp-breadcrumb-area .breadcrumb__title, .tp-breadcrumb-title, .breadcrumb-title, .tp-postbox-details-title, h1.entry-title').first().text().trim();
+                if (!titleText) {
+                    var ogTitle = $('meta[property="og:title"]').attr('content');
+                    if (ogTitle) {
+                        titleText = ogTitle.split('–')[0].split('-')[0].split('|')[0].trim();
+                    }
+                }
+                if (!titleText && document.title) {
+                    titleText = document.title.split('–')[0].split('-')[0].split('|')[0].trim();
+                }
+                if (titleText) {
+                    var $h1 = $('<h1 class="product_title entry-title"></h1>').text(titleText);
+                    var $stockPill = $summary.find('.wsp-single-stock-pill');
+                    if ($stockPill.length) {
+                        $stockPill.before($h1);
+                    } else if ($summary.find('.price').length) {
+                        $summary.find('.price').before($h1);
+                    } else {
+                        $summary.prepend($h1);
+                    }
+                }
+            }
+
+            // 8. Ensure Add to Cart button text is present
+            $product.find('form.cart .single_add_to_cart_button, form.cart button[name="add-to-cart"]').each(function() {
+                var $btn = $(this);
+                if (!$.trim($btn.text())) {
+                    $btn.text('Add to cart');
+                }
+            });
         }
     };
 

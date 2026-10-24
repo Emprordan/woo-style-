@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.5 =
+* Critical Fix: Category Archive products query completely decoupled from external theme/header loops using explicit WP_Query(tax_query) guaranteeing 100% reliable product display.
+* Critical Fix: Desktop Category Archive layout fixed by enforcing block layout on container and full-width (100%) row clearing on Category Hero Banner and Controls Toolbar, completely eliminating side-by-side squishing.
+* Enhancement: Modern 4-column product catalogue grid on desktop, 3 columns on tablet, and 2 columns on mobile.
+* Enhancement: Added sorting and pagination support to custom Category Archive product query.
 
 = 1.4.4 =
 * Critical Fix: Category Archive products display guaranteed with automatic query fallback (WP_Query by term slug) and loop rewind.

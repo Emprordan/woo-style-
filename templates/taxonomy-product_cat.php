@@ -14,8 +14,65 @@ $cat_id      = ( $current_cat && isset( $current_cat->term_id ) ) ? $current_cat
 $cat_name    = ( $current_cat && isset( $current_cat->name ) ) ? $current_cat->name : __( 'Category', 'woo-style-plus' );
 $cat_desc    = ( $current_cat && isset( $current_cat->description ) ) ? $current_cat->description : '';
 
-// Get total products count
-$total_products = ( $current_cat && isset( $current_cat->count ) ) ? intval( $current_cat->count ) : 0;
+// 1. Pagination & Ordering parameters
+$paged         = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+$orderby_param = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : 'menu_order';
+
+// 2. Query products for this category explicitly to eliminate theme/header query collisions
+$cat_query_args = array(
+    'post_type'      => 'product',
+    'post_status'    => 'publish',
+    'posts_per_page' => apply_filters( 'loop_shop_per_page', 12 ),
+    'paged'          => $paged,
+    'tax_query'      => array(
+        array(
+            'taxonomy'         => 'product_cat',
+            'field'            => 'term_id',
+            'terms'            => $cat_id,
+            'include_children' => true,
+        ),
+    ),
+);
+
+// Sorting order
+switch ( $orderby_param ) {
+    case 'price':
+        $cat_query_args['meta_key'] = '_price';
+        $cat_query_args['orderby']  = 'meta_value_num';
+        $cat_query_args['order']    = 'ASC';
+        break;
+    case 'price-desc':
+        $cat_query_args['meta_key'] = '_price';
+        $cat_query_args['orderby']  = 'meta_value_num';
+        $cat_query_args['order']    = 'DESC';
+        break;
+    case 'popularity':
+        $cat_query_args['meta_key'] = 'total_sales';
+        $cat_query_args['orderby']  = 'meta_value_num';
+        $cat_query_args['order']    = 'DESC';
+        break;
+    case 'rating':
+        $cat_query_args['meta_key'] = '_wc_average_rating';
+        $cat_query_args['orderby']  = 'meta_value_num';
+        $cat_query_args['order']    = 'DESC';
+        break;
+    case 'date':
+        $cat_query_args['orderby']  = 'date';
+        $cat_query_args['order']    = 'DESC';
+        break;
+    case 'title':
+        $cat_query_args['orderby']  = 'title';
+        $cat_query_args['order']    = 'ASC';
+        break;
+    default:
+        $cat_query_args['orderby']  = 'menu_order title';
+        $cat_query_args['order']    = 'ASC';
+        break;
+}
+
+$cat_query      = new WP_Query( $cat_query_args );
+$total_products = $cat_query->found_posts;
+$max_pages      = $cat_query->max_num_pages;
 
 // Fetch all product categories for the top interactive switcher pills
 $all_categories = get_terms( array(
@@ -103,71 +160,72 @@ $ancestors = array_reverse( $ancestors );
         </div>
 
         <!-- PRODUCT LOOP & CONTROLS -->
-        <?php
-        global $wp_query;
-        $has_posts = have_posts();
-
-        // If main query has posts, rewind to guarantee first item
-        if ( $has_posts && isset( $wp_query ) ) {
-            $wp_query->rewind_posts();
-        }
-
-        // Setup WooCommerce loop
-        if ( function_exists( 'woocommerce_setup_loop' ) ) {
-            woocommerce_setup_loop();
-        }
-
-        // Fallback: If have_posts() is false or query returned empty, query category directly
-        if ( ! $has_posts && $cat_id ) {
-            $cat_term = get_term( $cat_id, 'product_cat' );
-            $cat_slug = ( $cat_term && ! is_wp_error( $cat_term ) ) ? $cat_term->slug : '';
-            if ( $cat_slug ) {
-                $fallback_query = new WP_Query( array(
-                    'post_type'      => 'product',
-                    'post_status'    => 'publish',
-                    'posts_per_page' => 12,
-                    'tax_query'      => array(
-                        array(
-                            'taxonomy' => 'product_cat',
-                            'field'    => 'slug',
-                            'terms'    => $cat_slug,
-                        ),
-                    ),
-                ) );
-                if ( $fallback_query->have_posts() ) {
-                    $has_posts = true;
-                    $wp_query  = $fallback_query;
-                }
-            }
-        }
-        ?>
-
-        <?php if ( $has_posts ) : ?>
+        <?php if ( $cat_query->have_posts() ) : ?>
 
             <div class="wsp-archive-toolbar">
                 <div class="wsp-archive-result-count">
                     <span class="wsp-pulse-dot"></span>
-                    <?php woocommerce_result_count(); ?>
+                    <span>
+                        <?php
+                        $first = ( $cat_query_args['posts_per_page'] * ( $paged - 1 ) ) + 1;
+                        $last  = min( $total_products, $cat_query_args['posts_per_page'] * $paged );
+                        if ( $total_products <= 1 ) {
+                            printf( esc_html__( 'Showing %d result', 'woo-style-plus' ), $total_products );
+                        } else {
+                            printf( esc_html__( 'Showing all %d results', 'woo-style-plus' ), $total_products );
+                        }
+                        ?>
+                    </span>
                 </div>
 
                 <div class="wsp-archive-sorting-wrap">
-                    <?php woocommerce_catalog_ordering(); ?>
+                    <form method="get" class="wsp-archive-sort-form">
+                        <div class="wsp-sort-select-box">
+                            <select name="orderby" class="wsp-archive-sort-select" onchange="this.form.submit()">
+                                <option value="menu_order" <?php selected( $orderby_param, 'menu_order' ); ?>><?php esc_html_e( 'Default sorting', 'woo-style-plus' ); ?></option>
+                                <option value="popularity" <?php selected( $orderby_param, 'popularity' ); ?>><?php esc_html_e( 'Sort by popularity', 'woo-style-plus' ); ?></option>
+                                <option value="rating" <?php selected( $orderby_param, 'rating' ); ?>><?php esc_html_e( 'Sort by average rating', 'woo-style-plus' ); ?></option>
+                                <option value="date" <?php selected( $orderby_param, 'date' ); ?>><?php esc_html_e( 'Sort by latest', 'woo-style-plus' ); ?></option>
+                                <option value="price" <?php selected( $orderby_param, 'price' ); ?>><?php esc_html_e( 'Sort by price: low to high', 'woo-style-plus' ); ?></option>
+                                <option value="price-desc" <?php selected( $orderby_param, 'price-desc' ); ?>><?php esc_html_e( 'Sort by price: high to low', 'woo-style-plus' ); ?></option>
+                                <option value="title" <?php selected( $orderby_param, 'title' ); ?>><?php esc_html_e( 'Sort by name: A to Z', 'woo-style-plus' ); ?></option>
+                            </select>
+                            <span class="wsp-sort-arrow" aria-hidden="true">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
 
-            <?php
-            woocommerce_product_loop_start();
+            <ul class="products columns-4">
+                <?php
+                while ( $cat_query->have_posts() ) {
+                    $cat_query->the_post();
+                    wc_get_template_part( 'content', 'product' );
+                }
+                wp_reset_postdata();
+                ?>
+            </ul>
 
-            while ( have_posts() ) {
-                the_post();
-                do_action( 'woocommerce_shop_loop' );
-                wc_get_template_part( 'content', 'product' );
-            }
-
-            woocommerce_product_loop_end();
-
-            woocommerce_pagination();
-            ?>
+            <?php if ( $max_pages > 1 ) : ?>
+                <nav class="woocommerce-pagination wsp-archive-pagination">
+                    <?php
+                    echo paginate_links( array(
+                        'base'      => esc_url_raw( str_replace( 999999999, '%#%', remove_query_arg( 'add-to-cart', get_pagenum_link( 999999999, false ) ) ) ),
+                        'format'    => '',
+                        'add_args'  => false,
+                        'current'   => max( 1, $paged ),
+                        'total'     => $max_pages,
+                        'prev_text' => '&larr;',
+                        'next_text' => '&rarr;',
+                        'type'      => 'list',
+                        'end_size'  => 3,
+                        'mid_size'  => 3,
+                    ) );
+                    ?>
+                </nav>
+            <?php endif; ?>
 
         <?php else : ?>
 

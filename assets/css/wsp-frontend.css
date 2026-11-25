@@ -1477,15 +1477,51 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
 }
 
 @media (max-width: 768px) {
-    /* Compact postbox area spacing on mobile */
+    /* Compact postbox area spacing on mobile and prevent horizontal breakout */
     html body.wsp-active.single-product .tp-postbox-area {
         padding-top: 16px !important;
         padding-bottom: 30px !important;
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
+    html body.wsp-active.single-product .tp-postbox-area .container,
+    html body.wsp-active.single-product .tp-postbox-area .container-1230 {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.wsp-active.single-product .tp-postbox-area .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    html body.wsp-active.single-product .tp-postbox-area .col-lg-8,
     html body.wsp-active.single-product .tp-postbox-area .tp-postbox-cpr-details-wrapper {
         padding-left: 0 !important;
         padding-right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.wsp-active.single-product .woocommerce,
+    html body.wsp-active.single-product div.single-product {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
     }
 
     html body.wsp-active.single-product div.product,
@@ -1497,12 +1533,14 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         gap: 14px !important;
         width: 100% !important;
         max-width: 100% !important;
+        min-width: 0 !important;
         margin: 0 0 24px 0 !important;
         padding: 0 !important;
         float: none !important;
         clear: both !important;
         box-sizing: border-box !important;
         position: relative !important;
+        overflow-x: hidden !important;
     }
 
     /* Sale badge pinned neatly on gallery */
@@ -1518,13 +1556,14 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
     }
 
-    /* Compact Gallery Card */
+    /* Compact Gallery Card with Strict Width Containment */
     html body.wsp-active.single-product div.product div.images,
     html body.wsp-active.wsp-single-redesign div.product div.images,
     html body.wsp-active.single-product div.product .woocommerce-product-gallery,
     html body.wsp-active.wsp-single-redesign div.product .woocommerce-product-gallery {
         width: 100% !important;
         max-width: 100% !important;
+        min-width: 0 !important;
         margin: 0 !important;
         padding: 10px !important;
         border-radius: 14px !important;
@@ -1534,6 +1573,18 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         box-sizing: border-box !important;
         float: none !important;
         position: relative !important;
+        overflow: hidden !important;
+    }
+
+    /* Contain FlexSlider viewport and slides so FlexSlider JS does not blow out the screen */
+    html body.wsp-active.single-product div.product .flex-viewport,
+    html body.wsp-active.wsp-single-redesign div.product .flex-viewport {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        border-radius: 10px !important;
     }
 
     html body.wsp-active.single-product div.product div.images .woocommerce-product-gallery__wrapper,
@@ -1543,13 +1594,30 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         border-radius: 10px !important;
         background: #f8fafc !important;
         overflow: hidden !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.wsp-active.single-product div.product .woocommerce-product-gallery__image,
+    html body.wsp-active.wsp-single-redesign div.product .woocommerce-product-gallery__image {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.wsp-active.single-product div.product .woocommerce-product-gallery__image a {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     html body.wsp-active.single-product div.product div.images img,
     html body.wsp-active.wsp-single-redesign div.product div.images img,
     html body.wsp-active.single-product div.product .woocommerce-product-gallery img,
     html body.wsp-active.wsp-single-redesign div.product .woocommerce-product-gallery img,
-    html body.wsp-active.single-product div.product .woocommerce-product-gallery__image img {
+    html body.wsp-active.single-product div.product .woocommerce-product-gallery__image img,
+    html body.wsp-active.single-product div.product img.wp-post-image {
         width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
@@ -1570,6 +1638,9 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         gap: 6px !important;
         padding: 8px 0 0 0 !important;
         margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     html body.wsp-active.single-product div.product .flex-control-thumbs li,
@@ -1593,6 +1664,7 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
     html body.wsp-active.wsp-single-redesign div.product div.summary {
         width: 100% !important;
         max-width: 100% !important;
+        min-width: 0 !important;
         padding: 16px 14px !important;
         border-radius: 14px !important;
         background: #ffffff !important;
@@ -1603,6 +1675,7 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         display: flex !important;
         flex-direction: column !important;
         gap: 10px !important;
+        overflow: hidden !important;
     }
 
     html body.wsp-active.single-product div.product .product_title,
@@ -1616,6 +1689,7 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         visibility: visible !important;
         opacity: 1 !important;
         letter-spacing: -0.015em !important;
+        word-break: break-word !important;
     }
 
     html body.wsp-active.single-product div.product p.price,
@@ -1670,6 +1744,7 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         gap: 10px !important;
         margin: 4px 0 0 0 !important;
         width: 100% !important;
+        max-width: 100% !important;
         box-sizing: border-box !important;
     }
 

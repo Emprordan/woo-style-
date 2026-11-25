@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.9
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.5.0 =
+* Critical Fix: Mobile layout horizontal blowout completely resolved. Added strict `min-width: 0; max-width: 100%; box-sizing: border-box; overflow-x: hidden;` across `.tp-postbox-area`, `.container`, `.woocommerce`, `div.single-product`, `div.product`, and `.summary`.
+* Critical Fix: FlexSlider inline width containment. FlexSlider dynamically injected 1134px widths onto mobile slides; added CSS and JS viewport width containment to keep slides strictly within the 390px mobile viewport.
+* Critical Fix: Add to Cart button text alignment on mobile. Because the container previously blew out to 1155px wide, the centered "Add to cart" text sat 282px off-screen to the right. With the layout firmly locked to the viewport width, the button and white text are perfectly centered in view.
+* Enhancement: Product gallery images now display in true 1:1 square aspect ratio without distortion or cropping.
 
 = 1.4.9 =
 * Critical Fix: Single Product Add to Cart button text visibility guaranteed across all desktop and mobile screens. Enforced high-specificity CSS text styling, explicit font-size, visible line-height, text-indent reset, and JS fallback to permanently prevent empty green button rendering.

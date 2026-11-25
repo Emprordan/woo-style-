@@ -1012,6 +1012,38 @@
                     'text-indent': '0'
                 });
             });
+
+            // 9. Mobile Gallery FlexSlider width normalization
+            if ($(window).width() <= 768) {
+                var resizeGallerySlides = function() {
+                    var $gallery = $product.find('.woocommerce-product-gallery');
+                    if ($gallery.length) {
+                        var availWidth = $gallery.width();
+                        if (availWidth > 0 && availWidth <= 768) {
+                            $gallery.find('.flex-viewport').css({
+                                'max-width': '100%',
+                                'width': '100%',
+                                'overflow': 'hidden'
+                            });
+                            $gallery.find('.woocommerce-product-gallery__image').css({
+                                'max-width': '100%',
+                                'width': availWidth + 'px',
+                                'box-sizing': 'border-box'
+                            });
+                            $gallery.find('.woocommerce-product-gallery__image img').css({
+                                'max-width': '100%',
+                                'width': '100%',
+                                'max-height': '290px',
+                                'object-fit': 'contain'
+                            });
+                        }
+                    }
+                };
+                resizeGallerySlides();
+                $(window).on('resize orientationchange', resizeGallerySlides);
+                setTimeout(resizeGallerySlides, 350);
+                setTimeout(resizeGallerySlides, 800);
+            }
         },
 
         /**

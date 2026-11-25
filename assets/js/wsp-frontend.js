@@ -998,12 +998,19 @@
                 }
             }
 
-            // 8. Ensure Add to Cart button text is present
+            // 8. Ensure Add to Cart button text and styling are always visible and verified
             $product.find('form.cart .single_add_to_cart_button, form.cart button[name="add-to-cart"]').each(function() {
                 var $btn = $(this);
                 if (!$.trim($btn.text())) {
                     $btn.text('Add to cart');
                 }
+                $btn.css({
+                    'visibility': 'visible',
+                    'opacity': '1',
+                    'color': '#ffffff',
+                    '-webkit-text-fill-color': '#ffffff',
+                    'text-indent': '0'
+                });
             });
         },
 

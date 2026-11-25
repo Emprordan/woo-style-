@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.8
+Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,15 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.4.9 =
+* Critical Fix: Single Product Add to Cart button text visibility guaranteed across all desktop and mobile screens. Enforced high-specificity CSS text styling, explicit font-size, visible line-height, text-indent reset, and JS fallback to permanently prevent empty green button rendering.
+* Redesign: Modern compact Single Product detail page layout on mobile screens (< 768px).
+* Enhancement: Compact product image gallery card (max-height 290px, 10px padding) with clean 1:1 square containment and 52px thumbnail strip, eliminating excessive vertical scrolling.
+* Enhancement: Streamlined mobile summary card with balanced 16px/14px padding, bold 19px product title, prominent price hierarchy, tight stock badge, and clean short description.
+* Enhancement: Perfectly balanced mobile quantity stepper (fixed 108px width, 42px height, 34px minus/plus controls, centered input) paired side-by-side with full-width Add to Cart CTA button.
+* Enhancement: Compact, inline-wrap product metadata pills (Category, Vendor, SKU) with clean background and border styling.
+* Enhancement: Streamlined horizontal scrollable tab navigation and compact product review panels on mobile.
 
 = 1.4.8 =
 * Feature: Product title in the loop is now a clickable link directly to the single product detail page.

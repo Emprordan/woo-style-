@@ -1157,15 +1157,19 @@ html body.wsp-active.wsp-single-redesign div.product form.cart {
 }
 
 html body.wsp-active.single-product div.product form.cart .single_add_to_cart_button,
-html body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_cart_button {
-    height: 42px !important;
-    line-height: 42px !important;
+html body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_cart_button,
+html body.wsp-active.single-product form.cart button.single_add_to_cart_button,
+html body.wsp-active form.cart button[name="add-to-cart"] {
+    position: relative !important;
+    height: 44px !important;
+    line-height: 44px !important;
     padding: 0 32px !important;
     font-size: 14.5px !important;
     font-weight: 700 !important;
     border-radius: var(--wsp-btn-radius, 10px) !important;
     background-color: var(--wsp-primary, #059669) !important;
-    color: var(--wsp-primary-text, #ffffff) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
     border: none !important;
     cursor: pointer !important;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15) !important;
@@ -1173,13 +1177,23 @@ html body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_ca
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
     gap: 8px !important;
     min-width: 140px !important;
+    text-indent: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: visible !important;
 }
 
 html body.wsp-active.single-product div.product form.cart .single_add_to_cart_button:hover,
-html body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_cart_button:hover {
+html body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_cart_button:hover,
+html body.wsp-active.single-product form.cart button.single_add_to_cart_button:hover,
+html body.wsp-active form.cart button[name="add-to-cart"]:hover {
     background-color: var(--wsp-primary-hover, #047857) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25) !important;
 }
@@ -1463,22 +1477,48 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
 }
 
 @media (max-width: 768px) {
+    /* Compact postbox area spacing on mobile */
+    html body.wsp-active.single-product .tp-postbox-area {
+        padding-top: 16px !important;
+        padding-bottom: 30px !important;
+    }
+
+    html body.wsp-active.single-product .tp-postbox-area .tp-postbox-cpr-details-wrapper {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
     html body.wsp-active.single-product div.product,
     html body.wsp-active.wsp-single-redesign div.product,
     html body.wsp-active.single-product #primary div.product,
     html body.wsp-active.single-product #main div.product {
         display: flex !important;
         flex-direction: column !important;
-        gap: 16px !important;
+        gap: 14px !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 0 32px 0 !important;
+        margin: 0 0 24px 0 !important;
         padding: 0 !important;
         float: none !important;
         clear: both !important;
         box-sizing: border-box !important;
+        position: relative !important;
     }
 
+    /* Sale badge pinned neatly on gallery */
+    html body.wsp-active.single-product div.product > span.onsale,
+    html body.wsp-active.wsp-single-redesign div.product > span.onsale {
+        top: 10px !important;
+        left: 10px !important;
+        padding: 4px 10px !important;
+        font-size: 11.5px !important;
+        font-weight: 700 !important;
+        z-index: 15 !important;
+        border-radius: 999px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    /* Compact Gallery Card */
     html body.wsp-active.single-product div.product div.images,
     html body.wsp-active.wsp-single-redesign div.product div.images,
     html body.wsp-active.single-product div.product .woocommerce-product-gallery,
@@ -1486,34 +1526,40 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 !important;
-        padding: 12px !important;
-        border-radius: 16px !important;
+        padding: 10px !important;
+        border-radius: 14px !important;
         background: #ffffff !important;
         border: 1px solid #eef2f6 !important;
-        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04) !important;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
         box-sizing: border-box !important;
         float: none !important;
+        position: relative !important;
     }
 
     html body.wsp-active.single-product div.product div.images .woocommerce-product-gallery__wrapper,
     html body.wsp-active.wsp-single-redesign div.product div.images .woocommerce-product-gallery__wrapper {
         margin: 0 !important;
         padding: 0 !important;
+        border-radius: 10px !important;
+        background: #f8fafc !important;
+        overflow: hidden !important;
     }
 
     html body.wsp-active.single-product div.product div.images img,
     html body.wsp-active.wsp-single-redesign div.product div.images img,
     html body.wsp-active.single-product div.product .woocommerce-product-gallery img,
-    html body.wsp-active.wsp-single-redesign div.product .woocommerce-product-gallery img {
+    html body.wsp-active.wsp-single-redesign div.product .woocommerce-product-gallery img,
+    html body.wsp-active.single-product div.product .woocommerce-product-gallery__image img {
         width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
-        max-height: 350px !important;
+        max-height: 290px !important;
         aspect-ratio: 1 / 1 !important;
         object-fit: contain !important;
-        border-radius: 12px !important;
+        border-radius: 10px !important;
         display: block !important;
         margin: 0 auto !important;
+        box-sizing: border-box !important;
     }
 
     html body.wsp-active.single-product div.product .flex-control-thumbs,
@@ -1521,109 +1567,173 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         display: flex !important;
         flex-wrap: nowrap !important;
         overflow-x: auto !important;
-        gap: 8px !important;
+        gap: 6px !important;
         padding: 8px 0 0 0 !important;
         margin: 0 !important;
     }
 
     html body.wsp-active.single-product div.product .flex-control-thumbs li,
     html body.wsp-active.wsp-single-redesign div.product .flex-control-thumbs li {
-        width: 58px !important;
-        flex: 0 0 58px !important;
+        width: 52px !important;
+        flex: 0 0 52px !important;
         margin: 0 !important;
     }
 
     html body.wsp-active.single-product div.product .flex-control-thumbs li img,
     html body.wsp-active.wsp-single-redesign div.product .flex-control-thumbs li img {
-        width: 58px !important;
-        height: 58px !important;
+        width: 52px !important;
+        height: 52px !important;
         aspect-ratio: 1 / 1 !important;
         object-fit: cover !important;
-        border-radius: 8px !important;
+        border-radius: 6px !important;
     }
 
+    /* Compact Summary Card */
     html body.wsp-active.single-product div.product div.summary,
     html body.wsp-active.wsp-single-redesign div.product div.summary {
         width: 100% !important;
         max-width: 100% !important;
-        padding: 20px 16px !important;
-        border-radius: 16px !important;
+        padding: 16px 14px !important;
+        border-radius: 14px !important;
         background: #ffffff !important;
         border: 1px solid #eef2f6 !important;
-        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04) !important;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
         box-sizing: border-box !important;
         float: none !important;
         display: flex !important;
         flex-direction: column !important;
-        gap: 12px !important;
+        gap: 10px !important;
     }
 
     html body.wsp-active.single-product div.product .product_title,
     html body.wsp-active.wsp-single-redesign div.product .product_title {
-        font-size: 20px !important;
-        font-weight: 700 !important;
+        font-size: 19px !important;
+        font-weight: 800 !important;
         line-height: 1.3 !important;
-        color: #0f172a !important;
+        color: #064e3b !important;
         margin: 0 !important;
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
+        letter-spacing: -0.015em !important;
     }
 
     html body.wsp-active.single-product div.product p.price,
     html body.wsp-active.wsp-single-redesign div.product p.price {
-        font-size: 20px !important;
-        font-weight: 700 !important;
+        font-size: 19px !important;
+        font-weight: 800 !important;
         margin: 0 !important;
         display: flex !important;
         align-items: baseline !important;
-        gap: 6px !important;
+        gap: 8px !important;
+    }
+
+    html body.wsp-active.single-product div.product p.price del,
+    html body.wsp-active.wsp-single-redesign div.product p.price del {
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        color: #94a3b8 !important;
     }
 
     html body.wsp-active.single-product div.product p.price ins,
     html body.wsp-active.wsp-single-redesign div.product p.price ins {
         font-size: 22px !important;
+        font-weight: 800 !important;
+        color: #dc2626 !important;
     }
 
+    html body.wsp-active.single-product div.product p.stock,
+    html body.wsp-active.wsp-single-redesign div.product p.stock,
+    html body.wsp-active .wsp-stock-pill {
+        margin: 0 !important;
+        padding: 4px 10px !important;
+        font-size: 11.5px !important;
+        gap: 5px !important;
+    }
+
+    html body.wsp-active.single-product div.product .woocommerce-product-details__short-description,
+    html body.wsp-active.wsp-single-redesign div.product .woocommerce-product-details__short-description {
+        font-size: 13.5px !important;
+        line-height: 1.55 !important;
+        color: #475569 !important;
+        margin: 0 !important;
+        padding: 0 0 10px 0 !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+    }
+
+    /* Cart Form: Clean Side-by-Side Flex */
     html body.wsp-active.single-product div.product form.cart,
     html body.wsp-active.wsp-single-redesign div.product form.cart {
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
         gap: 10px !important;
-        margin: 6px 0 0 0 !important;
+        margin: 4px 0 0 0 !important;
         width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     html body.wsp-active.single-product div.product form.cart .quantity,
     html body.wsp-active.wsp-single-redesign div.product form.cart .quantity {
         margin-right: 0 !important;
         height: 42px !important;
-        flex: 0 0 auto !important;
+        flex: 0 0 108px !important;
+        width: 108px !important;
+        border-radius: 10px !important;
+        border: 1.5px solid #e2e8f0 !important;
+        background: #ffffff !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
     }
 
     html body.wsp-active.single-product div.product form.cart .quantity .wsp-qty-btn,
     html body.wsp-active.wsp-single-redesign div.product form.cart .quantity .wsp-qty-btn {
-        width: 32px !important;
+        width: 34px !important;
         height: 42px !important;
+        line-height: 42px !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: transparent !important;
+        color: #0f172a !important;
+        border: none !important;
+        padding: 0 !important;
+        cursor: pointer !important;
+        flex-shrink: 0 !important;
     }
 
     html body.wsp-active.single-product div.product form.cart .quantity input.qty,
     html body.wsp-active.wsp-single-redesign div.product form.cart .quantity input.qty {
-        width: 36px !important;
+        width: 40px !important;
         height: 42px !important;
+        line-height: 42px !important;
         font-size: 14px !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+        border: none !important;
+        background: transparent !important;
+        color: #0f172a !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        -moz-appearance: textfield !important;
     }
 
+    /* Single Add to Cart Button on Mobile */
     html body.wsp-active.single-product div.product form.cart .single_add_to_cart_button,
     html body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_cart_button,
-    html body.wsp-active.single-product div.product form.cart button[name="add-to-cart"] {
+    html body.wsp-active.single-product div.product form.cart button[name="add-to-cart"],
+    html body.wsp-active form.cart button.single_add_to_cart_button {
         flex: 1 1 auto !important;
         height: 42px !important;
+        line-height: 42px !important;
         padding: 0 16px !important;
         font-size: 14px !important;
         font-weight: 700 !important;
-        line-height: normal !important;
         min-width: 0 !important;
         background-color: var(--wsp-primary, #059669) !important;
         color: #ffffff !important;
@@ -1637,46 +1747,64 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         visibility: visible !important;
         opacity: 1 !important;
         text-indent: 0 !important;
+        border: none !important;
+        box-shadow: 0 3px 10px rgba(5, 150, 105, 0.22) !important;
+        cursor: pointer !important;
+        position: relative !important;
+        overflow: visible !important;
     }
 
     html body.wsp-active.single-product div.product form.cart .single_add_to_cart_button *,
-    html body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_cart_button * {
+    html body.wsp-active.wsp-single-redesign div.product form.cart .single_add_to_cart_button *,
+    html body.wsp-active form.cart button[name="add-to-cart"] * {
         color: #ffffff !important;
         -webkit-text-fill-color: #ffffff !important;
         visibility: visible !important;
         opacity: 1 !important;
     }
 
+    /* Compact Product Metadata Pills */
     html body.wsp-active.single-product div.product .product_meta,
     html body.wsp-active.wsp-single-redesign div.product .product_meta {
+        display: flex !important;
         flex-direction: row !important;
         flex-wrap: wrap !important;
+        align-items: center !important;
         gap: 6px 10px !important;
-        padding-top: 14px !important;
-        margin: 4px 0 0 0 !important;
+        padding-top: 10px !important;
+        margin: 2px 0 0 0 !important;
         border-top: 1px solid #f1f5f9 !important;
     }
 
     html body.wsp-active.single-product div.product .product_meta > span,
     html body.wsp-active.wsp-single-redesign div.product .product_meta > span {
-        font-size: 12px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        font-size: 11.5px !important;
         gap: 4px !important;
         font-weight: 600 !important;
+        color: #64748b !important;
     }
 
     html body.wsp-active.single-product div.product .product_meta a,
     html body.wsp-active.wsp-single-redesign div.product .product_meta a,
     html body.wsp-active.single-product div.product .product_meta span.sku,
     html body.wsp-active.wsp-single-redesign div.product .product_meta span.sku {
-        padding: 2px 8px !important;
+        padding: 3px 8px !important;
         font-size: 11.5px !important;
         border-radius: 6px !important;
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        color: #0f172a !important;
+        text-decoration: none !important;
+        font-weight: 600 !important;
     }
 
     html body.wsp-active.single-product div.product .woocommerce-tabs .panel,
     html body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs .panel {
-        padding: 20px 16px !important;
-        border-radius: 14px !important;
+        padding: 16px 14px !important;
+        border-radius: 12px !important;
+        font-size: 13.5px !important;
     }
 
     html body.wsp-active.single-product div.product .woocommerce-tabs ul.tabs,
@@ -1688,7 +1816,7 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
         scrollbar-width: none !important;
         gap: 6px !important;
         padding-bottom: 4px !important;
-        margin-bottom: 12px !important;
+        margin-bottom: 10px !important;
     }
 
     html body.wsp-active.single-product div.product .woocommerce-tabs ul.tabs::-webkit-scrollbar {
@@ -1703,15 +1831,16 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
 
     html body.wsp-active.single-product div.product .woocommerce-tabs ul.tabs li a,
     html body.wsp-active.wsp-single-redesign div.product .woocommerce-tabs ul.tabs li a {
-        padding: 8px 14px !important;
-        font-size: 13px !important;
+        padding: 7px 12px !important;
+        font-size: 12.5px !important;
+        border-radius: 8px !important;
     }
 
     html body.wsp-active.single-product div.product .related.products,
     html body.wsp-active.wsp-single-redesign div.product .related.products,
     html body.wsp-active.single-product div.product .upsells.products,
     html body.wsp-active.wsp-single-redesign div.product .upsells.products {
-        margin-top: 28px !important;
+        margin-top: 24px !important;
         width: 100% !important;
     }
 
@@ -1719,9 +1848,9 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
     html body.wsp-active.wsp-single-redesign div.product .related.products > h2,
     html body.wsp-active.single-product div.product .upsells.products > h2,
     html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
-        font-size: 18px !important;
-        margin-bottom: 14px !important;
-        padding-bottom: 8px !important;
+        font-size: 17px !important;
+        margin-bottom: 12px !important;
+        padding-bottom: 6px !important;
     }
 }
 

@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.6.4 =
+* Redesign (Food Packs Layout): Replaced the right-hand checkout sidebar with a full-width packs grid and a center-bottom floating order bar showing all selected packages, total price, and an "Order Now" button.
+* Feature (Checkout Modal): Clicking "Order Now" opens the Selected Order summary (with multi-pack quantity controls), Delivery Details form, and WooCommerce payment gateways inside a modal popup (full-screen on mobile).
+* Cleanup: Removed the "Powered by WooCommerce secure payment processing." footer line.
 
 = 1.6.3 =
 * Enhancement (Food Packs Admin): Added an Ordering Page Heading, Subtitle, and Accent Color settings bar directly on the **Woo Style+ > Food Packs** admin screen so you can customize the page hero text without editing shortcode attributes.

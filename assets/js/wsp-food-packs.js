@@ -44,11 +44,15 @@
 			var $summaryList = $('#wsp-fp-summary-items');
 			var $grandTotal = $('#wsp-fp-grand-total');
 			var $submitText = $('#wsp-fp-submit-text');
+			var $floatingBar = $('#wsp-fp-floating-bar');
+			var $floatingSummary = $('#wsp-fp-floating-summary');
+			var $floatingTotal = $('#wsp-fp-floating-total');
 
 			$summaryList.empty();
 
 			var total = 0;
 			var count = 0;
+			var packSummaries = [];
 
 			$.each(selectedPacks, function (packId, item) {
 				if (!item || item.qty <= 0) {
@@ -57,6 +61,7 @@
 				count += item.qty;
 				var lineTotal = item.price * item.qty;
 				total += lineTotal;
+				packSummaries.push(item.title + ' × ' + item.qty);
 
 				var $row = $('<div class="wsp-fp-summary-row"></div>').attr('data-pack-id', packId);
 				var $left = $('<div class="wsp-fp-summary-row-info"></div>');
@@ -81,8 +86,12 @@
 					$('<p class="wsp-fp-summary-empty"></p>').text(wspFoodPacks.i18n.noPacksSelected)
 				);
 				$submitText.text(wspFoodPacks.i18n.completeOrder);
+				$floatingBar.prop('hidden', true);
 			} else {
 				$submitText.text(wspFoodPacks.i18n.completeOrder + ' — ' + formatMoney(total));
+				$floatingSummary.text(packSummaries.join(' • '));
+				$floatingTotal.text(formatMoney(total));
+				$floatingBar.prop('hidden', false);
 			}
 
 			$grandTotal.text(formatMoney(total));
@@ -181,6 +190,32 @@
 			if ($card.length) {
 				var current = parseInt($card.find('.wsp-fp-qty-input').val(), 10) || 0;
 				setCardQty($card, current - 1);
+			}
+		});
+
+		// Modal Open & Close
+		function openCheckoutModal() {
+			clearFeedback();
+			$('#wsp-fp-checkout-modal').prop('hidden', false);
+			$('body').addClass('wsp-fp-modal-open');
+		}
+
+		function closeCheckoutModal() {
+			$('#wsp-fp-checkout-modal').prop('hidden', true);
+			$('body').removeClass('wsp-fp-modal-open');
+		}
+
+		$root.on('click', '#wsp-fp-open-modal-btn', function () {
+			openCheckoutModal();
+		});
+
+		$root.on('click', '[data-wsp-fp-close-modal]', function () {
+			closeCheckoutModal();
+		});
+
+		$(document).on('keydown', function (e) {
+			if (e.key === 'Escape' && !$('#wsp-fp-checkout-modal').prop('hidden')) {
+				closeCheckoutModal();
 			}
 		});
 

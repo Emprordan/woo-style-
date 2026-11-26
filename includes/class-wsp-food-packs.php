@@ -869,7 +869,7 @@ class WSP_Food_Packs {
 				</div>
 			</section>
 
-			<!-- Main Two-Column Ordering Workspace -->
+			<!-- Main Full-Width Packs Selection -->
 			<main class="wsp-fp-main">
 				<div class="wsp-fp-container">
 					<?php if ( empty( $packs ) ) : ?>
@@ -878,210 +878,224 @@ class WSP_Food_Packs {
 							<p><?php esc_html_e( 'Please check back shortly or contact the store administrator to publish food packs.', 'woo-style-plus' ); ?></p>
 						</div>
 					<?php else : ?>
-						<form id="wsp-fp-order-form" class="wsp-fp-layout" novalidate>
-							<!-- LEFT: Step 1 - Food Pack Selection -->
-							<div class="wsp-fp-packs-col">
-								<div class="wsp-fp-section-head">
-									<span class="wsp-fp-step-badge">1</span>
-									<div>
-										<h2 class="wsp-fp-section-title"><?php esc_html_e( 'Choose Your Food Pack', 'woo-style-plus' ); ?></h2>
-										<p class="wsp-fp-section-desc"><?php esc_html_e( 'Select one or more packs and adjust quantities.', 'woo-style-plus' ); ?></p>
-									</div>
-								</div>
-
-								<div class="wsp-fp-packs-grid">
-									<?php foreach ( $packs as $pack ) : ?>
-										<article class="wsp-fp-card"
-											data-pack-id="<?php echo esc_attr( $pack['id'] ); ?>"
-											data-pack-title="<?php echo esc_attr( $pack['title'] ); ?>"
-											data-pack-price="<?php echo esc_attr( $pack['price'] ); ?>">
-
-											<?php if ( ! empty( $pack['badge'] ) ) : ?>
-												<span class="wsp-fp-card-badge"><?php echo esc_html( $pack['badge'] ); ?></span>
-											<?php endif; ?>
-
-											<div class="wsp-fp-card-media">
-												<?php if ( ! empty( $pack['image_url'] ) ) : ?>
-													<img src="<?php echo esc_url( $pack['image_url'] ); ?>" alt="<?php echo esc_attr( $pack['title'] ); ?>" loading="lazy" />
-												<?php else : ?>
-													<div class="wsp-fp-card-placeholder">
-														<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-															<rect x="3" y="3" width="18" height="18" rx="3"></rect>
-															<circle cx="8.5" cy="8.5" r="1.5"></circle>
-															<path d="M21 15l-5-5L5 21"></path>
-														</svg>
-													</div>
-												<?php endif; ?>
-											</div>
-
-											<div class="wsp-fp-card-body">
-												<div class="wsp-fp-card-top">
-													<h3 class="wsp-fp-card-title"><?php echo esc_html( $pack['title'] ); ?></h3>
-													<div class="wsp-fp-card-pricing">
-														<span class="wsp-fp-price"><?php echo wp_kses_post( wc_price( $pack['price'] ) ); ?></span>
-														<?php if ( $pack['regular_price'] > $pack['price'] ) : ?>
-															<span class="wsp-fp-regular-price"><?php echo wp_kses_post( wc_price( $pack['regular_price'] ) ); ?></span>
-														<?php endif; ?>
-													</div>
-												</div>
-
-												<?php if ( ! empty( $pack['description'] ) ) : ?>
-													<div class="wsp-fp-card-desc">
-														<?php echo wp_kses_post( $pack['description'] ); ?>
-													</div>
-												<?php endif; ?>
-
-												<div class="wsp-fp-card-actions">
-													<button type="button" class="wsp-fp-select-btn">
-														<span class="wsp-fp-select-label"><?php esc_html_e( 'Select Pack', 'woo-style-plus' ); ?></span>
-													</button>
-
-													<div class="wsp-fp-qty-wrap" hidden>
-														<button type="button" class="wsp-fp-qty-btn wsp-fp-qty-minus" aria-label="<?php esc_attr_e( 'Decrease quantity', 'woo-style-plus' ); ?>">&minus;</button>
-														<input type="number" class="wsp-fp-qty-input" value="0" min="0" max="999" inputmode="numeric" aria-label="<?php esc_attr_e( 'Quantity', 'woo-style-plus' ); ?>" />
-														<button type="button" class="wsp-fp-qty-btn wsp-fp-qty-plus" aria-label="<?php esc_attr_e( 'Increase quantity', 'woo-style-plus' ); ?>">+</button>
-													</div>
-												</div>
-											</div>
-										</article>
-									<?php endforeach; ?>
+						<div class="wsp-fp-packs-section">
+							<div class="wsp-fp-section-head">
+								<span class="wsp-fp-step-badge">1</span>
+								<div>
+									<h2 class="wsp-fp-section-title"><?php esc_html_e( 'Choose Your Food Pack', 'woo-style-plus' ); ?></h2>
+									<p class="wsp-fp-section-desc"><?php esc_html_e( 'Select one or more packs and adjust quantities.', 'woo-style-plus' ); ?></p>
 								</div>
 							</div>
 
-							<!-- RIGHT: Step 2 & 3 - Customer Details, Summary & Payment -->
-							<aside class="wsp-fp-checkout-col">
-								<div class="wsp-fp-checkout-card">
-									<!-- Order Summary -->
-									<div class="wsp-fp-summary-box">
-										<div class="wsp-fp-section-head wsp-fp-section-head--compact">
-											<span class="wsp-fp-step-badge">2</span>
-											<div>
-												<h2 class="wsp-fp-section-title"><?php esc_html_e( 'Your Order Summary', 'woo-style-plus' ); ?></h2>
-											</div>
-										</div>
-										<div id="wsp-fp-summary-items" class="wsp-fp-summary-items">
-											<p class="wsp-fp-summary-empty"><?php esc_html_e( 'No packs selected yet. Choose a pack on the left to begin.', 'woo-style-plus' ); ?></p>
-										</div>
-										<div class="wsp-fp-summary-total-row">
-											<span><?php esc_html_e( 'Total', 'woo-style-plus' ); ?></span>
-											<strong id="wsp-fp-grand-total"><?php echo wp_kses_post( wc_price( 0 ) ); ?></strong>
-										</div>
-									</div>
+							<div class="wsp-fp-packs-grid">
+								<?php foreach ( $packs as $pack ) : ?>
+									<article class="wsp-fp-card"
+										data-pack-id="<?php echo esc_attr( $pack['id'] ); ?>"
+										data-pack-title="<?php echo esc_attr( $pack['title'] ); ?>"
+										data-pack-price="<?php echo esc_attr( $pack['price'] ); ?>">
 
-									<hr class="wsp-fp-divider" />
-
-									<!-- Delivery Details -->
-									<div class="wsp-fp-details-box">
-										<div class="wsp-fp-section-head wsp-fp-section-head--compact">
-											<span class="wsp-fp-step-badge">3</span>
-											<div>
-												<h2 class="wsp-fp-section-title"><?php esc_html_e( 'Delivery Details', 'woo-style-plus' ); ?></h2>
-											</div>
-										</div>
-
-										<div class="wsp-fp-form-grid">
-											<div class="wsp-fp-field wsp-fp-field--full">
-												<label for="wsp_fp_full_name"><?php esc_html_e( 'Full Name', 'woo-style-plus' ); ?> <span class="wsp-fp-req">*</span></label>
-												<input type="text" id="wsp_fp_full_name" name="full_name" value="<?php echo esc_attr( $prefill_name ); ?>" placeholder="<?php esc_attr_e( 'e.g. Adebayo Ogunleye', 'woo-style-plus' ); ?>" required />
-											</div>
-
-											<div class="wsp-fp-field">
-												<label for="wsp_fp_email"><?php esc_html_e( 'Email Address', 'woo-style-plus' ); ?> <span class="wsp-fp-req">*</span></label>
-												<input type="email" id="wsp_fp_email" name="email" value="<?php echo esc_attr( $prefill_email ); ?>" placeholder="you@example.com" required />
-											</div>
-
-											<div class="wsp-fp-field">
-												<label for="wsp_fp_phone"><?php esc_html_e( 'Phone Number', 'woo-style-plus' ); ?> <span class="wsp-fp-req">*</span></label>
-												<input type="tel" id="wsp_fp_phone" name="phone" value="<?php echo esc_attr( $prefill_phone ); ?>" placeholder="0801 234 5678" required />
-											</div>
-
-											<div class="wsp-fp-field wsp-fp-field--full">
-												<label for="wsp_fp_address"><?php esc_html_e( 'Delivery Address', 'woo-style-plus' ); ?> <span class="wsp-fp-req">*</span></label>
-												<input type="text" id="wsp_fp_address" name="address" value="<?php echo esc_attr( $prefill_address ); ?>" placeholder="<?php esc_attr_e( 'House number, street name, landmark', 'woo-style-plus' ); ?>" required />
-											</div>
-
-											<div class="wsp-fp-field">
-												<label for="wsp_fp_city"><?php esc_html_e( 'City / Area', 'woo-style-plus' ); ?></label>
-												<input type="text" id="wsp_fp_city" name="city" value="<?php echo esc_attr( $prefill_city ); ?>" placeholder="<?php esc_attr_e( 'e.g. Ikeja', 'woo-style-plus' ); ?>" />
-											</div>
-
-											<div class="wsp-fp-field">
-												<label for="wsp_fp_state"><?php esc_html_e( 'State', 'woo-style-plus' ); ?></label>
-												<input type="text" id="wsp_fp_state" name="state" value="<?php echo esc_attr( $prefill_state ); ?>" placeholder="<?php esc_attr_e( 'e.g. Lagos', 'woo-style-plus' ); ?>" />
-											</div>
-
-											<div class="wsp-fp-field wsp-fp-field--full">
-												<label for="wsp_fp_notes"><?php esc_html_e( 'Delivery Notes (Optional)', 'woo-style-plus' ); ?></label>
-												<textarea id="wsp_fp_notes" name="notes" rows="2" placeholder="<?php esc_attr_e( 'Any special instructions for your order or delivery...', 'woo-style-plus' ); ?>"></textarea>
-											</div>
-										</div>
-									</div>
-
-									<hr class="wsp-fp-divider" />
-
-									<!-- WooCommerce Integrated Payment Gateways -->
-									<div class="wsp-fp-payment-box">
-										<div class="wsp-fp-section-head wsp-fp-section-head--compact">
-											<span class="wsp-fp-step-badge">4</span>
-											<div>
-												<h2 class="wsp-fp-section-title"><?php esc_html_e( 'Payment Method', 'woo-style-plus' ); ?></h2>
-											</div>
-										</div>
-
-										<?php if ( empty( $gateways ) ) : ?>
-											<div class="wsp-fp-alert wsp-fp-alert--error">
-												<?php esc_html_e( 'No WooCommerce payment gateways are currently enabled. Please enable a payment gateway in WooCommerce > Settings > Payments.', 'woo-style-plus' ); ?>
-											</div>
-										<?php else : ?>
-											<ul class="wsp-fp-gateways-list">
-												<?php
-												$first = true;
-												foreach ( $gateways as $gateway_id => $gateway ) :
-													?>
-													<li class="wsp-fp-gateway-item <?php echo $first ? 'is-active' : ''; ?>">
-														<label class="wsp-fp-gateway-label" for="wsp_fp_gw_<?php echo esc_attr( $gateway_id ); ?>">
-															<input type="radio"
-																id="wsp_fp_gw_<?php echo esc_attr( $gateway_id ); ?>"
-																name="payment_method"
-																value="<?php echo esc_attr( $gateway_id ); ?>"
-																<?php checked( $first, true ); ?> />
-															<span class="wsp-fp-gateway-title"><?php echo esc_html( $gateway->get_title() ); ?></span>
-															<?php if ( $gateway->get_icon() ) : ?>
-																<span class="wsp-fp-gateway-icon"><?php echo wp_kses_post( $gateway->get_icon() ); ?></span>
-															<?php endif; ?>
-														</label>
-
-														<?php if ( $gateway->has_fields() || $gateway->get_description() ) : ?>
-															<div class="wsp-fp-gateway-fields" <?php echo $first ? '' : 'hidden'; ?>>
-																<?php
-																ob_start();
-																$gateway->payment_fields();
-																$fields_html = ob_get_clean();
-																echo $fields_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-																?>
-															</div>
-														<?php endif; ?>
-													</li>
-													<?php
-													$first = false;
-												endforeach;
-												?>
-											</ul>
+										<?php if ( ! empty( $pack['badge'] ) ) : ?>
+											<span class="wsp-fp-card-badge"><?php echo esc_html( $pack['badge'] ); ?></span>
 										<?php endif; ?>
-									</div>
 
-									<div id="wsp-fp-feedback" class="wsp-fp-alert" hidden></div>
+										<div class="wsp-fp-card-media">
+											<?php if ( ! empty( $pack['image_url'] ) ) : ?>
+												<img src="<?php echo esc_url( $pack['image_url'] ); ?>" alt="<?php echo esc_attr( $pack['title'] ); ?>" loading="lazy" />
+											<?php else : ?>
+												<div class="wsp-fp-card-placeholder">
+													<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+														<rect x="3" y="3" width="18" height="18" rx="3"></rect>
+														<circle cx="8.5" cy="8.5" r="1.5"></circle>
+														<path d="M21 15l-5-5L5 21"></path>
+													</svg>
+												</div>
+											<?php endif; ?>
+										</div>
 
-									<button type="submit" id="wsp-fp-submit-btn" class="wsp-fp-submit-btn" <?php echo empty( $gateways ) ? 'disabled' : ''; ?>>
-										<span id="wsp-fp-submit-text"><?php esc_html_e( 'Complete Order', 'woo-style-plus' ); ?></span>
-									</button>
+										<div class="wsp-fp-card-body">
+											<div class="wsp-fp-card-top">
+												<h3 class="wsp-fp-card-title"><?php echo esc_html( $pack['title'] ); ?></h3>
+												<div class="wsp-fp-card-pricing">
+													<span class="wsp-fp-price"><?php echo wp_kses_post( wc_price( $pack['price'] ) ); ?></span>
+													<?php if ( $pack['regular_price'] > $pack['price'] ) : ?>
+														<span class="wsp-fp-regular-price"><?php echo wp_kses_post( wc_price( $pack['regular_price'] ) ); ?></span>
+													<?php endif; ?>
+												</div>
+											</div>
 
-									<p class="wsp-fp-secure-note">
-										<?php esc_html_e( 'Powered by WooCommerce secure payment processing.', 'woo-style-plus' ); ?>
-									</p>
+											<?php if ( ! empty( $pack['description'] ) ) : ?>
+												<div class="wsp-fp-card-desc">
+													<?php echo wp_kses_post( $pack['description'] ); ?>
+												</div>
+											<?php endif; ?>
+
+											<div class="wsp-fp-card-actions">
+												<button type="button" class="wsp-fp-select-btn">
+													<span class="wsp-fp-select-label"><?php esc_html_e( 'Select Pack', 'woo-style-plus' ); ?></span>
+												</button>
+
+												<div class="wsp-fp-qty-wrap" hidden>
+													<button type="button" class="wsp-fp-qty-btn wsp-fp-qty-minus" aria-label="<?php esc_attr_e( 'Decrease quantity', 'woo-style-plus' ); ?>">&minus;</button>
+													<input type="number" class="wsp-fp-qty-input" value="0" min="0" max="999" inputmode="numeric" aria-label="<?php esc_attr_e( 'Quantity', 'woo-style-plus' ); ?>" />
+													<button type="button" class="wsp-fp-qty-btn wsp-fp-qty-plus" aria-label="<?php esc_attr_e( 'Increase quantity', 'woo-style-plus' ); ?>">+</button>
+												</div>
+											</div>
+										</div>
+									</article>
+								<?php endforeach; ?>
+							</div>
+						</div>
+
+						<!-- Center-Bottom Floating Order Widget -->
+						<div id="wsp-fp-floating-bar" class="wsp-fp-floating-bar" hidden aria-live="polite">
+							<div class="wsp-fp-floating-info">
+								<div id="wsp-fp-floating-summary" class="wsp-fp-floating-summary"></div>
+								<div id="wsp-fp-floating-total" class="wsp-fp-floating-total"><?php echo wp_kses_post( wc_price( 0 ) ); ?></div>
+							</div>
+							<button type="button" id="wsp-fp-open-modal-btn" class="wsp-fp-floating-btn">
+								<?php esc_html_e( 'Order Now', 'woo-style-plus' ); ?>
+							</button>
+						</div>
+
+						<!-- Checkout Modal Popup (Full screen on mobile) -->
+						<div id="wsp-fp-checkout-modal" class="wsp-fp-modal" hidden role="dialog" aria-modal="true" aria-labelledby="wsp-fp-modal-title">
+							<div class="wsp-fp-modal-backdrop" data-wsp-fp-close-modal></div>
+							<div class="wsp-fp-modal-dialog">
+								<div class="wsp-fp-modal-header">
+									<h2 id="wsp-fp-modal-title" class="wsp-fp-modal-title"><?php esc_html_e( 'Complete Your Order', 'woo-style-plus' ); ?></h2>
+									<button type="button" class="wsp-fp-modal-close" data-wsp-fp-close-modal aria-label="<?php esc_attr_e( 'Close checkout', 'woo-style-plus' ); ?>">&times;</button>
 								</div>
-							</aside>
-						</form>
+
+								<div class="wsp-fp-modal-body">
+									<form id="wsp-fp-order-form" class="wsp-fp-modal-form" novalidate>
+										<!-- Selected Order Summary -->
+										<div class="wsp-fp-summary-box">
+											<div class="wsp-fp-section-head wsp-fp-section-head--compact">
+												<span class="wsp-fp-step-badge">1</span>
+												<div>
+													<h3 class="wsp-fp-section-title"><?php esc_html_e( 'Selected Order', 'woo-style-plus' ); ?></h3>
+												</div>
+											</div>
+											<div id="wsp-fp-summary-items" class="wsp-fp-summary-items">
+												<p class="wsp-fp-summary-empty"><?php esc_html_e( 'No packs selected yet. Choose a pack on the left to begin.', 'woo-style-plus' ); ?></p>
+											</div>
+											<div class="wsp-fp-summary-total-row">
+												<span><?php esc_html_e( 'Total', 'woo-style-plus' ); ?></span>
+												<strong id="wsp-fp-grand-total"><?php echo wp_kses_post( wc_price( 0 ) ); ?></strong>
+											</div>
+										</div>
+
+										<hr class="wsp-fp-divider" />
+
+										<!-- Delivery Details -->
+										<div class="wsp-fp-details-box">
+											<div class="wsp-fp-section-head wsp-fp-section-head--compact">
+												<span class="wsp-fp-step-badge">2</span>
+												<div>
+													<h3 class="wsp-fp-section-title"><?php esc_html_e( 'Delivery Details', 'woo-style-plus' ); ?></h3>
+												</div>
+											</div>
+
+											<div class="wsp-fp-form-grid">
+												<div class="wsp-fp-field wsp-fp-field--full">
+													<label for="wsp_fp_full_name"><?php esc_html_e( 'Full Name', 'woo-style-plus' ); ?> <span class="wsp-fp-req">*</span></label>
+													<input type="text" id="wsp_fp_full_name" name="full_name" value="<?php echo esc_attr( $prefill_name ); ?>" placeholder="<?php esc_attr_e( 'e.g. Adebayo Ogunleye', 'woo-style-plus' ); ?>" required />
+												</div>
+
+												<div class="wsp-fp-field">
+													<label for="wsp_fp_email"><?php esc_html_e( 'Email Address', 'woo-style-plus' ); ?> <span class="wsp-fp-req">*</span></label>
+													<input type="email" id="wsp_fp_email" name="email" value="<?php echo esc_attr( $prefill_email ); ?>" placeholder="you@example.com" required />
+												</div>
+
+												<div class="wsp-fp-field">
+													<label for="wsp_fp_phone"><?php esc_html_e( 'Phone Number', 'woo-style-plus' ); ?> <span class="wsp-fp-req">*</span></label>
+													<input type="tel" id="wsp_fp_phone" name="phone" value="<?php echo esc_attr( $prefill_phone ); ?>" placeholder="0801 234 5678" required />
+												</div>
+
+												<div class="wsp-fp-field wsp-fp-field--full">
+													<label for="wsp_fp_address"><?php esc_html_e( 'Delivery Address', 'woo-style-plus' ); ?> <span class="wsp-fp-req">*</span></label>
+													<input type="text" id="wsp_fp_address" name="address" value="<?php echo esc_attr( $prefill_address ); ?>" placeholder="<?php esc_attr_e( 'House number, street name, landmark', 'woo-style-plus' ); ?>" required />
+												</div>
+
+												<div class="wsp-fp-field">
+													<label for="wsp_fp_city"><?php esc_html_e( 'City / Area', 'woo-style-plus' ); ?></label>
+													<input type="text" id="wsp_fp_city" name="city" value="<?php echo esc_attr( $prefill_city ); ?>" placeholder="<?php esc_attr_e( 'e.g. Ikeja', 'woo-style-plus' ); ?>" />
+												</div>
+
+												<div class="wsp-fp-field">
+													<label for="wsp_fp_state"><?php esc_html_e( 'State', 'woo-style-plus' ); ?></label>
+													<input type="text" id="wsp_fp_state" name="state" value="<?php echo esc_attr( $prefill_state ); ?>" placeholder="<?php esc_attr_e( 'e.g. Lagos', 'woo-style-plus' ); ?>" />
+												</div>
+
+												<div class="wsp-fp-field wsp-fp-field--full">
+													<label for="wsp_fp_notes"><?php esc_html_e( 'Delivery Notes (Optional)', 'woo-style-plus' ); ?></label>
+													<textarea id="wsp_fp_notes" name="notes" rows="2" placeholder="<?php esc_attr_e( 'Any special instructions for your order or delivery...', 'woo-style-plus' ); ?>"></textarea>
+												</div>
+											</div>
+										</div>
+
+										<hr class="wsp-fp-divider" />
+
+										<!-- WooCommerce Integrated Payment Gateways -->
+										<div class="wsp-fp-payment-box">
+											<div class="wsp-fp-section-head wsp-fp-section-head--compact">
+												<span class="wsp-fp-step-badge">3</span>
+												<div>
+													<h3 class="wsp-fp-section-title"><?php esc_html_e( 'Payment Method', 'woo-style-plus' ); ?></h3>
+												</div>
+											</div>
+
+											<?php if ( empty( $gateways ) ) : ?>
+												<div class="wsp-fp-alert wsp-fp-alert--error">
+													<?php esc_html_e( 'No WooCommerce payment gateways are currently enabled. Please enable a payment gateway in WooCommerce > Settings > Payments.', 'woo-style-plus' ); ?>
+												</div>
+											<?php else : ?>
+												<ul class="wsp-fp-gateways-list">
+													<?php
+													$first = true;
+													foreach ( $gateways as $gateway_id => $gateway ) :
+														?>
+														<li class="wsp-fp-gateway-item <?php echo $first ? 'is-active' : ''; ?>">
+															<label class="wsp-fp-gateway-label" for="wsp_fp_gw_<?php echo esc_attr( $gateway_id ); ?>">
+																<input type="radio"
+																	id="wsp_fp_gw_<?php echo esc_attr( $gateway_id ); ?>"
+																	name="payment_method"
+																	value="<?php echo esc_attr( $gateway_id ); ?>"
+																	<?php checked( $first, true ); ?> />
+																<span class="wsp-fp-gateway-title"><?php echo esc_html( $gateway->get_title() ); ?></span>
+																<?php if ( $gateway->get_icon() ) : ?>
+																	<span class="wsp-fp-gateway-icon"><?php echo wp_kses_post( $gateway->get_icon() ); ?></span>
+																<?php endif; ?>
+															</label>
+
+															<?php if ( $gateway->has_fields() || $gateway->get_description() ) : ?>
+																<div class="wsp-fp-gateway-fields" <?php echo $first ? '' : 'hidden'; ?>>
+																	<?php
+																	ob_start();
+																	$gateway->payment_fields();
+																	$fields_html = ob_get_clean();
+																	echo $fields_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+																	?>
+																</div>
+															<?php endif; ?>
+														</li>
+														<?php
+														$first = false;
+													endforeach;
+													?>
+												</ul>
+											<?php endif; ?>
+										</div>
+
+										<div id="wsp-fp-feedback" class="wsp-fp-alert" hidden></div>
+
+										<button type="submit" id="wsp-fp-submit-btn" class="wsp-fp-submit-btn" <?php echo empty( $gateways ) ? 'disabled' : ''; ?>>
+											<span id="wsp-fp-submit-text"><?php esc_html_e( 'Complete Order', 'woo-style-plus' ); ?></span>
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
 					<?php endif; ?>
 				</div>
 			</main>

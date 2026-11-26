@@ -843,22 +843,6 @@ class WSP_Food_Packs {
 		ob_start();
 		?>
 		<div id="wsp-fp-root" class="wsp-fp-root" style="--wsp-fp-accent: <?php echo esc_attr( $accent_color ); ?>;">
-			<!-- Top Brand Bar -->
-			<header class="wsp-fp-header">
-				<div class="wsp-fp-container wsp-fp-header-inner">
-					<div class="wsp-fp-brand">
-						<?php if ( $logo_url ) : ?>
-							<img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( $site_name ); ?>" class="wsp-fp-brand-logo" />
-						<?php endif; ?>
-						<span class="wsp-fp-brand-name"><?php echo esc_html( $site_name ); ?></span>
-					</div>
-					<div class="wsp-fp-trust-pill">
-						<span class="wsp-fp-trust-dot"></span>
-						<?php esc_html_e( 'Secure Checkout', 'woo-style-plus' ); ?>
-					</div>
-				</div>
-			</header>
-
 			<!-- Hero Title -->
 			<section class="wsp-fp-hero">
 				<div class="wsp-fp-container">

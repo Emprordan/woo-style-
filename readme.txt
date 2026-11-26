@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,9 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.6.5 =
+* UI Polish (Food Packs): Completely removed the top brand header bar, centered the hero, section header, and pack cards in the middle of the page, and tightened vertical and card spacing for a cleaner, more compact layout.
 
 = 1.6.4 =
 * Redesign (Food Packs Layout): Replaced the right-hand checkout sidebar with a full-width packs grid and a center-bottom floating order bar showing all selected packages, total price, and an "Order Now" button.

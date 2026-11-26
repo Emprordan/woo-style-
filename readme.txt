@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.6.12
+Stable tag: 1.6.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,10 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.6.13 =
+* Added static notice box directly under the checkout modal header (never uses marquee animation even if marquee is enabled on the hero)
+
 
 = 1.6.12 =
 * Reduced hero notice marquee scrolling speed by 50% (18s -> 36s)

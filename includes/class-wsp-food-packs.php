@@ -1097,6 +1097,11 @@ class WSP_Food_Packs {
 								</div>
 
 								<div class="wsp-fp-modal-body">
+									<?php if ( '' !== $notice_text ) : ?>
+										<div class="wsp-fp-modal-notice" style="background-color: <?php echo esc_attr( $notice_bg ); ?>; color: <?php echo esc_attr( $notice_color ); ?>;">
+											<?php echo esc_html( $notice_text ); ?>
+										</div>
+									<?php endif; ?>
 									<form id="wsp-fp-order-form" class="wsp-fp-modal-form" novalidate>
 										<!-- Selected Order Summary -->
 										<div class="wsp-fp-summary-box">

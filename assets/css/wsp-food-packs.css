@@ -129,6 +129,18 @@ body.wsp-fp-standalone-body #wsp-side-cart-drawer {
 	}
 }
 
+/* Static Notice Box inside Checkout Modal */
+.wsp-fp-modal-notice {
+	margin: 0 0 14px;
+	padding: 10px 14px;
+	border-radius: 10px;
+	font-size: 13px;
+	font-weight: 700;
+	line-height: 1.45;
+	text-align: center;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
 body.wsp-fp-modal-open {
 	overflow: hidden !important;
 }

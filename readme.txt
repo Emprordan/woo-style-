@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.6.7
+Stable tag: 1.6.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,13 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.6.8 =
+* Removed step-1 badge and section heading from above the pack grid
+* Added 30px lateral margin to hero box on desktop; 11px on mobile
+* Snowflakes now cycle through white, red, and green colours
+* Mobile hero is more compact (smaller padding, font sizes, tighter radius)
+
 
 = 1.6.7 =
 * Added: Christmas decoration mode for the Food Packs ordering page - animated snowflakes, festive hero gradient, red/gold card highlights, and Christmas-coloured floating bar

@@ -63,6 +63,8 @@ body.wsp-fp-standalone-body #wsp-side-cart-drawer {
 .wsp-fp-hero {
 	padding: 24px 0 16px;
 	text-align: center;
+	margin: 0 30px;
+	border-radius: 14px;
 }
 
 .wsp-fp-hero-title {
@@ -867,7 +869,19 @@ body.wsp-fp-modal-open {
 	}
 
 	.wsp-fp-hero {
-		padding: 20px 0 16px;
+		padding: 14px 0 12px;
+		margin: 0 11px;
+		border-radius: 10px;
+	}
+
+	.wsp-fp-hero-title {
+		font-size: 18px;
+		margin-bottom: 4px !important;
+	}
+
+	.wsp-fp-hero-subtitle {
+		font-size: 12px;
+		line-height: 1.4;
 	}
 
 	.wsp-fp-packs-grid {
@@ -1065,7 +1079,7 @@ body.wsp-fp-modal-open {
 	top: -24px;
 	left: var( --sf-left, 50% );
 	font-size: var( --sf-size, 12px );
-	color: rgba( 255, 255, 255, 0.82 );
+	color: var( --sf-color, rgba( 255, 255, 255, 0.82 ) );
 	text-shadow: 0 0 6px rgba( 192, 57, 43, 0.4 );
 	animation: wspFpSnowfall var( --sf-dur, 10s ) var( --sf-delay, 0s ) linear infinite;
 	user-select: none;

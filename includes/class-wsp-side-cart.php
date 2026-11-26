@@ -79,6 +79,10 @@ class WSP_Side_Cart {
             return;
         }
 
+        if ( isset( WSP_Core::instance()->food_packs ) && WSP_Core::instance()->food_packs->is_standalone_food_packs_page() ) {
+            return;
+        }
+
         // Ensure WooCommerce cart fragments script is available
         if ( function_exists( 'wp_enqueue_script' ) ) {
             wp_enqueue_script( 'wc-cart-fragments' );
@@ -118,6 +122,10 @@ class WSP_Side_Cart {
      */
     public function render_drawer_markup() {
         if ( self::$drawer_rendered || ! self::is_enabled() ) {
+            return;
+        }
+
+        if ( isset( WSP_Core::instance()->food_packs ) && WSP_Core::instance()->food_packs->is_standalone_food_packs_page() ) {
             return;
         }
 

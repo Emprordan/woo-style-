@@ -13,6 +13,10 @@ body.wsp-fp-standalone-body {
 	line-height: 1.5 !important;
 }
 
+body.wsp-fp-standalone-body #wsp-side-cart-drawer {
+	display: none !important;
+}
+
 #wsp-fp-root {
 	--wsp-fp-accent: #16a34a;
 	--wsp-fp-accent-hover: #15803d;

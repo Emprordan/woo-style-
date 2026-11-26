@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,9 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.6.2 =
+* Bug Fix (Food Packs Standalone Page): Suppressed the global Woo Style+ Side Cart drawer markup and assets on standalone `[wsp_food_packs]` pages so unstyled shopping cart HTML no longer appears below the ordering interface.
 
 = 1.6.1 =
 * Enhancement (Food Packs): Customers can now configure pack quantities both on the pack card (via `- / +` buttons or by typing a number directly) and directly inside the Order Summary panel.

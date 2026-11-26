@@ -104,7 +104,10 @@
 				hero_title: $('#wsp_fp_hero_title').val(),
 				hero_subtitle: $('#wsp_fp_hero_subtitle').val(),
 				accent_color: $('#wsp_fp_accent_color').val(),
-				christmas_enabled: $('#wsp_fp_christmas').is(':checked') ? 'yes' : 'no'
+				christmas_enabled: $('#wsp_fp_christmas').is(':checked') ? 'yes' : 'no',
+				hero_notice_text: $('#wsp_fp_hero_notice_text').val(),
+				hero_notice_bg: $('#wsp_fp_hero_notice_bg').val(),
+				hero_notice_marquee: $('#wsp_fp_hero_notice_marquee').is(':checked') ? 'yes' : 'no'
 			})
 				.done(function (res) {
 					$btn.prop('disabled', false).text('Save Page Text');

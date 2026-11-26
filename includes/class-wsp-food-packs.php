@@ -197,37 +197,59 @@ class WSP_Food_Packs {
 		</div>
 
 		<div class="notice wsp-fp-admin-settings-card" style="border-left-color:#0f172a;padding:16px 20px;margin:8px 0 12px;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-			<form id="wsp-fp-settings-form" style="display:grid;grid-template-columns:1fr 1.6fr auto auto auto;gap:12px;align-items:end;">
+			<form id="wsp-fp-settings-form" style="display:flex;flex-direction:column;gap:12px;">
 				<input type="hidden" name="nonce" value="<?php echo esc_attr( $nonce ); ?>" />
-				<div>
-					<label for="wsp_fp_hero_title" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
-						<?php esc_html_e( 'Ordering Page Heading', 'woo-style-plus' ); ?>
-					</label>
-					<input type="text" id="wsp_fp_hero_title" name="hero_title" value="<?php echo esc_attr( $settings['hero_title'] ); ?>" class="regular-text" style="width:100%;" placeholder="<?php esc_attr_e( 'Order Fresh Food Packs', 'woo-style-plus' ); ?>" />
+				<div style="display:grid;grid-template-columns:1fr 1.6fr auto auto;gap:12px;align-items:end;">
+					<div>
+						<label for="wsp_fp_hero_title" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
+							<?php esc_html_e( 'Ordering Page Heading', 'woo-style-plus' ); ?>
+						</label>
+						<input type="text" id="wsp_fp_hero_title" name="hero_title" value="<?php echo esc_attr( $settings['hero_title'] ); ?>" class="regular-text" style="width:100%;" placeholder="<?php esc_attr_e( 'Order Fresh Food Packs', 'woo-style-plus' ); ?>" />
+					</div>
+					<div>
+						<label for="wsp_fp_hero_subtitle" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
+							<?php esc_html_e( 'Ordering Page Subtitle', 'woo-style-plus' ); ?>
+						</label>
+						<input type="text" id="wsp_fp_hero_subtitle" name="hero_subtitle" value="<?php echo esc_attr( $settings['hero_subtitle'] ); ?>" class="regular-text" style="width:100%;" placeholder="<?php esc_attr_e( 'Select your preferred food pack(s), enter your delivery details, and pay securely.', 'woo-style-plus' ); ?>" />
+					</div>
+					<div>
+						<label for="wsp_fp_accent_color" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
+							<?php esc_html_e( 'Accent Color', 'woo-style-plus' ); ?>
+						</label>
+						<input type="color" id="wsp_fp_accent_color" name="accent_color" value="<?php echo esc_attr( $settings['accent_color'] ); ?>" style="height:32px;width:54px;padding:2px;border-radius:6px;border:1px solid #cbd5e1;cursor:pointer;" />
+					</div>
+					<div style="display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding-bottom:6px;">
+						<label style="display:flex;align-items:center;gap:7px;font-weight:600;font-size:12px;color:#334155;cursor:pointer;white-space:nowrap;">
+							<input type="checkbox" id="wsp_fp_christmas" name="christmas_enabled" value="yes" <?php checked( $settings['christmas_enabled'], 'yes' ); ?> style="width:16px;height:16px;accent-color:#c0392b;cursor:pointer;" />
+							🎄 Christmas Mode
+						</label>
+					</div>
 				</div>
-				<div>
-					<label for="wsp_fp_hero_subtitle" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
-						<?php esc_html_e( 'Ordering Page Subtitle', 'woo-style-plus' ); ?>
-					</label>
-					<input type="text" id="wsp_fp_hero_subtitle" name="hero_subtitle" value="<?php echo esc_attr( $settings['hero_subtitle'] ); ?>" class="regular-text" style="width:100%;" placeholder="<?php esc_attr_e( 'Select your preferred food pack(s), enter your delivery details, and pay securely.', 'woo-style-plus' ); ?>" />
-				</div>
-				<div>
-					<label for="wsp_fp_accent_color" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
-						<?php esc_html_e( 'Accent Color', 'woo-style-plus' ); ?>
-					</label>
-					<input type="color" id="wsp_fp_accent_color" name="accent_color" value="<?php echo esc_attr( $settings['accent_color'] ); ?>" style="height:32px;width:54px;padding:2px;border-radius:6px;border:1px solid #cbd5e1;cursor:pointer;" />
-				</div>
-				<div style="display:flex;flex-direction:column;justify-content:flex-end;gap:6px;">
-					<label style="display:flex;align-items:center;gap:7px;font-weight:600;font-size:12px;color:#334155;cursor:pointer;white-space:nowrap;">
-						<input type="checkbox" id="wsp_fp_christmas" name="christmas_enabled" value="yes" <?php checked( $settings['christmas_enabled'], 'yes' ); ?> style="width:16px;height:16px;accent-color:#c0392b;cursor:pointer;" />
-						🎄 Christmas Mode
-					</label>
-				</div>
-				<div style="display:flex;align-items:center;gap:10px;">
-					<button type="submit" class="button button-primary" id="wsp-fp-save-settings-btn">
-						<?php esc_html_e( 'Save Page Text', 'woo-style-plus' ); ?>
-					</button>
-					<span id="wsp-fp-settings-status" style="font-size:12px;font-weight:600;color:#16a34a;display:none;"></span>
+				<div style="display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:end;padding-top:10px;border-top:1px solid #f1f5f9;">
+					<div>
+						<label for="wsp_fp_hero_notice_text" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
+							<?php esc_html_e( 'Hero Info / Notice Text (Optional)', 'woo-style-plus' ); ?>
+						</label>
+						<input type="text" id="wsp_fp_hero_notice_text" name="hero_notice_text" value="<?php echo esc_attr( $settings['hero_notice_text'] ); ?>" class="regular-text" style="width:100%;" placeholder="<?php esc_attr_e( 'e.g. Free delivery on orders above ₦50,000! Pre-order closes Dec 20th.', 'woo-style-plus' ); ?>" />
+					</div>
+					<div>
+						<label for="wsp_fp_hero_notice_bg" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
+							<?php esc_html_e( 'Notice Box Bg', 'woo-style-plus' ); ?>
+						</label>
+						<input type="color" id="wsp_fp_hero_notice_bg" name="hero_notice_bg" value="<?php echo esc_attr( $settings['hero_notice_bg'] ); ?>" style="height:32px;width:54px;padding:2px;border-radius:6px;border:1px solid #cbd5e1;cursor:pointer;" />
+					</div>
+					<div style="display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding-bottom:6px;">
+						<label style="display:flex;align-items:center;gap:7px;font-weight:600;font-size:12px;color:#334155;cursor:pointer;white-space:nowrap;">
+							<input type="checkbox" id="wsp_fp_hero_notice_marquee" name="hero_notice_marquee" value="yes" <?php checked( $settings['hero_notice_marquee'], 'yes' ); ?> style="width:16px;height:16px;accent-color:#0f172a;cursor:pointer;" />
+							<?php esc_html_e( 'Scrolling Marquee', 'woo-style-plus' ); ?>
+						</label>
+					</div>
+					<div style="display:flex;align-items:center;gap:10px;">
+						<button type="submit" class="button button-primary" id="wsp-fp-save-settings-btn">
+							<?php esc_html_e( 'Save Page Text', 'woo-style-plus' ); ?>
+						</button>
+						<span id="wsp-fp-settings-status" style="font-size:12px;font-weight:600;color:#16a34a;display:none;"></span>
+					</div>
 				</div>
 			</form>
 		</div>
@@ -241,10 +263,13 @@ class WSP_Food_Packs {
 	 */
 	public function get_page_settings() {
 		$defaults = array(
-			'hero_title'        => __( 'Order Fresh Food Packs', 'woo-style-plus' ),
-			'hero_subtitle'     => __( 'Select your preferred food pack(s), enter your delivery details, and pay securely.', 'woo-style-plus' ),
-			'accent_color'      => '#16a34a',
-			'christmas_enabled' => 'no',
+			'hero_title'          => __( 'Order Fresh Food Packs', 'woo-style-plus' ),
+			'hero_subtitle'       => __( 'Select your preferred food pack(s), enter your delivery details, and pay securely.', 'woo-style-plus' ),
+			'accent_color'        => '#16a34a',
+			'christmas_enabled'   => 'no',
+			'hero_notice_text'    => '',
+			'hero_notice_bg'      => '#f5c842',
+			'hero_notice_marquee' => 'no',
 		);
 		$saved = get_option( self::SETTINGS_OPTION, array() );
 		if ( ! is_array( $saved ) ) {
@@ -263,10 +288,13 @@ class WSP_Food_Packs {
 			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'woo-style-plus' ) ) );
 		}
 
-		$hero_title    = isset( $_POST['hero_title'] ) ? sanitize_text_field( wp_unslash( $_POST['hero_title'] ) ) : '';
-		$hero_subtitle = isset( $_POST['hero_subtitle'] ) ? sanitize_text_field( wp_unslash( $_POST['hero_subtitle'] ) ) : '';
-		$accent_color  = isset( $_POST['accent_color'] ) ? sanitize_hex_color( wp_unslash( $_POST['accent_color'] ) ) : '#16a34a';
-		$christmas_enabled = ( isset( $_POST['christmas_enabled'] ) && 'yes' === sanitize_text_field( wp_unslash( $_POST['christmas_enabled'] ) ) ) ? 'yes' : 'no';
+		$hero_title          = isset( $_POST['hero_title'] ) ? sanitize_text_field( wp_unslash( $_POST['hero_title'] ) ) : '';
+		$hero_subtitle       = isset( $_POST['hero_subtitle'] ) ? sanitize_text_field( wp_unslash( $_POST['hero_subtitle'] ) ) : '';
+		$accent_color        = isset( $_POST['accent_color'] ) ? sanitize_hex_color( wp_unslash( $_POST['accent_color'] ) ) : '#16a34a';
+		$christmas_enabled   = ( isset( $_POST['christmas_enabled'] ) && 'yes' === sanitize_text_field( wp_unslash( $_POST['christmas_enabled'] ) ) ) ? 'yes' : 'no';
+		$hero_notice_text    = isset( $_POST['hero_notice_text'] ) ? sanitize_text_field( wp_unslash( $_POST['hero_notice_text'] ) ) : '';
+		$hero_notice_bg      = isset( $_POST['hero_notice_bg'] ) ? sanitize_hex_color( wp_unslash( $_POST['hero_notice_bg'] ) ) : '#f5c842';
+		$hero_notice_marquee = ( isset( $_POST['hero_notice_marquee'] ) && 'yes' === sanitize_text_field( wp_unslash( $_POST['hero_notice_marquee'] ) ) ) ? 'yes' : 'no';
 
 		if ( '' === $hero_title ) {
 			$hero_title = __( 'Order Fresh Food Packs', 'woo-style-plus' );
@@ -274,14 +302,20 @@ class WSP_Food_Packs {
 		if ( ! $accent_color ) {
 			$accent_color = '#16a34a';
 		}
+		if ( ! $hero_notice_bg ) {
+			$hero_notice_bg = '#f5c842';
+		}
 
 		update_option(
 			self::SETTINGS_OPTION,
 			array(
-				'hero_title'        => $hero_title,
-				'hero_subtitle'     => $hero_subtitle,
-				'accent_color'      => $accent_color,
-				'christmas_enabled' => $christmas_enabled,
+				'hero_title'          => $hero_title,
+				'hero_subtitle'       => $hero_subtitle,
+				'accent_color'        => $accent_color,
+				'christmas_enabled'   => $christmas_enabled,
+				'hero_notice_text'    => $hero_notice_text,
+				'hero_notice_bg'      => $hero_notice_bg,
+				'hero_notice_marquee' => $hero_notice_marquee,
 			)
 		);
 
@@ -922,8 +956,22 @@ class WSP_Food_Packs {
 		$site_name = get_bloginfo( 'name' );
 		$custom_logo_id = get_theme_mod( 'custom_logo' );
 		$logo_url = $custom_logo_id ? wp_get_attachment_image_url( $custom_logo_id, 'medium' ) : '';
-		$accent_color = sanitize_hex_color( $atts['accent'] ) ? sanitize_hex_color( $atts['accent'] ) : '#16a34a';
-		$xmas_class   = ( 'yes' === $saved_settings['christmas_enabled'] ) ? ' wsp-fp-xmas' : '';
+		$accent_color   = sanitize_hex_color( $atts['accent'] ) ? sanitize_hex_color( $atts['accent'] ) : '#16a34a';
+		$xmas_class     = ( 'yes' === $saved_settings['christmas_enabled'] ) ? ' wsp-fp-xmas' : '';
+		$notice_text    = trim( (string) $saved_settings['hero_notice_text'] );
+		$notice_bg      = sanitize_hex_color( $saved_settings['hero_notice_bg'] ) ? sanitize_hex_color( $saved_settings['hero_notice_bg'] ) : '#f5c842';
+		$notice_marquee = ( 'yes' === $saved_settings['hero_notice_marquee'] );
+
+		// Auto-select contrasting text color for notice background.
+		$hex_clean = ltrim( $notice_bg, '#' );
+		if ( 3 === strlen( $hex_clean ) ) {
+			$hex_clean = $hex_clean[0] . $hex_clean[0] . $hex_clean[1] . $hex_clean[1] . $hex_clean[2] . $hex_clean[2];
+		}
+		$r_lum        = hexdec( substr( $hex_clean, 0, 2 ) );
+		$g_lum        = hexdec( substr( $hex_clean, 2, 2 ) );
+		$b_lum        = hexdec( substr( $hex_clean, 4, 2 ) );
+		$luminance    = ( 0.299 * $r_lum + 0.587 * $g_lum + 0.114 * $b_lum ) / 255;
+		$notice_color = ( $luminance > 0.58 ) ? '#0f172a' : '#ffffff';
 
 		ob_start();
 		?>
@@ -941,6 +989,20 @@ class WSP_Food_Packs {
 					<h1 class="wsp-fp-hero-title"><?php echo esc_html( $atts['title'] ); ?></h1>
 					<?php if ( ! empty( $atts['subtitle'] ) ) : ?>
 						<p class="wsp-fp-hero-subtitle"><?php echo esc_html( $atts['subtitle'] ); ?></p>
+					<?php endif; ?>
+					<?php if ( '' !== $notice_text ) : ?>
+						<div class="wsp-fp-hero-notice<?php echo $notice_marquee ? ' is-marquee' : ''; ?>" style="background-color: <?php echo esc_attr( $notice_bg ); ?>; color: <?php echo esc_attr( $notice_color ); ?>;">
+							<?php if ( $notice_marquee ) : ?>
+								<div class="wsp-fp-hero-notice-track">
+									<span class="wsp-fp-hero-notice-item"><?php echo esc_html( $notice_text ); ?></span>
+									<span class="wsp-fp-hero-notice-item" aria-hidden="true"><?php echo esc_html( $notice_text ); ?></span>
+									<span class="wsp-fp-hero-notice-item" aria-hidden="true"><?php echo esc_html( $notice_text ); ?></span>
+									<span class="wsp-fp-hero-notice-item" aria-hidden="true"><?php echo esc_html( $notice_text ); ?></span>
+								</div>
+							<?php else : ?>
+								<span class="wsp-fp-hero-notice-static"><?php echo esc_html( $notice_text ); ?></span>
+							<?php endif; ?>
+						</div>
 					<?php endif; ?>
 				</div>
 			</section>

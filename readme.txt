@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.5.1 =
+* Critical Fix: Product gallery thumbnail switching now works correctly. Secondary gallery images no longer appear blank white when clicking thumbnails.
+* Root Cause Fixed: Removed overflow:hidden and max-width:100% from .woocommerce-product-gallery__wrapper. FlexSlider must translate this element (N * slideWidth wide); constraining it clipped all slides after the first. overflow:hidden is now correctly applied only to .flex-viewport (the outer clip mask).
+* Enhancement: FlexSlider slide width recalculation via slider.resize() after normalization ensures smooth transitions on both desktop and mobile.
 
 = 1.5.0 =
 * Critical Fix: Mobile layout horizontal blowout completely resolved. Added strict `min-width: 0; max-width: 100%; box-sizing: border-box; overflow-x: hidden;` across `.tp-postbox-area`, `.container`, `.woocommerce`, `div.single-product`, `div.product`, and `.summary`.

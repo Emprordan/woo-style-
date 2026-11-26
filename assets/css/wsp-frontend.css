@@ -705,12 +705,26 @@ html body.wsp-active.wsp-single-redesign div.product .woocommerce-product-galler
 
 html body.wsp-active.single-product div.product .woocommerce-product-gallery__wrapper,
 html body.wsp-active.wsp-single-redesign div.product .woocommerce-product-gallery__wrapper {
+    /* NOTE: Do NOT set overflow:hidden or max-width here! FlexSlider needs this element
+       to be wide enough to hold all slides side-by-side (width = N * slideWidth).
+       Clipping is handled by .flex-viewport above. */
     border-radius: 12px !important;
-    overflow: hidden !important;
     background: #f8fafc !important;
     border: 1px solid #f1f5f9 !important;
     margin: 0 !important;
     line-height: 0 !important;
+    overflow: visible !important;
+    max-width: none !important;
+}
+
+/* FlexSlider clip mask - overflow:hidden ONLY on the viewport frame, NOT on the inner wrapper! */
+html body.wsp-active.single-product div.product .flex-viewport,
+html body.wsp-active.wsp-single-redesign div.product .flex-viewport {
+    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
 }
 
 html body.wsp-active.single-product div.product .woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image img,
@@ -1589,12 +1603,16 @@ html body.wsp-active.wsp-single-redesign div.product .upsells.products > h2 {
 
     html body.wsp-active.single-product div.product div.images .woocommerce-product-gallery__wrapper,
     html body.wsp-active.wsp-single-redesign div.product div.images .woocommerce-product-gallery__wrapper {
+        /* NOTE: Do NOT set overflow:hidden or max-width here on mobile either!
+           FlexSlider translates this element via transform to show each slide;
+           constraining its width/overflow clips all slides after the first to blank white.
+           Let .flex-viewport handle the clip mask (overflow:hidden is set on it above). */
         margin: 0 !important;
         padding: 0 !important;
         border-radius: 10px !important;
         background: #f8fafc !important;
-        overflow: hidden !important;
-        max-width: 100% !important;
+        overflow: visible !important;
+        max-width: none !important;
         box-sizing: border-box !important;
     }
 

@@ -1014,36 +1014,50 @@
             });
 
             // 9. Mobile Gallery FlexSlider width normalization
-            if ($(window).width() <= 768) {
-                var resizeGallerySlides = function() {
-                    var $gallery = $product.find('.woocommerce-product-gallery');
-                    if ($gallery.length) {
-                        var availWidth = $gallery.width();
-                        if (availWidth > 0 && availWidth <= 768) {
-                            $gallery.find('.flex-viewport').css({
-                                'max-width': '100%',
-                                'width': '100%',
-                                'overflow': 'hidden'
-                            });
-                            $gallery.find('.woocommerce-product-gallery__image').css({
-                                'max-width': '100%',
-                                'width': availWidth + 'px',
-                                'box-sizing': 'border-box'
-                            });
-                            $gallery.find('.woocommerce-product-gallery__image img').css({
-                                'max-width': '100%',
-                                'width': '100%',
-                                'max-height': '290px',
-                                'object-fit': 'contain'
-                            });
-                        }
-                    }
-                };
-                resizeGallerySlides();
-                $(window).on('resize orientationchange', resizeGallerySlides);
-                setTimeout(resizeGallerySlides, 350);
-                setTimeout(resizeGallerySlides, 800);
-            }
+            // KEY: We constrain .flex-viewport (the clip mask) but NOT .woocommerce-product-gallery__wrapper.
+            // The __wrapper must be allowed to be N*slideWidth wide so FlexSlider can translate to each slide.
+            var resizeGallerySlides = function() {
+                var $gallery = $product.find('.woocommerce-product-gallery');
+                if (!$gallery.length) { return; }
+
+                var availWidth = $gallery.find('.flex-viewport').width() || $gallery.width();
+                if (availWidth <= 0) { return; }
+
+                // Lock the viewport frame (clip mask)
+                $gallery.find('.flex-viewport').css({
+                    'max-width': '100%',
+                    'width': '100%',
+                    'overflow': 'hidden',
+                    'box-sizing': 'border-box'
+                });
+
+                // Each individual slide must match the viewport width so FlexSlider's
+                // translate3d steps move exactly one slide at a time
+                $gallery.find('.woocommerce-product-gallery__image').css({
+                    'width': availWidth + 'px',
+                    'box-sizing': 'border-box',
+                    'float': 'left'
+                });
+
+                // Images fill the slide
+                $gallery.find('.woocommerce-product-gallery__image img').css({
+                    'max-width': '100%',
+                    'width': '100%',
+                    'object-fit': 'contain',
+                    'display': 'block'
+                });
+
+                // After resizing slides, tell FlexSlider to recalculate its internal dimensions
+                var slider = $gallery.data('flexslider');
+                if (slider && typeof slider.resize === 'function') {
+                    slider.resize();
+                }
+            };
+
+            resizeGallerySlides();
+            $(window).on('resize orientationchange', resizeGallerySlides);
+            setTimeout(resizeGallerySlides, 400);
+            setTimeout(resizeGallerySlides, 900);
         },
 
         /**

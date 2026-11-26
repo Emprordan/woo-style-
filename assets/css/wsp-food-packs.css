@@ -108,7 +108,7 @@ body.wsp-fp-standalone-body #wsp-side-cart-drawer {
 	display: inline-flex;
 	align-items: center;
 	width: max-content;
-	animation: wspFpMarquee 18s linear infinite;
+	animation: wspFpMarquee 36s linear infinite;
 }
 
 .wsp-fp-hero-notice.is-marquee:hover .wsp-fp-hero-notice-track {

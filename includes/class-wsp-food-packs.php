@@ -42,6 +42,7 @@ class WSP_Food_Packs {
 		}
 
 		// Frontend & Standalone isolation hooks
+		add_action( 'wp_head', array( $this, 'output_social_meta_tags' ), 5 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ), 20 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'isolate_standalone_styles' ), 9999 );
 		add_filter( 'template_include', array( $this, 'maybe_load_standalone_template' ), 999 );
@@ -747,6 +748,80 @@ class WSP_Food_Packs {
 			$classes[] = 'wsp-fp-standalone-page';
 		}
 		return $classes;
+	}
+
+	/**
+	 * Output Open Graph and Twitter Card meta tags on Food Packs pages
+	 * so social media platforms display the page's featured image, title, and description.
+	 */
+	public function output_social_meta_tags() {
+		if ( ! $this->page_has_food_packs_shortcode() ) {
+			return;
+		}
+
+		$post = get_queried_object();
+		if ( ! $post instanceof WP_Post ) {
+			return;
+		}
+
+		$settings    = $this->get_page_settings();
+		$title       = get_the_title( $post );
+		if ( '' === $title ) {
+			$title = $settings['hero_title'];
+		}
+
+		$description = has_excerpt( $post ) ? wp_strip_all_tags( get_the_excerpt( $post ) ) : '';
+		if ( '' === $description ) {
+			$description = $settings['hero_subtitle'];
+		}
+
+		$url       = get_permalink( $post );
+		$site_name = get_bloginfo( 'name' );
+
+		$image_url    = '';
+		$image_width  = '';
+		$image_height = '';
+
+		$thumb_id = get_post_thumbnail_id( $post->ID );
+		if ( $thumb_id ) {
+			$img_data = wp_get_attachment_image_src( $thumb_id, 'full' );
+			if ( ! empty( $img_data[0] ) ) {
+				$image_url    = $img_data[0];
+				$image_width  = ! empty( $img_data[1] ) ? (int) $img_data[1] : '';
+				$image_height = ! empty( $img_data[2] ) ? (int) $img_data[2] : '';
+			}
+		}
+
+		echo "\n<!-- Woo Style+ Food Packs Social Meta -->\n";
+		echo '<meta property="og:type" content="website" />' . "\n";
+		echo '<meta property="og:site_name" content="' . esc_attr( $site_name ) . '" />' . "\n";
+		echo '<meta property="og:title" content="' . esc_attr( $title ) . '" />' . "\n";
+		if ( '' !== $description ) {
+			echo '<meta property="og:description" content="' . esc_attr( $description ) . '" />' . "\n";
+		}
+		if ( $url ) {
+			echo '<meta property="og:url" content="' . esc_url( $url ) . '" />' . "\n";
+		}
+		if ( '' !== $image_url ) {
+			echo '<meta property="og:image" content="' . esc_url( $image_url ) . '" />' . "\n";
+			if ( 0 === strpos( $image_url, 'https://' ) ) {
+				echo '<meta property="og:image:secure_url" content="' . esc_url( $image_url ) . '" />' . "\n";
+			}
+			if ( $image_width && $image_height ) {
+				echo '<meta property="og:image:width" content="' . esc_attr( $image_width ) . '" />' . "\n";
+				echo '<meta property="og:image:height" content="' . esc_attr( $image_height ) . '" />' . "\n";
+			}
+		}
+
+		echo '<meta name="twitter:card" content="' . ( '' !== $image_url ? 'summary_large_image' : 'summary' ) . '" />' . "\n";
+		echo '<meta name="twitter:title" content="' . esc_attr( $title ) . '" />' . "\n";
+		if ( '' !== $description ) {
+			echo '<meta name="twitter:description" content="' . esc_attr( $description ) . '" />' . "\n";
+		}
+		if ( '' !== $image_url ) {
+			echo '<meta name="twitter:image" content="' . esc_url( $image_url ) . '" />' . "\n";
+		}
+		echo "<!-- /Woo Style+ Food Packs Social Meta -->\n";
 	}
 
 	/**

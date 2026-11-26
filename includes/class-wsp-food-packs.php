@@ -849,7 +849,7 @@ class WSP_Food_Packs {
 
 													<div class="wsp-fp-qty-wrap" hidden>
 														<button type="button" class="wsp-fp-qty-btn wsp-fp-qty-minus" aria-label="<?php esc_attr_e( 'Decrease quantity', 'woo-style-plus' ); ?>">&minus;</button>
-														<input type="number" class="wsp-fp-qty-input" value="0" min="0" max="99" readonly aria-label="<?php esc_attr_e( 'Quantity', 'woo-style-plus' ); ?>" />
+														<input type="number" class="wsp-fp-qty-input" value="0" min="0" max="999" inputmode="numeric" aria-label="<?php esc_attr_e( 'Quantity', 'woo-style-plus' ); ?>" />
 														<button type="button" class="wsp-fp-qty-btn wsp-fp-qty-plus" aria-label="<?php esc_attr_e( 'Increase quantity', 'woo-style-plus' ); ?>">+</button>
 													</div>
 												</div>

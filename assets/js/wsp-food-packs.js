@@ -58,9 +58,18 @@
 				var lineTotal = item.price * item.qty;
 				total += lineTotal;
 
-				var $row = $('<div class="wsp-fp-summary-row"></div>');
-				var $left = $('<div class="wsp-fp-summary-row-name"></div>').text(item.title);
-				$left.append($('<span class="wsp-fp-summary-row-qty"></span>').text(' × ' + item.qty));
+				var $row = $('<div class="wsp-fp-summary-row"></div>').attr('data-pack-id', packId);
+				var $left = $('<div class="wsp-fp-summary-row-info"></div>');
+				$left.append($('<div class="wsp-fp-summary-row-name"></div>').text(item.title));
+
+				var $miniStepper = $('<div class="wsp-fp-summary-stepper"></div>');
+				$miniStepper.append(
+					$('<button type="button" class="wsp-fp-summary-qty-btn wsp-fp-summary-minus" aria-label="Decrease quantity">&minus;</button>'),
+					$('<span class="wsp-fp-summary-qty-val"></span>').text(item.qty),
+					$('<button type="button" class="wsp-fp-summary-qty-btn wsp-fp-summary-plus" aria-label="Increase quantity">+</button>')
+				);
+				$left.append($miniStepper);
+
 				var $right = $('<div class="wsp-fp-summary-row-price"></div>').text(formatMoney(lineTotal));
 
 				$row.append($left).append($right);
@@ -84,7 +93,7 @@
 			var title = String($card.data('pack-title'));
 			var price = parseFloat($card.data('pack-price')) || 0;
 
-			qty = Math.max(0, Math.min(99, parseInt(qty, 10) || 0));
+			qty = Math.max(0, Math.min(999, parseInt(qty, 10) || 0));
 
 			var $qtyWrap = $card.find('.wsp-fp-qty-wrap');
 			var $qtyInput = $card.find('.wsp-fp-qty-input');
@@ -141,6 +150,38 @@
 			var $card = $(this).closest('.wsp-fp-card');
 			var current = parseInt($card.find('.wsp-fp-qty-input').val(), 10) || 0;
 			setCardQty($card, current - 1);
+		});
+
+		// Direct numeric typing inside pack quantity input
+		$root.on('change blur', '.wsp-fp-qty-input', function () {
+			clearFeedback();
+			var $card = $(this).closest('.wsp-fp-card');
+			var entered = parseInt($(this).val(), 10);
+			if (isNaN(entered) || entered < 0) {
+				entered = 0;
+			}
+			setCardQty($card, entered);
+		});
+
+		// Quantity + / - directly inside Order Summary
+		$root.on('click', '.wsp-fp-summary-plus', function () {
+			clearFeedback();
+			var packId = $(this).closest('.wsp-fp-summary-row').data('pack-id');
+			var $card = $root.find('.wsp-fp-card[data-pack-id="' + packId + '"]');
+			if ($card.length) {
+				var current = parseInt($card.find('.wsp-fp-qty-input').val(), 10) || 0;
+				setCardQty($card, current + 1);
+			}
+		});
+
+		$root.on('click', '.wsp-fp-summary-minus', function () {
+			clearFeedback();
+			var packId = $(this).closest('.wsp-fp-summary-row').data('pack-id');
+			var $card = $root.find('.wsp-fp-card[data-pack-id="' + packId + '"]');
+			if ($card.length) {
+				var current = parseInt($card.find('.wsp-fp-qty-input').val(), 10) || 0;
+				setCardQty($card, current - 1);
+			}
 		});
 
 		// Gateway switching

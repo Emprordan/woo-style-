@@ -187,16 +187,16 @@ body.wsp-fp-modal-open {
 
 .wsp-fp-card-media {
 	width: 100%;
-	aspect-ratio: 16 / 11;
+	aspect-ratio: 1 / 1;
 	border-radius: 10px;
 	overflow: hidden;
-	background: #f1f5f9;
+	background: #ffffff;
 }
 
 .wsp-fp-card-media img {
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
 	display: block;
 }
 

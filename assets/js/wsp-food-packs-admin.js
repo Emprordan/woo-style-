@@ -87,5 +87,40 @@
 					$btn.prop('disabled', false).text('Create Standalone Ordering Page');
 				});
 		});
+
+		// Save Ordering Page Heading, Subtitle & Accent Color
+		$(document).on('submit', '#wsp-fp-settings-form', function (e) {
+			e.preventDefault();
+			var $form = $(this);
+			var $btn = $('#wsp-fp-save-settings-btn');
+			var $status = $('#wsp-fp-settings-status');
+
+			$btn.prop('disabled', true).text('Saving...');
+			$status.hide();
+
+			$.post(ajaxurl, {
+				action: 'wsp_fp_save_settings',
+				nonce: $form.find('input[name="nonce"]').val(),
+				hero_title: $('#wsp_fp_hero_title').val(),
+				hero_subtitle: $('#wsp_fp_hero_subtitle').val(),
+				accent_color: $('#wsp_fp_accent_color').val()
+			})
+				.done(function (res) {
+					$btn.prop('disabled', false).text('Save Page Text');
+					if (res && res.success) {
+						$status.css('color', '#16a34a').text('Saved!').fadeIn(150);
+						setTimeout(function () {
+							$status.fadeOut(300);
+						}, 2200);
+					} else {
+						var msg = (res && res.data && res.data.message) ? res.data.message : 'Error saving';
+						$status.css('color', '#dc2626').text(msg).show();
+					}
+				})
+				.fail(function () {
+					$btn.prop('disabled', false).text('Save Page Text');
+					$status.css('color', '#dc2626').text('Network error').show();
+				});
+		});
 	});
 })(jQuery);

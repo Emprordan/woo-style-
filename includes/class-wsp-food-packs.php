@@ -18,6 +18,11 @@ class WSP_Food_Packs {
 	const POST_TYPE = 'wsp_food_pack';
 
 	/**
+	 * Page settings option name
+	 */
+	const SETTINGS_OPTION = 'wsp_food_packs_settings';
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -33,6 +38,7 @@ class WSP_Food_Packs {
 			add_filter( 'manage_' . self::POST_TYPE . '_posts_columns', array( $this, 'set_custom_columns' ) );
 			add_action( 'manage_' . self::POST_TYPE . '_posts_custom_column', array( $this, 'render_custom_columns' ), 10, 2 );
 			add_action( 'wp_ajax_wsp_fp_create_order_page', array( $this, 'ajax_create_order_page' ) );
+			add_action( 'wp_ajax_wsp_fp_save_settings', array( $this, 'ajax_save_settings' ) );
 		}
 
 		// Frontend & Standalone isolation hooks
@@ -161,6 +167,7 @@ class WSP_Food_Packs {
 
 		$existing_page_id = $this->find_existing_order_page_id();
 		$nonce            = wp_create_nonce( 'wsp_fp_admin_nonce' );
+		$settings         = $this->get_page_settings();
 		?>
 		<div class="notice wsp-fp-admin-banner" style="border-left-color:#16a34a;padding:16px 20px;margin:16px 0 8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
 			<div>
@@ -187,7 +194,88 @@ class WSP_Food_Packs {
 				<?php endif; ?>
 			</div>
 		</div>
+
+		<div class="notice wsp-fp-admin-settings-card" style="border-left-color:#0f172a;padding:16px 20px;margin:8px 0 12px;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+			<form id="wsp-fp-settings-form" style="display:grid;grid-template-columns:1fr 1.6fr auto auto;gap:12px;align-items:end;">
+				<input type="hidden" name="nonce" value="<?php echo esc_attr( $nonce ); ?>" />
+				<div>
+					<label for="wsp_fp_hero_title" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
+						<?php esc_html_e( 'Ordering Page Heading', 'woo-style-plus' ); ?>
+					</label>
+					<input type="text" id="wsp_fp_hero_title" name="hero_title" value="<?php echo esc_attr( $settings['hero_title'] ); ?>" class="regular-text" style="width:100%;" placeholder="<?php esc_attr_e( 'Order Fresh Food Packs', 'woo-style-plus' ); ?>" />
+				</div>
+				<div>
+					<label for="wsp_fp_hero_subtitle" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
+						<?php esc_html_e( 'Ordering Page Subtitle', 'woo-style-plus' ); ?>
+					</label>
+					<input type="text" id="wsp_fp_hero_subtitle" name="hero_subtitle" value="<?php echo esc_attr( $settings['hero_subtitle'] ); ?>" class="regular-text" style="width:100%;" placeholder="<?php esc_attr_e( 'Select your preferred food pack(s), enter your delivery details, and pay securely.', 'woo-style-plus' ); ?>" />
+				</div>
+				<div>
+					<label for="wsp_fp_accent_color" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
+						<?php esc_html_e( 'Accent Color', 'woo-style-plus' ); ?>
+					</label>
+					<input type="color" id="wsp_fp_accent_color" name="accent_color" value="<?php echo esc_attr( $settings['accent_color'] ); ?>" style="height:32px;width:54px;padding:2px;border-radius:6px;border:1px solid #cbd5e1;cursor:pointer;" />
+				</div>
+				<div style="display:flex;align-items:center;gap:10px;">
+					<button type="submit" class="button button-primary" id="wsp-fp-save-settings-btn">
+						<?php esc_html_e( 'Save Page Text', 'woo-style-plus' ); ?>
+					</button>
+					<span id="wsp-fp-settings-status" style="font-size:12px;font-weight:600;color:#16a34a;display:none;"></span>
+				</div>
+			</form>
+		</div>
 		<?php
+	}
+
+	/**
+	 * Get Food Packs page settings with defaults
+	 *
+	 * @return array
+	 */
+	public function get_page_settings() {
+		$defaults = array(
+			'hero_title'    => __( 'Order Fresh Food Packs', 'woo-style-plus' ),
+			'hero_subtitle' => __( 'Select your preferred food pack(s), enter your delivery details, and pay securely.', 'woo-style-plus' ),
+			'accent_color'  => '#16a34a',
+		);
+		$saved = get_option( self::SETTINGS_OPTION, array() );
+		if ( ! is_array( $saved ) ) {
+			$saved = array();
+		}
+		return wp_parse_args( $saved, $defaults );
+	}
+
+	/**
+	 * AJAX: Save Food Packs ordering page heading, subtitle, and accent color
+	 */
+	public function ajax_save_settings() {
+		check_ajax_referer( 'wsp_fp_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'woo-style-plus' ) ) );
+		}
+
+		$hero_title    = isset( $_POST['hero_title'] ) ? sanitize_text_field( wp_unslash( $_POST['hero_title'] ) ) : '';
+		$hero_subtitle = isset( $_POST['hero_subtitle'] ) ? sanitize_text_field( wp_unslash( $_POST['hero_subtitle'] ) ) : '';
+		$accent_color  = isset( $_POST['accent_color'] ) ? sanitize_hex_color( wp_unslash( $_POST['accent_color'] ) ) : '#16a34a';
+
+		if ( '' === $hero_title ) {
+			$hero_title = __( 'Order Fresh Food Packs', 'woo-style-plus' );
+		}
+		if ( ! $accent_color ) {
+			$accent_color = '#16a34a';
+		}
+
+		update_option(
+			self::SETTINGS_OPTION,
+			array(
+				'hero_title'    => $hero_title,
+				'hero_subtitle' => $hero_subtitle,
+				'accent_color'  => $accent_color,
+			)
+		);
+
+		wp_send_json_success( array( 'message' => __( 'Saved!', 'woo-style-plus' ) ) );
 	}
 
 	/**
@@ -711,12 +799,13 @@ class WSP_Food_Packs {
 		wp_enqueue_style( 'wsp-food-packs', WSP_PLUGIN_URL . 'assets/css/wsp-food-packs.css', array(), WSP_VERSION );
 		wp_enqueue_script( 'wsp-food-packs', WSP_PLUGIN_URL . 'assets/js/wsp-food-packs.js', array( 'jquery' ), WSP_VERSION, true );
 
+		$saved_settings = $this->get_page_settings();
 		$atts = shortcode_atts(
 			array(
-				'title'      => __( 'Order Fresh Food Packs', 'woo-style-plus' ),
-				'subtitle'   => __( 'Select your preferred food pack(s), enter your delivery details, and pay securely.', 'woo-style-plus' ),
+				'title'      => $saved_settings['hero_title'],
+				'subtitle'   => $saved_settings['hero_subtitle'],
 				'standalone' => 'yes',
-				'accent'     => '#16a34a',
+				'accent'     => $saved_settings['accent_color'],
 			),
 			$atts,
 			'wsp_food_packs'

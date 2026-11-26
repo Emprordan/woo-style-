@@ -45,6 +45,13 @@ class WSP_Core {
     public $custom_shop;
 
     /**
+     * Food Packs ordering module instance
+     *
+     * @var WSP_Food_Packs
+     */
+    public $food_packs;
+
+    /**
      * Get singleton instance
      *
      * @return WSP_Core
@@ -93,6 +100,7 @@ class WSP_Core {
         $this->frontend    = new WSP_Frontend();
         $this->templates   = new WSP_Templates();
         $this->custom_shop = new WSP_Custom_Shop();
+        $this->food_packs  = new WSP_Food_Packs();
     }
 
     /**

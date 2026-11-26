@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.5.1
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,12 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.6.0 =
+* New Module: Food Packs One-Page Ordering Interface (`[wsp_food_packs]`).
+* Admin Pack Manager: Added **Woo Style+ > Food Packs** custom post type where admins can create packs with an Image (Media Uploader), Title, Rich Text Editor Description (`wp_editor`), Price, Compare-at Price, Badge, Sort Order, and Availability toggle.
+* Standalone Theme-Isolated Template: Pages using `[wsp_food_packs]` automatically render inside a clean standalone HTML shell (`templates/food-packs-standalone.php`) with active theme/Elementor stylesheets dequeued so the theme cannot affect the ordering page styles.
+* Integrated WooCommerce Payment Gateways: Dynamically displays enabled WooCommerce payment gateways, creates a real WooCommerce order (`wc_create_order`), and processes payment through the selected gateway.
 
 = 1.5.1 =
 * Critical Fix: Product gallery thumbnail switching now works correctly. Secondary gallery images no longer appear blank white when clicking thumbnails.

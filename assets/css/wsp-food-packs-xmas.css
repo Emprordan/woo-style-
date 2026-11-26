@@ -1,0 +1,171 @@
+/* ==========================================================================
+   Christmas Mode — appended to wsp-food-packs.css via PHP inline
+   Scoped entirely under .wsp-fp-xmas so it activates only when the toggle
+   is switched on in the admin panel.
+   ========================================================================== */
+
+/* --- Hero section --------------------------------------------------------- */
+.wsp-fp-xmas .wsp-fp-hero {
+	background: linear-gradient( 135deg, #1a4731 0%, #8b1a1a 100% );
+	border-radius: 14px;
+	margin-bottom: 8px;
+	position: relative;
+	overflow: hidden;
+}
+
+/* String-lights strip across the top of the hero */
+.wsp-fp-xmas .wsp-fp-hero::before {
+	content: '';
+	display: block;
+	height: 7px;
+	width: 100%;
+	background: repeating-linear-gradient(
+		90deg,
+		#c0392b 0,       #c0392b 9px,
+		transparent 9px, transparent 15px,
+		#f5c842 15px,    #f5c842 24px,
+		transparent 24px,transparent 30px,
+		#1a4731 30px,    #1a4731 39px,
+		transparent 39px,transparent 45px,
+		#fff    45px,    #fff    54px,
+		transparent 54px,transparent 60px
+	);
+	border-radius: 14px 14px 0 0;
+}
+
+.wsp-fp-xmas .wsp-fp-hero-title {
+	color: #fff !important;
+	text-shadow: 0 2px 10px rgba( 0, 0, 0, 0.35 );
+}
+
+.wsp-fp-xmas .wsp-fp-hero-subtitle {
+	color: rgba( 255, 255, 255, 0.88 ) !important;
+}
+
+/* --- Step badge ------------------------------------------------------------ */
+.wsp-fp-xmas .wsp-fp-step-badge {
+	background: #c0392b;
+}
+
+/* --- Pack cards ------------------------------------------------------------ */
+.wsp-fp-xmas .wsp-fp-card {
+	border: 2px solid transparent;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wsp-fp-xmas .wsp-fp-card:hover {
+	border-color: rgba( 192, 57, 43, 0.4 );
+}
+
+.wsp-fp-xmas .wsp-fp-card.is-selected {
+	border-color: #c0392b;
+	background: linear-gradient( to bottom, #fff, #fff5f5 );
+	box-shadow: 0 10px 28px -8px rgba( 192, 57, 43, 0.28 );
+}
+
+/* Festive badge on selected card */
+.wsp-fp-xmas .wsp-fp-card.is-selected .wsp-fp-card-img-wrap::after {
+	content: '🎄';
+	position: absolute;
+	bottom: 8px;
+	right: 8px;
+	font-size: 20px;
+	line-height: 1;
+	filter: drop-shadow( 0 1px 3px rgba(0,0,0,0.5) );
+	pointer-events: none;
+}
+
+/* --- Select / quantity buttons --------------------------------------------- */
+.wsp-fp-xmas .wsp-fp-select-btn {
+	border-color: #c0392b;
+	color: #c0392b;
+}
+
+.wsp-fp-xmas .wsp-fp-select-btn:hover,
+.wsp-fp-xmas .wsp-fp-card.is-selected .wsp-fp-select-btn {
+	background: #c0392b;
+	color: #fff;
+}
+
+.wsp-fp-xmas .wsp-fp-qty-wrap {
+	border-color: #c0392b;
+}
+
+.wsp-fp-xmas .wsp-fp-qty-btn {
+	background: #fff5f5;
+	color: #c0392b;
+}
+
+.wsp-fp-xmas .wsp-fp-qty-btn:hover {
+	background: #c0392b;
+	color: #fff;
+}
+
+/* --- Floating order bar ---------------------------------------------------- */
+.wsp-fp-xmas .wsp-fp-floating-bar {
+	background: linear-gradient( 135deg, #1a4731, #c0392b );
+	box-shadow: 0 -4px 24px rgba( 192, 57, 43, 0.35 );
+}
+
+.wsp-fp-xmas .wsp-fp-floating-btn {
+	background: #f5c842;
+	color: #1a1a1a;
+}
+
+.wsp-fp-xmas .wsp-fp-floating-btn:hover {
+	background: #e0b830;
+	color: #000;
+}
+
+/* --- Modal header ---------------------------------------------------------- */
+.wsp-fp-xmas .wsp-fp-modal-header {
+	background: linear-gradient( 135deg, #1a4731, #8b1a1a );
+	color: #fff;
+}
+
+.wsp-fp-xmas .wsp-fp-modal-header h2 {
+	color: #fff;
+}
+
+/* --- Snowflakes ------------------------------------------------------------ */
+.wsp-fp-xmas-snowflakes {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 9000;
+	overflow: hidden;
+}
+
+.wsp-fp-snowflake {
+	position: fixed;
+	top: -24px;
+	left: var( --sf-left, 50% );
+	font-size: var( --sf-size, 12px );
+	color: rgba( 255, 255, 255, 0.82 );
+	text-shadow: 0 0 6px rgba( 192, 57, 43, 0.4 );
+	animation: wspFpSnowfall var( --sf-dur, 10s ) var( --sf-delay, 0s ) linear infinite;
+	user-select: none;
+}
+
+@keyframes wspFpSnowfall {
+	0% {
+		top: -24px;
+		opacity: 0.9;
+		transform: translateX( 0 ) rotate( 0deg );
+	}
+	30% {
+		opacity: 1;
+		transform: translateX( 18px ) rotate( 108deg );
+	}
+	60% {
+		transform: translateX( -12px ) rotate( 216deg );
+	}
+	100% {
+		top: 100vh;
+		opacity: 0.15;
+		transform: translateX( 8px ) rotate( 360deg );
+	}
+}

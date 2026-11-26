@@ -196,7 +196,7 @@ class WSP_Food_Packs {
 		</div>
 
 		<div class="notice wsp-fp-admin-settings-card" style="border-left-color:#0f172a;padding:16px 20px;margin:8px 0 12px;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-			<form id="wsp-fp-settings-form" style="display:grid;grid-template-columns:1fr 1.6fr auto auto;gap:12px;align-items:end;">
+			<form id="wsp-fp-settings-form" style="display:grid;grid-template-columns:1fr 1.6fr auto auto auto;gap:12px;align-items:end;">
 				<input type="hidden" name="nonce" value="<?php echo esc_attr( $nonce ); ?>" />
 				<div>
 					<label for="wsp_fp_hero_title" style="display:block;font-weight:600;font-size:12px;color:#334155;margin-bottom:4px;">
@@ -216,6 +216,12 @@ class WSP_Food_Packs {
 					</label>
 					<input type="color" id="wsp_fp_accent_color" name="accent_color" value="<?php echo esc_attr( $settings['accent_color'] ); ?>" style="height:32px;width:54px;padding:2px;border-radius:6px;border:1px solid #cbd5e1;cursor:pointer;" />
 				</div>
+				<div style="display:flex;flex-direction:column;justify-content:flex-end;gap:6px;">
+					<label style="display:flex;align-items:center;gap:7px;font-weight:600;font-size:12px;color:#334155;cursor:pointer;white-space:nowrap;">
+						<input type="checkbox" id="wsp_fp_christmas" name="christmas_enabled" value="yes" <?php checked( $settings['christmas_enabled'], 'yes' ); ?> style="width:16px;height:16px;accent-color:#c0392b;cursor:pointer;" />
+						🎄 Christmas Mode
+					</label>
+				</div>
 				<div style="display:flex;align-items:center;gap:10px;">
 					<button type="submit" class="button button-primary" id="wsp-fp-save-settings-btn">
 						<?php esc_html_e( 'Save Page Text', 'woo-style-plus' ); ?>
@@ -234,9 +240,10 @@ class WSP_Food_Packs {
 	 */
 	public function get_page_settings() {
 		$defaults = array(
-			'hero_title'    => __( 'Order Fresh Food Packs', 'woo-style-plus' ),
-			'hero_subtitle' => __( 'Select your preferred food pack(s), enter your delivery details, and pay securely.', 'woo-style-plus' ),
-			'accent_color'  => '#16a34a',
+			'hero_title'        => __( 'Order Fresh Food Packs', 'woo-style-plus' ),
+			'hero_subtitle'     => __( 'Select your preferred food pack(s), enter your delivery details, and pay securely.', 'woo-style-plus' ),
+			'accent_color'      => '#16a34a',
+			'christmas_enabled' => 'no',
 		);
 		$saved = get_option( self::SETTINGS_OPTION, array() );
 		if ( ! is_array( $saved ) ) {
@@ -258,6 +265,7 @@ class WSP_Food_Packs {
 		$hero_title    = isset( $_POST['hero_title'] ) ? sanitize_text_field( wp_unslash( $_POST['hero_title'] ) ) : '';
 		$hero_subtitle = isset( $_POST['hero_subtitle'] ) ? sanitize_text_field( wp_unslash( $_POST['hero_subtitle'] ) ) : '';
 		$accent_color  = isset( $_POST['accent_color'] ) ? sanitize_hex_color( wp_unslash( $_POST['accent_color'] ) ) : '#16a34a';
+		$christmas_enabled = ( isset( $_POST['christmas_enabled'] ) && 'yes' === sanitize_text_field( wp_unslash( $_POST['christmas_enabled'] ) ) ) ? 'yes' : 'no';
 
 		if ( '' === $hero_title ) {
 			$hero_title = __( 'Order Fresh Food Packs', 'woo-style-plus' );
@@ -269,9 +277,10 @@ class WSP_Food_Packs {
 		update_option(
 			self::SETTINGS_OPTION,
 			array(
-				'hero_title'    => $hero_title,
-				'hero_subtitle' => $hero_subtitle,
-				'accent_color'  => $accent_color,
+				'hero_title'        => $hero_title,
+				'hero_subtitle'     => $hero_subtitle,
+				'accent_color'      => $accent_color,
+				'christmas_enabled' => $christmas_enabled,
 			)
 		);
 
@@ -839,10 +848,18 @@ class WSP_Food_Packs {
 		$custom_logo_id = get_theme_mod( 'custom_logo' );
 		$logo_url = $custom_logo_id ? wp_get_attachment_image_url( $custom_logo_id, 'medium' ) : '';
 		$accent_color = sanitize_hex_color( $atts['accent'] ) ? sanitize_hex_color( $atts['accent'] ) : '#16a34a';
+		$xmas_class   = ( 'yes' === $saved_settings['christmas_enabled'] ) ? ' wsp-fp-xmas' : '';
 
 		ob_start();
 		?>
-		<div id="wsp-fp-root" class="wsp-fp-root" style="--wsp-fp-accent: <?php echo esc_attr( $accent_color ); ?>;">
+		<div id="wsp-fp-root" class="wsp-fp-root<?php echo esc_attr( $xmas_class ); ?>" style="--wsp-fp-accent: <?php echo esc_attr( $accent_color ); ?>;">
+			<?php if ( 'yes' === $saved_settings['christmas_enabled'] ) : ?>
+			<div class="wsp-fp-xmas-snowflakes" aria-hidden="true">
+				<?php for ( $i = 1; $i <= 15; $i++ ) : ?>
+				<span class="wsp-fp-snowflake" style="--sf-delay:<?php echo esc_attr( $i * 0.4 ); ?>s;--sf-left:<?php echo esc_attr( wp_rand( 2, 98 ) ); ?>%;--sf-size:<?php echo esc_attr( wp_rand( 8, 18 ) ); ?>px;--sf-dur:<?php echo esc_attr( wp_rand( 6, 14 ) ); ?>s;">❄</span>
+				<?php endfor; ?>
+			</div>
+			<?php endif; ?>
 			<!-- Hero Title -->
 			<section class="wsp-fp-hero">
 				<div class="wsp-fp-container">

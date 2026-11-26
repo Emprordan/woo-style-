@@ -103,7 +103,8 @@
 				nonce: $form.find('input[name="nonce"]').val(),
 				hero_title: $('#wsp_fp_hero_title').val(),
 				hero_subtitle: $('#wsp_fp_hero_subtitle').val(),
-				accent_color: $('#wsp_fp_accent_color').val()
+				accent_color: $('#wsp_fp_accent_color').val(),
+				christmas_enabled: $('#wsp_fp_christmas').is(':checked') ? 'yes' : 'no'
 			})
 				.done(function (res) {
 					$btn.prop('disabled', false).text('Save Page Text');

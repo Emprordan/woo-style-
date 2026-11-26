@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.6.7 =
+* Added: Christmas decoration mode for the Food Packs ordering page - animated snowflakes, festive hero gradient, red/gold card highlights, and Christmas-coloured floating bar
+* Added: Admin toggle (checkbox) in Woo Style+ > Food Packs settings bar to enable/disable Christmas mode instantly without code changes
+
 
 = 1.6.6 =
 * UI Fix (Food Packs): Updated pack image container `.wsp-fp-card-media` to `1:1` aspect ratio with `object-fit: contain` so square product graphics display cleanly without top/bottom cropping.
@@ -429,3 +434,4 @@ Yes. There is a master toggle at the top of the Woo Style+ settings page to acti
 * 5 built-in 1-click design presets with live admin card preview.
 * Interactive quantity stepper and mobile sticky CTA bar.
 * Declared full compatibility with WooCommerce HPOS and modern cart/checkout blocks.
+

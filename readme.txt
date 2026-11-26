@@ -4,7 +4,7 @@ Tags: woocommerce, redesign, product card, shop page, woocommerce styling, check
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.6.8
+Stable tag: 1.6.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ No. Woo Style+ uses CSS Custom Properties with high-specificity scoped rules (`b
 Yes. There is a master toggle at the top of the Woo Style+ settings page to activate or deactivate styling at any time.
 
 == Changelog ==
+
+= 1.6.9 =
+* Fixed snowflakes showing as question marks (encoding bug) - now use HTML entity output
+* Increased snowflake size to 18-30px range (up from 8-18px)
+
 
 = 1.6.8 =
 * Removed step-1 badge and section heading from above the pack grid

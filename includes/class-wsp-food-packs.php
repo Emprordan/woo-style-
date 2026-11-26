@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Woo Style+ Food Packs Ordering Module
  *
@@ -856,7 +856,7 @@ class WSP_Food_Packs {
 			<?php if ( 'yes' === $saved_settings['christmas_enabled'] ) : ?>
 			<div class="wsp-fp-xmas-snowflakes" aria-hidden="true">
 				<?php for ( $i = 1; $i <= 15; $i++ ) : ?>
-				<span class="wsp-fp-snowflake" style="--sf-delay:<?php echo esc_attr( $i * 0.4 ); ?>s;--sf-left:<?php echo esc_attr( wp_rand( 2, 98 ) ); ?>%;--sf-size:<?php echo esc_attr( wp_rand( 8, 18 ) ); ?>px;--sf-dur:<?php echo esc_attr( wp_rand( 6, 14 ) ); ?>s;--sf-color:<?php $cols=array('rgba(255,255,255,0.88)','rgba(192,57,43,0.90)','rgba(26,71,49,0.90)');echo esc_attr($cols[$i%3]); ?>;">?</span>
+				<span class="wsp-fp-snowflake" style="--sf-delay:<?php echo esc_attr( $i * 0.4 ); ?>s;--sf-left:<?php echo esc_attr( wp_rand( 2, 98 ) ); ?>%;--sf-size:<?php echo esc_attr( wp_rand( 18, 30 ) ); ?>px;--sf-dur:<?php echo esc_attr( wp_rand( 6, 14 ) ); ?>s;--sf-color:<?php $cols=array('rgba(255,255,255,0.88)','rgba(192,57,43,0.90)','rgba(26,71,49,0.90)');echo esc_attr($cols[$i%3]); ?>;"><?php echo '&#10052;'; ?></span>
 				<?php endfor; ?>
 			</div>
 			<?php endif; ?>

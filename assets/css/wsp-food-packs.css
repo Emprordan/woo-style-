@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    Woo Style+ — Food Packs Standalone Ordering Interface
    Self-contained & theme-isolated stylesheet
    ========================================================================== */
@@ -1078,7 +1078,7 @@ body.wsp-fp-modal-open {
 	position: fixed;
 	top: -24px;
 	left: var( --sf-left, 50% );
-	font-size: var( --sf-size, 12px );
+	font-size: var( --sf-size, 22px );
 	color: var( --sf-color, rgba( 255, 255, 255, 0.82 ) );
 	text-shadow: 0 0 6px rgba( 192, 57, 43, 0.4 );
 	animation: wspFpSnowfall var( --sf-dur, 10s ) var( --sf-delay, 0s ) linear infinite;
